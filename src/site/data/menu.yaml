@@ -1,0 +1,26 @@
+primary:
+  - name: "Home Page"
+    link: /
+
+  - name: About the contents
+    link: /about-the-contents.html
+    items:
+      - name: Linux How-Tos
+        link: /category/linux.html
+      - name: Badges & more
+        link: "/badges.html"
+
+  - name: Series
+    link: /series/index.html
+    items:
+      - name: JBake
+        link: /series/jbake.html
+      - name: GnuPG
+        link: /series/gnupg.html
+
+  - name: Impress
+    link: impress.html
+    items:
+      - name: Content License
+      - name: Image sources
+

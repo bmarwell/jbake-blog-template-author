@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
+  ~ file except in compliance with the License. You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software distributed under
+  ~ the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied. See the License for the specific language governing
+  ~ permissions and limitations under the License.
+  -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>de.bmarwell</groupId>
+  <artifactId>blog.bmarwell.de</artifactId>
+  <packaging>pom</packaging>
+  <version>999-SNAPSHOT</version>
+
+  <name>blog.bmarwell.de</name>
+  <licenses>
+    <license>
+      <name>(c) Benjamin Marwell, All rights reserved</name>
+    </license>
+  </licenses>
+
+  <properties>
+    <project.build.outputTimestamp>1631003912</project.build.outputTimestamp>
+  </properties>
+
+  <build>
+    <plugins>
+
+      <!-- download assets -->
+      <plugin>
+        <artifactId>exec-maven-plugin</artifactId>
+        <groupId>org.codehaus.mojo</groupId>
+        <version>3.0.0</version>
+        <executions>
+          <execution>
+            <id>download-flags</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>${project.basedir}/src/site/assets/images/lang/download.sh</executable>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>download-bootstrap-icons</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>${project.basedir}/src/site/assets/images/bootstrap/download.sh</executable>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+
+      <plugin>
+        <groupId>org.jbake</groupId>
+        <artifactId>jbake-maven-plugin</artifactId>
+        <version>0.3.6-rc.2</version>
+        <executions>
+          <execution>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <inputDirectory>${project.basedir}</inputDirectory>
+          <outputDirectory>${project.build.directory}/website</outputDirectory>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.jbake</groupId>
+            <artifactId>jbake-core</artifactId>
+            <version>2.7.0-rc.5</version>
+          </dependency>
+          <dependency>
+            <groupId>org.asciidoctor</groupId>
+            <artifactId>asciidoctorj</artifactId>
+            <version>2.5.2</version>
+          </dependency>
+          <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>2.3.31</version>
+          </dependency>
+          <!-- markdown support -->
+          <dependency>
+            <groupId>com.vladsch.flexmark</groupId>
+            <artifactId>flexmark</artifactId>
+            <version>0.62.2</version>
+          </dependency>
+          <dependency>
+            <groupId>com.vladsch.flexmark</groupId>
+            <artifactId>flexmark-profile-pegdown</artifactId>
+            <version>0.62.2</version>
+          </dependency>
+          <!-- freemarker .data support. -->
+          <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>1.29</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+    </plugins>
+  </build>
+</project>

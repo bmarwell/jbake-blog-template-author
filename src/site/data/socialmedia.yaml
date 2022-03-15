@@ -1,0 +1,40 @@
+socialmedia:
+  - id: &id twitter
+    # icon to show. If null, id will be used.
+    icon: *id
+    # used for screenreader text
+    name: *id
+    # HTML anchor class
+    css: *id
+    # HTML anchor link (href)
+    link: https://twitter.com/bmarwell
+    # link title/alt
+    title: '@bmarwell'
+
+  - id: &id github
+    icon: *id
+    name: *id
+    css: *id
+    link: https://github.com/bmarwell
+    title: 'bmarwell'
+
+  - id: &id linkedin
+    icon: *id
+    name: *id
+    css: *id
+    link: https://www.linkedin.com/in/benjamin-m-18741b123/
+    title: 'https://www.linkedin.com/in/benjamin-m-18741b123/'
+
+  - id: &id stackoverflow
+    icon: stack-overflow
+    name: 'Stack Overflow'
+    css: *id
+    link: https://stackoverflow.com/users/1549977/benjamin-marwell
+    title: 'users/1549977'
+
+  - id: &id rss
+    icon: rss-fill
+    name: 'RSS Feed'
+    css: *id
+    link: https://${config.site_host}/feed.xml
+    title: 'RSS Feed | Benjamin Marwell'

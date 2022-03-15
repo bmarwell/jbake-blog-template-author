@@ -1,0 +1,14 @@
+license:
+  image:
+    src: /images/license/cc-by-sa-88x31.png
+    width: 88px
+    height: 31px
+    alt: Creative Commons Attribution-ShareAlike 4.0 International License
+  link:
+    href: https://creativecommons.org/licenses/by-sa/4.0/
+    rel: license,nofollow
+  text: |
+    This <span href="https://purl.org/dc/dcmitype/Text" rel="dct:type">work</span> 
+    by <a href="https://blog.bmarwell.de/" property="cc:attributionName" rel="cc:attributionURL">https://blog.bmarwell.de/</a>
+    is licensed under a 
+    <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.

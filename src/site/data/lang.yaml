@@ -1,0 +1,19 @@
+flags:
+  default:
+    img: /images/lang/unknown.png
+    alt: Unknown
+  'en-GB':
+    img: /images/lang/gb.png
+    alt: English (British)
+  'en':
+    img: /images/lang/gb.png
+    alt: English (Global)
+  'de-DE':
+    img: /images/lang/de.png
+    alt: Deutsch (Deutschland)
+  'de-AT':
+    img: /images/lang/at.png
+    alt: Deutsch (Österreich)
+  'de':
+    img: /images/lang/de.png
+    alt: Deutsch (Global)

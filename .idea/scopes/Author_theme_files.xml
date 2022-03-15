@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Author theme files" pattern="file:src/site/assets/js/author.js||file:src/site/assets/css/author.css" />
+</component>

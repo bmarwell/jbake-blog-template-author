@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<#--
+  ~ Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
+  ~ file except in compliance with the License. You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software distributed under
+  ~ the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied. See the License for the specific language governing
+  ~ permissions and limitations under the License.
+  -->
+
+<#import "macros/post-meta.ftl" as postmeta>
+<#if (content.lang)??>
+<html lang="${content.lang}">
+<#else>
+<html>
+</#if>
+  <head>
+    <meta charset="utf-8"/>
+    <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'/>
+
+    <link rel="alternate" href="https://blog.bmarwell.de/" hreflang="de"/>
+    <link rel="alternate" href="https://blog.bmarwell.de/en/" hreflang="en"/>
+    <link rel="canonical" href="https://blog.bmarwell.de/"/>
+
+    <#if (content.title)?? && (content.title)?contains("|")>
+    <#-- The page has a full custom title, render it directly: -->
+      <#assign ftltitle="${content.title}" />
+    <#elseif (content.title)??>
+    <#-- standard title, append the project name appended for SEO: -->
+      <#assign ftltitle="${content.title} | ${config.site_title}" />
+    <#else>
+    <#-- No title found in the page metadata, set the default: -->
+      <#assign ftltitle="${config.site_title} &ndash; ${config.site_tagline}" />
+    </#if>
+    <title>${ftltitle}</title>
+    <meta property="og:site_name" content="${config.site_title}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="template" content="Custom, based on Author 1.44"/>
+    <#if (content.description)??>
+    <meta name="description" content="${content.description}">
+    <meta property="og:description" content="${content.description}">
+    <#else>
+    <#-- leave out og:description, so it will fill from the body. -->
+    </#if>
+    <#if (content.type == "post") && (content.author)??>
+    <meta name="author" content="${content.author}">
+    </#if>
+    <#if (content.tags)??>
+    <meta name="keywords" content='${(content.tags)?join(",")}'>
+    </#if>
+    <meta name="generator" content="JBake">
+
+    <meta property="og:title" content="${ftltitle}"/>
+    <#switch (content.type)!"">
+      <#case "post">
+        <#if (content.date)??>
+    <meta property="article:published_time" content="${content.date?datetime?string.iso_s_u}"/>
+    <meta name="publish_date" property="og:publish_date" content="${content.date?datetime?string.iso_s_u}"/>
+        </#if>
+        <#if (content.author!"") != "">
+          <#assign authors = data.get('authors.yaml').authors>
+          <#if (authors[content.author?trim].twitter)??>
+    <meta name="twitter:creator" content="${authors[content.author].twitter}" />
+          </#if>
+          <#if (authors[content.author?trim].facebook)??>
+    <meta property="article:author" content="${authors[content.author].facebook}" />
+          </#if>
+          <#if (authors[content.author?trim].first_name)??>
+    <meta property="profile:first_name" content="${authors[content.author].first_name}" />
+          </#if>
+          <#if (authors[content.author?trim].last_name)??>
+    <meta property="profile:last_name" content="${authors[content.author].last_name}" />
+          </#if>
+        </#if>
+      <#-- fall through -->
+      <#case "page">
+    <meta property="og:type" content="article"/>
+    <#if (content.twittercard!"")?trim == "large">
+    <meta name="twitter:card" content="summary_large_image" />
+    <#else>
+      <meta name="twitter:card" content="summary" />
+    </#if>
+    <#if (config.site_twitter)??><meta name="twitter:site" content="${config.site_twitter}" /></#if>
+        <#if (content.date)??>
+    <meta property="article:modification_time" content="${content.date?datetime?string.iso_s_u}"/>
+        </#if>
+        <#if (content.published_date)??>
+    <meta property="article:published_time" content="${content.published_date?datetime?string.iso_s_u}"/>
+    <meta name="publish_date" property="og:publish_date" content="${content.published_date?datetime?string.iso_s_u}"/>
+        </#if>
+        <#break>
+      <#default>
+    <meta property="og:type" content="website"/>
+    </#switch>
+    <#if (content.tags)??>
+      <#list (content.tags) as tag>
+    <meta property="article:tag" content='${tag}'/>
+      </#list>
+    </#if>
+    <meta property="og:locale" content="en_US" />
+    <#if (content.uri)??>
+    <meta property="og:url" content='${config.site_host}/${content.uri}'/>
+    <#else></#if>
+    <#-- custom featured image if it exists or default featured image. -->
+    <#if (content.featuredimage)?? >
+      <#if (content.featuredimage)?starts_with("http")>
+    <meta property="og:image" content="${content.featuredimage}"/>
+    <meta property="twitter:image" content="${content.featuredimage}"/>
+      <#elseif (content.featuredimage)?starts_with("/")>
+        <#-- absolute path is not sufficient -- featured images must be an absolute URL. -->
+    <meta property="og:image" content="${config.site_host}${content.featuredimage}"/>
+    <meta property="twitter:image" content="${config.site_host}${content.featuredimage}"/>
+      <#else>
+        <#-- relative URI starting with ./ or directly with the image name. -->
+        <#assign imageprefix="${config.site_host}/${(content.uri?substring(0, content.uri?last_index_of('/')))}/" />
+    <meta property="og:image" content="${imageprefix}${content.featuredimage}"/>
+    <meta property="twitter:image" content="${imageprefix}${content.featuredimage}"/>
+      </#if>
+      <#if (content.featuredimagewidth)??>
+    <meta property="og:image:width" content="${content.featuredimagewidth}"/>
+      </#if>
+      <#if (content.featuredimageheight)??>
+    <meta property="og:image:height" content="${content.featuredimageheight}"/>
+      </#if>
+    <#else>
+    <meta property="og:image" content='${content.rootpath!""}images/bens_it_kommentare_256x256.png'/>
+    <meta property="og:image:width" content='256'/>
+    <meta property="og:image:height" content='256'/>
+    </#if>
+
+    <!-- Le styles -->
+    <!-- Author theme adapted from wordpress' Author theme. -->
+    <link rel='dns-prefetch' href='//fonts.googleapis.com'/>
+    <link rel='stylesheet' id='ct-author-google-fonts-css'
+          href='//fonts.googleapis.com/css?family=Rokkitt%3A400%2C700%7CLato%3A400%2C700&#038;subset=latin%2Clatin-ext&#038;display=swap&#038;ver=5.8.3'
+          type='text/css' media='all'/>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/default.min.css">
+    <link id='parent-style-css' href="<#if (content.rootpath)??>${content.rootpath}<#else></#if>css/author.css" rel="stylesheet">
+    <link href="<#if (content.rootpath)??>${content.rootpath}<#else></#if>css/asciidoctor.css" rel="stylesheet">
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="<#if (content.rootpath)??>${content.rootpath}<#else></#if>favicon.ico">
+
+    <link rel="alternate" type="application/atom+xml" title="${config.site_title} &raquo; Feed" href="https://blog.bmarwell.de/feed/"/>
+  </head>
+  <body class="<#if (content.type) == "post">single single-post single-format-standard singular singular-post</#if>">
+
+  <a class="skip-content" href="#main">To main content</a>
+
+  <div id="overflow-container" class="overflow-container">
+    <div class="max-width">
+
+    <!-- sidebar -->
+    <#include "sidebar.ftl">
+
+    <section id="main" class="main" role="main">
+    <#-- TODO: add breadcrumbs -->
+      <div id="loop-container" class="loop-container">
+
