@@ -1,3 +1,4 @@
+<#ftl output_format="HTML">
 <!DOCTYPE html>
 <#--
   ~ Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
@@ -10,7 +11,6 @@
   ~ KIND, either express or implied. See the License for the specific language governing
   ~ permissions and limitations under the License.
   -->
-
 <#import "macros/post-meta.ftl" as postmeta>
 <#if (content.lang)??>
 <html lang="${content.lang}">
@@ -53,7 +53,7 @@
     </#if>
     <meta name="generator" content="JBake">
 
-    <meta property="og:title" content="${ftltitle}"/>
+    <meta property="og:title" content="${ftltitle?esc}"/>
     <#switch (content.type)!"">
       <#case "post">
         <#if (content.date)??>
@@ -150,9 +150,9 @@
     <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.0/build/highlight.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.8.0/dist/highlightjs-line-numbers.min.js"></script>
 
-    <link id='parent-style-css' href="<#if (content.rootpath)??>${content.rootpath}<#else></#if>css/author.css" rel="stylesheet">
-    <link href="<#if (content.rootpath)??>${content.rootpath}<#else></#if>css/asciidoctor.css" rel="stylesheet">
-    <link href="<#if (content.rootpath)??>${content.rootpath}<#else></#if>css/custom.css" rel="stylesheet">
+    <link id='parent-style-css' href="<#if (content.rootpath)??>${content.rootpath}<#else></#if>css/author.min.css" rel="stylesheet">
+    <link href="<#if (content.rootpath)??>${content.rootpath}<#else></#if>css/asciidoctor.min.css" rel="stylesheet">
+    <link href="<#if (content.rootpath)??>${content.rootpath}<#else></#if>css/custom.min.css" rel="stylesheet">
 
     <!-- Fav and touch icons -->
     <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">

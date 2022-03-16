@@ -1,0 +1,2 @@
+# getting minified by terser during build
+*.min.css

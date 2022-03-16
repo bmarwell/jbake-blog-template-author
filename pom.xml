@@ -63,6 +63,82 @@
         </executions>
       </plugin>
 
+      <plugin>
+        <groupId>com.github.eirslett</groupId>
+        <artifactId>frontend-maven-plugin</artifactId>
+        <version>1.12.1</version>
+
+        <configuration>
+          <nodeVersion>v16.14.1</nodeVersion>
+          <yarnVersion>v1.22.17</yarnVersion>
+          <installDirectory>${project.basedir}/target/yarn</installDirectory>
+        </configuration>
+
+        <executions>
+          <execution>
+            <id>install node and yarn</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>install-node-and-yarn</goal>
+            </goals>
+          </execution>
+
+          <execution>
+            <id>yarn install</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>yarn</goal>
+            </goals>
+            <configuration>
+              <arguments>install</arguments>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>terser-minify-author</id>
+            <phase>process-sources</phase>
+            <goals>
+              <goal>yarn</goal>
+            </goals>
+            <configuration>
+              <arguments>run terser -o ${project.basedir}/src/site/assets/js/author.min.js ${project.basedir}/src/site/assets/js/author.js</arguments>
+            </configuration>
+          </execution>
+          <execution>
+            <id>terser-minify-custom</id>
+            <phase>process-sources</phase>
+            <goals>
+              <goal>yarn</goal>
+            </goals>
+            <configuration>
+              <arguments>run terser -o ${project.basedir}/src/site/assets/js/custom.min.js ${project.basedir}/src/site/assets/js/custom.js</arguments>
+            </configuration>
+          </execution>
+          <execution>
+            <id>cleancss-minify</id>
+            <phase>process-sources</phase>
+            <goals>
+              <goal>yarn</goal>
+            </goals>
+            <configuration>
+              <arguments>run cleancss --batch --batch-suffix .min ${project.basedir}/src/site/assets/css/{asciidoctor,author,custom}.css</arguments>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>html-terser-minify</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>yarn</goal>
+            </goals>
+            <configuration>
+              <!-- max-line-length 255 not used b/c of https://github.com/terser/html-minifier-terser/issues/118 -->
+              <arguments>run html-minifier-terser --file-ext html --collapse-whitespace --remove-comments --minify-css true --minify-js true --input-dir ${project.build.directory}/website --output-dir ${project.build.directory}/website</arguments>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
 
       <plugin>
         <groupId>org.jbake</groupId>
@@ -70,7 +146,7 @@
         <version>0.3.6-rc.2</version>
         <executions>
           <execution>
-            <phase>generate-resources</phase>
+            <phase>compile</phase>
             <goals>
               <goal>generate</goal>
             </goals>

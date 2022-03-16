@@ -1,0 +1,7 @@
+{
+  "devDependencies": {
+    "clean-css-cli": "^5.5.2",
+    "html-minifier-terser": "^7.0.0-alpha.2",
+    "terser": "^5.12.1"
+  }
+}
