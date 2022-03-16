@@ -36,6 +36,14 @@
      * lightbox2 https://lokeshdhakar.com/projects/lightbox2/
      -->
     <script src="<#if (content.rootpath)??>${content.rootpath}<#else></#if>js/author.js" ></script>
+    <script src="<#if (content.rootpath)??>${content.rootpath}<#else></#if>js/custom.js" ></script>
+    <script src="https://platform.twitter.com/widgets.js" ></script>
+    <script>
+      hljs.highlightAll();
+      hljs.initLineNumbersOnLoad();
+      twitterFunctions.convertTweets();
+    </script>
+
 
   </body>
 </html>

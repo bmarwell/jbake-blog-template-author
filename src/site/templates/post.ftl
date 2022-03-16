@@ -34,7 +34,7 @@
     <#if (content.tags)??><#list (content.tags) as content_tag>
       <ul>
         <li>
-          <a>${content_tag}</a>
+          <a href="<#if (content.rootpath)??>${content.rootpath}</#if>tags/${content_tag}.html">${content_tag}</a>
         </li>
       </ul>
     </#list></#if>
@@ -45,13 +45,13 @@
     <#if (content.previousContent)??>
     <div class="previous">
       <span>Previous post</span>
-      <a href="${content.previousContent.uri}" rel="prev">${content.previousContent.title}</a>
+      <a href="<#if (content.rootpath)??>${content.rootpath}</#if>${content.previousContent.uri}" rel="prev">${content.previousContent.title}</a>
     </div>
     </#if>
     <#if (content.nextContent)??>
     <div class="next">
       <span>Next Post</span>
-      <a href="${content.nextContent.uri}" rel="next">${content.nextContent.title}</a>
+      <a href="<#if (content.rootpath)??>${content.rootpath}</#if>${content.nextContent.uri}" rel="next">${content.nextContent.title}</a>
     </div>
     </#if>
   </nav>

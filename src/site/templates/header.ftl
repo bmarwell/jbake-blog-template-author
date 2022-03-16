@@ -113,9 +113,11 @@
         <#-- absolute path is not sufficient -- featured images must be an absolute URL. -->
     <meta property="og:image" content="${config.site_host}${content.featuredimage}"/>
     <meta property="twitter:image" content="${config.site_host}${content.featuredimage}"/>
+      <#elseif (content.featuredimage)?contains("/")>
+        <#assign imageprefix="${config.site_host}/${(content.uri?substring(0, content.uri?last_index_of('/')))}/" />
       <#else>
         <#-- relative URI starting with ./ or directly with the image name. -->
-        <#assign imageprefix="${config.site_host}/${(content.uri?substring(0, content.uri?last_index_of('/')))}/" />
+        <#assign imageprefix="${config.site_host}/${(content.uri?substring(0, content.uri?last_index_of('/')))}" />
     <meta property="og:image" content="${imageprefix}${content.featuredimage}"/>
     <meta property="twitter:image" content="${imageprefix}${content.featuredimage}"/>
       </#if>
@@ -126,9 +128,15 @@
     <meta property="og:image:height" content="${content.featuredimageheight}"/>
       </#if>
     <#else>
-    <meta property="og:image" content='${content.rootpath!""}images/bens_it_kommentare_256x256.png'/>
-    <meta property="og:image:width" content='256'/>
-    <meta property="og:image:height" content='256'/>
+      <#if (config.site_default_featured_image_file)??>
+    <meta property="og:image" content='${content.rootpath!""}${config.site_default_featured_image_file}'/>
+      </#if>
+      <#if (config.site_default_featured_image_width)??>
+        <meta property="og:image:width" content='${config.site_default_featured_image_width}'/>
+      </#if>
+      <#if (config.site_default_featured_image_height)??>
+        <meta property="og:image:height" content='${config.site_default_featured_image_height}'/>
+      </#if>
     </#if>
 
     <!-- Le styles -->
@@ -138,9 +146,13 @@
           href='//fonts.googleapis.com/css?family=Rokkitt%3A400%2C700%7CLato%3A400%2C700&#038;subset=latin%2Clatin-ext&#038;display=swap&#038;ver=5.8.3'
           type='text/css' media='all'/>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/default.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.0/build/styles/default.min.css">
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.0/build/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.8.0/dist/highlightjs-line-numbers.min.js"></script>
+
     <link id='parent-style-css' href="<#if (content.rootpath)??>${content.rootpath}<#else></#if>css/author.css" rel="stylesheet">
     <link href="<#if (content.rootpath)??>${content.rootpath}<#else></#if>css/asciidoctor.css" rel="stylesheet">
+    <link href="<#if (content.rootpath)??>${content.rootpath}<#else></#if>css/custom.css" rel="stylesheet">
 
     <!-- Fav and touch icons -->
     <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">

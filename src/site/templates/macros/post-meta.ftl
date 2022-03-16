@@ -37,9 +37,13 @@
           <#if (post.featuredimagewidth)?? >width="${post.featuredimagewidth}"</#if>
           <#if (post.featuredimageheight)?? >height="${post.featuredimageheight}"</#if>
           <#if (post.featuredimage)?starts_with("/")>
+            <#-- absolute URI. -->
             src="${post.featuredimage}"
-          <#else>
+          <#elseif !(post.featuredimage)?contains("/")>
+            <#-- relative URL. Figure out the directory this blog post is in. -->
             src="${content.rootpath!""}${post.uri?keep_before_last("/")}/${post.featuredimage}"
+          <#else>
+            src="${content.rootpath!""}${post.featuredimage}"
           </#if>
           class="attachment-full size-full wp-post-image"
           <#if (post.featuredimagealt)?? >alt="${post.featuredimagealt}"</#if>
@@ -56,7 +60,7 @@
     Veröffentlicht <#if (post.author)??>von <a href="https://twitter.com/${authors[post.author].twitter}">${post.author}</a> </#if>
     am <time datetime="${post.date?datetime?string.iso_s_u}">${(post.date)?date?iso_utc}</time>
   <#else>
-    Published <#if (post.author)??>by <a href="https://twitter.com/${authors[post.author].twitter}"> </#if>
+    Published <#if (post.author)??>by <a href="https://twitter.com/${authors[post.author].twitter}">${post.author}</a> </#if>
     on <time datetime="${post.date?datetime?string.iso_s_u}">${post.date?string("dd")}${ordinalsuffix(post)} of ${post.date?string("MMMM, yyyy")}</time>
   </#if>
 </#macro>

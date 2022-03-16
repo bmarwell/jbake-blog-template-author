@@ -24,7 +24,7 @@
       <article <#if (post.lang)??>lang="${post.lang}"</#if>>
         <div class='post-header'>
           <h2 class='post-title'>
-            <a href="${post.uri}">${post.title}</a>
+            <a href="<#if (content.rootpath)??>${content.rootpath}<#else></#if>${post.uri}">${post.title}</a>
           </h2>
           <@postmeta.postmeta post />
         </div>
@@ -51,20 +51,34 @@
   <h2 class="screen-reader-text">Post navigation</h2>
   <div class="nav-links">
       <#-- first page (don't show on page 1 or 2 b/c of self and previous). -->
-      <#if (currentPageNumber < 3)>
+      <#if (currentPageNumber > 2)>
         <a class="page-numbers" rel="first" href="<#if (content.rootpath)??>${content.rootpath}</#if>">1</a>
+      </#if>
+      <#-- second page -->
+      <#if (currentPageNumber > 3)>
+        <a class="page-numbers" href="<#if (content.rootpath)??>${content.rootpath}</#if>2">2</a>
+      </#if>
+      <#-- show ellipsis -->
+      <#if (currentPageNumber > 3) && ((currentPageNumber - 1) > 2)>
+      <span>...</span>
       </#if>
       <#-- previous -->
       <#if (currentPageNumber > 1)>
         <a class="page-numbers" rel="prev" href="<#if (content.rootpath)??>${content.rootpath}</#if>${(currentPageNumber==2)?then('', currentPageNumber-1)}">${currentPageNumber - 1}</a>
       </#if>
       <#-- self -->
-      <#if (currentPageNumber > 1)>
-        <a class="page-numbers" rel="self" href="<#if (content.rootpath)??>${content.rootpath}</#if>${currentPageNumber}">${currentPageNumber}</a>
-      </#if>
+        [<a class="page-numbers" rel="self" href="<#if (content.rootpath)??>${content.rootpath}</#if>${currentPageNumber}">${currentPageNumber}</a>]
       <#-- next -->
       <#if (currentPageNumber < numberOfPages)>
         <a class="page-numbers" rel="next" href="<#if (content.rootpath)??>${content.rootpath}</#if>${currentPageNumber + 1}">${currentPageNumber + 1}</a>
+      </#if>
+      <#-- show ellipsis -->
+      <#if (currentPageNumber < numberOfPages - 3)>
+        <span>...</span>
+      </#if>
+      <#-- before last -->
+      <#if (currentPageNumber < (numberOfPages-2))>
+        <a class="page-numbers" href="<#if (content.rootpath)??>${content.rootpath}</#if>${numberOfPages-1}">${numberOfPages-1}</a>
       </#if>
       <#-- last -->
       <#if (currentPageNumber < (numberOfPages-1))>

@@ -15,8 +15,12 @@ primary:
     items:
       - name: JBake
         link: /series/jbake.html
+
       - name: GnuPG
-        link: /series/gnupg.html
+        link: /series/gnupg/index.html
+        items:
+          - name: My GnuPG Key
+            link: /series/gnupg/gnupg-keys.html
 
   - name: Impress
     link: impress.html

@@ -38,9 +38,16 @@ ICONS=(
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 cd "${SCRIPT_DIR}" || exit 1
 
+download_and_modify() {
+  local file="${1}"
+  curl --silent --fail --show-error -JL "https://icons.getbootstrap.com/assets/icons/${file}.svg" -o "${SCRIPT_DIR}/${file}.svg"
+  sed -i 's/svg" width="16"/svg" id="'"$file"'" width="16"/g' "${SCRIPT_DIR}/${file}.svg"
+
+}
 
 for file in "${ICONS[@]}"; do
   echo "Downloading [$file]"
-  curl --silent --fail --show-error -JL "https://icons.getbootstrap.com/assets/icons/${file}.svg" -o "${SCRIPT_DIR}/${file}.svg"
-  sed -i 's/svg" width="16"/svg" id="'"$file"'" width="16"/g' "${SCRIPT_DIR}/${file}.svg"
+  download_and_modify "${file}" &
 done
+
+wait

@@ -41,7 +41,7 @@
         <executions>
           <execution>
             <id>download-flags</id>
-            <phase>generate-sources</phase>
+            <phase>generate-resources</phase>
             <goals>
               <goal>exec</goal>
             </goals>
@@ -52,7 +52,7 @@
 
           <execution>
             <id>download-bootstrap-icons</id>
-            <phase>generate-sources</phase>
+            <phase>generate-resources</phase>
             <goals>
               <goal>exec</goal>
             </goals>
