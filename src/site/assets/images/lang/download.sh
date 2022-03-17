@@ -22,5 +22,3 @@ unzip "${SCRIPT_DIR}/famfamfam_flag_icons.zip" "png/*.png"
 rm "${SCRIPT_DIR}/famfamfam_flag_icons.zip"
 mv "${SCRIPT_DIR}/png/"*.png "${SCRIPT_DIR}/."
 rm -rf -- "${SCRIPT_DIR}/png"
-
-find "${SCRIPT_DIR}" -name "*.png" -print0 | xargs --null -P 8 -I{} optipng -quiet -o6 '{}'

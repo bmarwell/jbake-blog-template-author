@@ -31,7 +31,7 @@
   <#if (post.featuredimage)?? >
     <div class="featured-image">
       <#if (link)>
-      <a href="<#if (content.rootpath)??>${content.rootpath}<#else></#if>${post.uri}" tabindex="-1">${post.title}
+      <a href="${content.rootpath!""}${post.uri}" tabindex="-1">${post.title}
       </#if>
         <img
           <#if (post.featuredimagewidth)?? >width="${post.featuredimagewidth}"</#if>

@@ -21,7 +21,7 @@
       </#if>
       <div class="container">
         <h1 id='site-title' class='site-title'>
-          <a href="<#if (content.rootpath)??>${content.rootpath}<#else></#if>">${config.site_title}</a>
+          <a href="${content.rootpath!""}">${config.site_title}</a>
         </h1>
         <p class="tagline">${config.site_tagline}</p>
       </div>
@@ -40,7 +40,7 @@
           <a class="${socialmediaitem.css!socialmediaitem.name}" target="_blank"
              href="${socialmediaitem.link}" title="${socialmediaitem.title}">
             <svg class="bi" width="24" height="24" aria-label="${socialmediaitem.name}">
-              <use href="/images/bootstrap/${socialmediaitem.icon!socialmediaitem.id}.svg#${socialmediaitem.icon!socialmediaitem.id}"
+              <use href="${content.rootpath!""}/images/bootstrap/${socialmediaitem.icon!socialmediaitem.id}.svg#${socialmediaitem.icon!socialmediaitem.id}"
                    width="24px"
                    height="24px"
               />

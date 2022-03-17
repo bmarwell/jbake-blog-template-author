@@ -27,7 +27,7 @@
       </#if>
   </title>
 
-  <link rel="shortcut icon" href="<#if (content.rootpath)??>${content.rootpath}<#else></#if>favicon.ico">
+  <link rel="shortcut icon" href="${content.rootpath!""}favicon.ico">
   <#if (content.target)?starts_with("http") || (content.target)?starts_with("//") >
     <#assign linktarget="${content.target}" />
   <#elseif (content.target)?starts_with("/") >

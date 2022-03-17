@@ -28,6 +28,7 @@
 
   <properties>
     <project.build.outputTimestamp>1631003912</project.build.outputTimestamp>
+    <site.postprocess.skip>false</site.postprocess.skip>
   </properties>
 
   <build>
@@ -132,8 +133,21 @@
               <goal>yarn</goal>
             </goals>
             <configuration>
+              <skip>${site.postprocess.skip}</skip>
               <!-- max-line-length 255 not used b/c of https://github.com/terser/html-minifier-terser/issues/118 -->
               <arguments>run html-minifier-terser --file-ext html --collapse-whitespace --remove-comments --minify-css true --minify-js true --input-dir ${project.build.directory}/website --output-dir ${project.build.directory}/website</arguments>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>optimize-images</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>yarn</goal>
+            </goals>
+            <configuration>
+              <skip>${site.postprocess.skip}</skip>
+              <arguments>run imagemin</arguments>
             </configuration>
           </execution>
         </executions>

@@ -24,7 +24,7 @@
       <article <#if (post.lang)??>lang="${post.lang}"</#if>>
         <div class='post-header'>
           <h2 class='post-title'>
-            <a href="<#if (content.rootpath)??>${content.rootpath}<#else></#if>${post.uri}">${post.title}</a>
+            <a href="${content.rootpath!""}${post.uri}">${post.title}</a>
           </h2>
           <@postmeta.postmeta post />
         </div>
@@ -35,7 +35,7 @@
           <div class="more-link-wrapper">
             <a
               class="more-link"
-              href="<#if (content.rootpath)??>${content.rootpath}<#else></#if>${post.uri}">
+              href="${content.rootpath!""}${post.uri}">
               Continue reading 🠖
               <span class="screen-reader-text">${post.title}</span>
             </a>

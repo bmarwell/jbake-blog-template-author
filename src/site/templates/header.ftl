@@ -141,25 +141,25 @@
 
     <!-- Le styles -->
     <!-- Author theme adapted from wordpress' Author theme. -->
-    <link rel='dns-prefetch' href='//fonts.googleapis.com'/>
+    <link rel='dns-prefetch' href='https://fonts.googleapis.com'/>
     <link rel='stylesheet' id='ct-author-google-fonts-css'
-          href='//fonts.googleapis.com/css?family=Rokkitt%3A400%2C700%7CLato%3A400%2C700&#038;subset=latin%2Clatin-ext&#038;display=swap&#038;ver=5.8.3'
+          href='https://fonts.googleapis.com/css?family=Rokkitt%3A400%2C700%7CLato%3A400%2C700&#038;subset=latin%2Clatin-ext&#038;display=swap&#038;ver=5.8.3'
           type='text/css' media='all'/>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.0/build/styles/default.min.css">
     <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.0/build/highlight.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.8.0/dist/highlightjs-line-numbers.min.js"></script>
 
-    <link id='parent-style-css' href="<#if (content.rootpath)??>${content.rootpath}<#else></#if>css/author.min.css" rel="stylesheet">
-    <link href="<#if (content.rootpath)??>${content.rootpath}<#else></#if>css/asciidoctor.min.css" rel="stylesheet">
-    <link href="<#if (content.rootpath)??>${content.rootpath}<#else></#if>css/custom.min.css" rel="stylesheet">
+    <link id='parent-style-css' href="${content.rootpath!""}css/author.min.css" rel="stylesheet">
+    <link href="${content.rootpath!""}css/asciidoctor.min.css" rel="stylesheet">
+    <link href="${content.rootpath!""}css/custom.min.css" rel="stylesheet">
 
     <!-- Fav and touch icons -->
     <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
-    <link rel="shortcut icon" href="<#if (content.rootpath)??>${content.rootpath}<#else></#if>favicon.ico">
+    <link rel="shortcut icon" href="${content.rootpath!""}favicon.ico">
 
     <link rel="alternate" type="application/atom+xml" title="${config.site_title} &raquo; Feed" href="https://blog.bmarwell.de/feed/"/>
   </head>
