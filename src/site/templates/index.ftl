@@ -88,5 +88,6 @@
   </div>
 </nav>
 
-<!-- before footer -->
+<@jsonld.jsonld {} "Blog" />
+
 <#include "footer.ftl">

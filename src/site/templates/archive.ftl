@@ -39,4 +39,6 @@
   </article>
 </div>
 
+<@jsonld.jsonld {} "index" />
+
 <#include "footer.ftl">

@@ -1,5 +1,4 @@
-<#ftl output_format="HTML">
-<!DOCTYPE html>
+<#ftl output_format="HTML"><!DOCTYPE html>
 <#--
   ~ Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
   ~ file except in compliance with the License. You may obtain a copy of the License at
@@ -12,6 +11,7 @@
   ~ permissions and limitations under the License.
   -->
 <#import "macros/post-meta.ftl" as postmeta>
+<#import "macros/jsonld.ftl" as jsonld>
 <#if (content.lang)??>
 <html lang="${content.lang}">
 <#else>

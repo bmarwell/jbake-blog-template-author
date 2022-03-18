@@ -29,10 +29,9 @@
     </div>
 
     <#--
-     missing:
+     * TODO / missing:
      * FitVids (production.min.js?ver=5.9.1)
      * Shariff
-     * application/ld+json
      * lightbox2 https://lokeshdhakar.com/projects/lightbox2/
      -->
     <script src="${content.rootpath!""}js/author.min.js" ></script>

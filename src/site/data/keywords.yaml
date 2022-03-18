@@ -1,0 +1,6 @@
+# cannot name this "tags" because obj.tags will return nothing in freemarker/jbake.
+keywords:
+  3D:
+    description: 3D
+  Open Source:
+    description: Open Source Software

@@ -29,4 +29,6 @@
 
 </div>
 
+<@jsonld.jsonld {} "DefinedTermSet" />
+
 <#include "footer.ftl">

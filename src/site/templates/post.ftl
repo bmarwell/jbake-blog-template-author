@@ -58,4 +58,6 @@
 
 </div>
 
+<@jsonld.jsonld content "BlogPosting" />
+
 <#include "footer.ftl">

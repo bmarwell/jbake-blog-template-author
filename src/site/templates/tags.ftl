@@ -11,6 +11,9 @@
   -->
 
 <#include "header.ftl">
+<#-- need to name this not tags, because hash.tags will return nothing in jbake/freemarker. -->
+<#assign keywords = data.get('keywords.yaml').keywords />
+<#assign tagcontent = { "name": "${tag?trim}" } />
 
 <div id="page type-page status-publish entry">
   <article>
@@ -19,6 +22,10 @@
     </header>
 
     <div class="post-content">
+      <#if (keywords[tag?trim])?? && (keywords[tag?trim].description)??>
+      <#assign tagcontent = tagcontent + { "description": "${keywords[tag?trim].description?trim}" } />
+      <div class="tag-description">${keywords[tag?trim].description?trim}</div>
+      </#if>
       <!--<ul>-->
       <#list tag_posts as post>
         <#if (last_month)??>
@@ -40,6 +47,6 @@
   </article>
 </div>
 
-
+<@jsonld.jsonld tagcontent "DefinedTerm" />
 
 <#include "footer.ftl">
