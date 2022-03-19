@@ -1,9 +1,9 @@
 <component name="CopyrightManager">
-  <settings>
+  <settings default="Apache License v2">
     <module2copyright>
       <element module="Author theme files" copyright="Author Theme GNU GPLv2 or Later" />
-      <element module="All" copyright="Apache License v2" />
       <element module="Content files" copyright="Creative Commons Attribution-ShareAlike 4.0 International License" />
+      <element module="wpappbox.css" copyright="GNU GENERAL PUBLIC LICENSE Version 3" />
     </module2copyright>
   </settings>
 </component>

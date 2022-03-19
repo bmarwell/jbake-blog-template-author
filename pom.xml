@@ -122,7 +122,7 @@
               <goal>yarn</goal>
             </goals>
             <configuration>
-              <arguments>run cleancss --batch --batch-suffix .min ${project.basedir}/src/site/assets/css/{asciidoctor,author,custom}.css</arguments>
+              <arguments>run cleancss --batch --batch-suffix .min ${project.basedir}/src/site/assets/css/{asciidoctor,author,custom,appbox}.css</arguments>
             </configuration>
           </execution>
 

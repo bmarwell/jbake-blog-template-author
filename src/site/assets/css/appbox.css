@@ -1,0 +1,849 @@
+/*
+ * Copyright (C) 2022
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+
+div.wpappbox *,
+div.wpappbox:after,
+div.wpappbox:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+div.wpappbox a,
+div.wpappbox a:after,
+div.wpappbox:before {
+  text-decoration: none !important;
+  color: #323232;
+  -webkit-transition-property: background color;
+  -webkit-transition-duration: .2s;
+  -webkit-transition-timing-function: ease;
+  -moz-transition-property: background color;
+  -moz-transition-duration: .2s;
+  -moz-transition-timing-function: ease;
+  -o-transition-property: background color;
+  -o-transition-duration: .2s;
+  -o-transition-timing-function: ease;
+  transition-property: background color;
+  transition-duration: .2s;
+  transition-timing-function: ease;
+}
+
+div.wpappbox a img {
+  -webkit-transition: all .5s ease;
+  -moz-transition: all .5s ease;
+  -o-transition: all .5s ease;
+  -ms-transition: all .5s ease;
+  transition: all .5s ease;
+}
+
+div.wpappbox a:hover img {
+  opacity: .9;
+  -ms-filter: "progid: DXImageTransform.Microsoft.Alpha(Opacity=90)";
+  filter: alpha(opacity=90);
+  -webkit-filter: grayscale(100%);
+}
+
+i.wpappbox-tinymce-button {
+  background-image: url(../buttons/appbox.btn.png);
+}
+
+div.wpappbox {
+  clear: both;
+  font-family: 'Open Sans', Arial;
+  background-color: #F9F9F9;
+  width: auto;
+  line-height: 1;
+  color: #545450;
+  margin: 16px 0;
+  font-size: 16px;
+  border: 1px solid #E5E5E5;
+  box-shadow: 0 0 8px 1px rgba(0, 0, 0, .11);
+  border-radius: 8px;
+}
+
+div.wpappbox.simple {
+  height: 114px;
+}
+
+div.wpappbox.compact {
+  height: 68px;
+}
+
+div.wpappbox.screenshots-only {
+  cursor: pointer;
+}
+
+div.wpappbox div.appicon {
+  position: relative;
+  height: 112px;
+  width: 112px;
+  float: left;
+  padding: 10px;
+  background: #FFF;
+  text-align: center;
+  border-right: 1px solid #E5E5E5;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+
+div.wpappbox.screenshots div.appicon {
+  border-bottom-left-radius: 0;
+}
+
+div.wpappbox.compact div.appicon {
+  height: 66px;
+  width: 68px;
+  float: left;
+  padding: 6px;
+}
+
+div.wpappbox div.appicon img {
+  height: 92px;
+  max-height: 92px;
+  width: 92px;
+  max-width: 92px;
+  margin: auto;
+  border: 0;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+div.wpappbox.compact div.appicon img {
+  height: 54px;
+  width: 54px;
+  max-width: 54px;
+  margin: auto;
+  border: 0;
+  border-radius: 6px;
+}
+
+div.wpappbox.error div.appicon img {
+  border-radius: 45px;
+  box-shadow: -5px 6px 16px -3px rgba(50, 50, 50, .1);
+}
+
+div.wpappbox.deprecated div.appicon,
+div.wpappbox.deprecated div.screenshots {
+  -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+  -ms-filter: grayscale(100%);
+  -o-filter: grayscale(100%);
+  filter: grayscale(100%);
+}
+
+.wpappbox.deprecated div.appbuttons a {
+  position: relative;
+}
+
+.wpappbox.deprecated div.appbuttons a::after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 9px;
+  left: 0;
+  transform: skewY(-10deg);
+  width: 100%;
+  height: 1px;
+  background: rgba(54, 54, 54, .5);
+}
+
+.wpappbox.deprecated .apptitle {
+  text-decoration: line-through;
+  text-decoration-line: line-through;
+  text-decoration-color: rgba(54, 54, 54, .5);
+}
+
+div.wpappbox div.qrcode {
+  display: none;
+  position: absolute;
+  padding: 6px;
+  z-index: 999;
+}
+
+div.wpappbox div.applinks,
+div.wpappbox.compact a.applinks {
+  float: right;
+  position: relative;
+  background: #FFF;
+  text-align: center;
+  border-left: 1px solid #E5E5E5;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+div.wpappbox.screenshots a.applinks {
+  border-bottom-right-radius: 0;
+}
+
+div.wpappbox div.qrcode img {
+  height: 100px;
+  width: 100px;
+  opacity: 1;
+}
+
+div.wpappbox div.appdetails {
+  font-size: 16px;
+  line-height: 16px;
+  padding-top: 10px;
+}
+
+div.wpappbox.compact div.appdetails {
+  font-size: 15px;
+  line-height: 15px;
+  padding-top: 6px;
+}
+
+div.wpappbox div.appdetails>div {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+  padding: 6px 8px;
+}
+
+div.wpappbox.compact div.appdetails>div {
+  padding: 4px 8px 1px;
+}
+
+div.wpappbox div.apptitle {
+  font-size: 19px;
+  line-height: 19px;
+  font-weight: 600;
+  margin: 2px 0 0;
+}
+
+div.wpappbox.compact div.apptitle {
+  font-size: 16px;
+  line-height: 17px;
+}
+
+div.wpappbox.error div.title {
+  font-size: 14px;
+  line-height: 13px;
+  font-weight: 600;
+}
+
+div.wpappbox.error div.buttons {
+  margin-top: 4px;
+}
+
+div.wpappbox div.appdetails>span.price-old {
+  text-decoration: line-through;
+}
+
+div.wpappbox div.applinks {
+  height: 112px;
+  width: 92px;
+  display: block;
+}
+
+div.wpappbox.compact a.applinks {
+  height: 66px;
+  width: 66px;
+  display: block;
+}
+
+div.wpappbox div.appbuttons {
+  position: absolute;
+  bottom: 1px;
+  width: 92px;
+}
+
+div.wpappbox div.appbuttons a,
+div.wpappbox div.appbuttons span,
+div.wpappbox.error div.buttons a {
+  font-size: 13px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .15);
+  background: #F1F1F1;
+  border-bottom: 0;
+  color: #323232;
+  padding: 3px 5px;
+  display: block;
+  margin: 8px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+div.wpappbox.error div.buttons a {
+  display: inline-block;
+  margin: 0 0;
+  margin-right: 8px;
+  background: #FFF;
+  color: rgba(34, 34, 34, .8);
+}
+
+div.wpappbox div.appbuttons a:hover,
+div.wpappbox div.appbuttons span:hover,
+div.wpappbox.error div.buttons a:hover {
+  background: #373941 !important;
+  border-bottom: 0 !important;
+  color: #FFF !important;
+  transition: background-color .5s ease-in-out;
+  -moz-transition: background-color .5s ease-in-out;
+  -webkit-transition: background-color .5s ease-in-out;
+}
+
+div.wpappbox div.rating-stars {
+  width: 65px;
+  height: 13px;
+  margin-left: 5px;
+  margin-top: 4px;
+  display: inline-block;
+}
+
+div.wpappbox div.stars-monochrome {
+  background: url('../images/appbox/stars-sprites-monochrome.png') no-repeat;
+}
+
+div.wpappbox div.stars-colorful {
+  background: url('../images/appbox/stars-sprites-colorful.png') no-repeat;
+}
+
+div.wpappbox div.stars00 {
+  background-position: 0 0;
+}
+
+div.wpappbox div.stars05 {
+  background-position: 0 -13px;
+}
+
+div.wpappbox div.stars10 {
+  background-position: 0 -26px;
+}
+
+div.wpappbox div.stars15 {
+  background-position: 0 -39px;
+}
+
+div.wpappbox div.stars20 {
+  background-position: 0 -52px;
+}
+
+div.wpappbox div.stars25 {
+  background-position: 0 -65px;
+}
+
+div.wpappbox div.stars30 {
+  background-position: 0 -78px;
+}
+
+div.wpappbox div.stars35 {
+  background-position: 0 -91px;
+}
+
+div.wpappbox div.stars40 {
+  background-position: 0 -104px;
+}
+
+div.wpappbox div.stars45 {
+  background-position: 0 -117px;
+}
+
+div.wpappbox div.stars50 {
+  background-position: 0 -130px;
+}
+
+div.wpappbox a:link,
+div.wpappbox a:visited {
+  color: #545450;
+}
+
+div.wpappbox a:active,
+div.wpappbox a:hover {
+  text-decoration: none;
+  color: #5588b5;
+}
+
+div.wpappbox.screenshots>div.screenshots {
+  width: auto;
+  margin: 0 auto;
+  padding: 10px;
+  clear: both;
+  border-top: 1px solid #E5E5E5;
+}
+
+div.wpappbox.screenshots>div.screenshots>div.slider {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  height: 320px;
+  margin-top: 0;
+}
+
+div.wpappbox.screenshots>div.screenshots>div.slider>ul {
+  padding: 0 !important;
+  margin: 0 !important;
+  list-style-image: none;
+  white-space: nowrap;
+}
+
+div.wpappbox.screenshots>div.screenshots>div.slider>ul>li {
+  padding: 0;
+  margin: 0 6px 0 0;
+  list-style-type: none;
+  display: inline;
+}
+
+div.wpappbox.screenshots>div.screenshots>div.slider>ul>li:last-child {
+  margin-right: 0;
+}
+
+div.wpappbox.screenshots>div.screenshots>div.slider>ul>li img {
+  height: 320px !important;
+  display: inline;
+}
+
+div.wpappbox.error>span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border-left: 3px solid #df4a4a;
+}
+
+div.wpappbox.error a {
+  display: inline-block;
+  font-size: 15px;
+  margin-left: 3px;
+}
+
+div.wpappbox div.appdetails span.oldprice {
+  text-decoration: line-through;
+}
+
+div.wpappbox.appstore a.applinks,
+div.wpappbox.appstore div.applinks {
+  background-image: url(../img/appstore.png);
+}
+
+div.wpappbox.macappstore a.applinks,
+div.wpappbox.macappstore div.applinks {
+  background-image: url(../img/macappstore.png);
+}
+
+div.wpappbox.apple-arcade span.price img.apple-arcade-logo {
+  margin-right: 2px;
+}
+
+div.wpappbox.googleplay a.applinks,
+div.wpappbox.googleplay div.applinks {
+  background-image: url('../images/appbox/googleplay.png');
+}
+
+div.wpappbox.gog a.applinks,
+div.wpappbox.gog div.applinks {
+  background-image: url(../img/gog.png);
+}
+
+div.wpappbox.microsoftstore a.applinks,
+div.wpappbox.microsoftstore div.applinks {
+  background-image: url(../img/microsoftstore.png);
+}
+
+div.wpappbox.chromewebstore a.applinks,
+div.wpappbox.chromewebstore div.applinks {
+  background-image: url(../img/chromewebstore.png);
+}
+
+div.wpappbox.fdroid a.applinks,
+div.wpappbox.fdroid div.applinks {
+  background-image: url(../img/fdroid.png);
+}
+
+div.wpappbox.firefoxaddon a.applinks,
+div.wpappbox.firefoxaddon div.applinks {
+  background-image: url(../img/firefoxaddon.png);
+}
+
+div.wpappbox.amazonapps a.applinks,
+div.wpappbox.amazonapps div.applinks {
+  background-image: url(../img/amazonapps.png);
+}
+
+div.wpappbox.amazonalexa a.applinks,
+div.wpappbox.amazonalexa div.applinks {
+  background-image: url(../img/amazonalexa.png);
+}
+
+div.wpappbox.wordpress a.applinks,
+div.wpappbox.wordpress div.applinks {
+  background-image: url(../img/wordpress.png);
+}
+
+div.wpappbox.steam a.applinks,
+div.wpappbox.steam div.applinks {
+  background-image: url(../img/steam.png);
+}
+
+div.wpappbox.snapcraft a.applinks,
+div.wpappbox.snapcraft div.applinks {
+  background-image: url(../img/snapcraft.png);
+}
+
+div.wpappbox.operaaddons a.applinks,
+div.wpappbox.operaaddons div.applinks {
+  background-image: url(../img/operaaddons.png);
+}
+
+div.wpappbox.compact:not(.colorful) a.applinks,
+div.wpappbox:not(.colorful) div.applinks,
+div.wpappbox.compact.colorful a.applinks:hover {
+  -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+  -ms-filter: grayscale(100%);
+  -o-filter: grayscale(100%);
+  filter: grayscale(100%);
+}
+
+div.wpappbox.compact:not(.colorful) a.applinks:hover {
+  -webkit-filter: grayscale(0%);
+  -moz-filter: grayscale(0%);
+  -ms-filter: grayscale(0%);
+  -o-filter: grayscale(0%);
+  filter: grayscale(0%);
+}
+
+div.wpappbox div.applinks,
+div.wpappbox.compact a.applinks {
+  background-repeat: no-repeat !important;
+  background-size: auto 42px !important;
+  background-position: center 7px !important;
+  background-color: #FFF;
+}
+
+div.wpappbox.compact a.applinks {
+  background-position: center center !important;
+  background-size: auto 48px !important;
+}
+
+div.wpappbox.errormsg {
+  font-size: 14px;
+  padding: 10px;
+  color: #555;
+  border-radius: 4px;
+  background: #FFECEC;
+  border: 1px solid #F5ACA6;
+}
+
+div.wpappbox.errormsg span {
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio:1.5),
+only screen and (min-resolution:240dpi) {
+
+  div.wpappbox div.rating-stars {
+    background-size: 65px 143px;
+  }
+
+  div.wpappbox div.stars-monochrome {
+    background-image: url(../img/stars-sprites-monochrome@2x.png)
+  }
+
+  div.wpappbox div.stars-colorful {
+    background-image: url(../img/stars-sprites-colorful@2x.png)
+  }
+
+  div.wpappbox.appstore a.applinks,
+  div.wpappbox.appstore div.applinks {
+    background-image: url(../img/appstore@2x.png)
+  }
+
+  div.wpappbox.macappstore a.applinks,
+  div.wpappbox.macappstore div.applinks {
+    background-image: url(../img/macappstore@2x.png)
+  }
+
+  div.wpappbox.googleplay a.applinks,
+  div.wpappbox.googleplay div.applinks {
+    background-image: url(../img/googleplay@2x.png)
+  }
+
+  div.wpappbox.gog a.applinks,
+  div.wpappbox.gog div.applinks {
+    background-image: url(../img/gog@2x.png)
+  }
+
+  div.wpappbox.microsoftstore a.applinks,
+  div.wpappbox.microsoftstore div.applinks {
+    background-image: url(../img/microsoftstore@2x.png)
+  }
+
+  div.wpappbox.chromewebstore a.applinks,
+  div.wpappbox.chromewebstore div.applinks {
+    background-image: url(../img/chromewebstore@2x.png)
+  }
+
+  div.wpappbox.fdroid a.applinks,
+  div.wpappbox.fdroid div.applinks {
+    background-image: url(../img/fdroid@2x.png)
+  }
+
+  div.wpappbox.firefoxaddon a.applinks,
+  div.wpappbox.firefoxaddon div.applinks {
+    background-image: url(../img/firefoxaddon@2x.png)
+  }
+
+  div.wpappbox.amazonapps a.applinks,
+  div.wpappbox.amazonapps div.applinks {
+    background-image: url(../img/amazonapps@2x.png)
+  }
+
+  div.wpappbox.amazonalexa a.applinks,
+  div.wpappbox.amazonalexa div.applinks {
+    background-image: url(../img/amazonalexa@2x.png)
+  }
+
+  div.wpappbox.wordpress a.applinks,
+  div.wpappbox.wordpress div.applinks {
+    background-image: url(../img/wordpress@2x.png)
+  }
+
+  div.wpappbox.snapcraft a.applinks,
+  div.wpappbox.snapcraft div.applinks {
+    background-image: url(../img/snapcraft@2x.png)
+  }
+
+  div.wpappbox.steam a.applinks,
+  div.wpappbox.steam div.applinks {
+    background-image: url(../img/steam@2x.png)
+  }
+
+  div.wpappbox.operaaddons a.applinks,
+  div.wpappbox.operaaddons div.applinks {
+    background-image: url(../img/operaaddons@2x.png)
+  }
+
+}
+
+@media screen and (max-width:500px) {
+
+  div.wpappbox div.rating-stars,
+  div.wpappbox.screenshots>div.screenshots>div.slider {
+    margin-top: 0
+  }
+
+  div.wpappbox div.appdetails>div.developer,
+  div.wpappbox.compact a.applinks,
+  div.wpappbox.screenshots div.applinks,
+  div.wpappbox.simple div.applinks {
+    display: none
+  }
+
+  div.wpappbox.screenshots>div.screenshots {
+    padding: 8px
+  }
+
+  div.amazonapps a.apptitle {
+    background: url(../img/amazonapps-small.png);
+    padding-left: 18px
+  }
+
+  div.amazonalexa a.apptitle {
+    background: url(../img/amazonalexa-small.png);
+    padding-left: 18px
+  }
+
+  div.appstore a.apptitle {
+    background: url(../img/appstore-small.png);
+    padding-left: 18px
+  }
+
+  div.chromewebstore a.apptitle {
+    background: url(../img/chromewebstore-small.png);
+    padding-left: 16px
+  }
+
+  div.fdroid a.apptitle {
+    background: url(../img/fdroid-small.png);
+    padding-left: 17px
+  }
+
+  div.firefoxaddon a.apptitle {
+    background: url(../img/firefoxaddon-small.png);
+    padding-left: 17px
+  }
+
+  div.gog a.apptitle {
+    background: url(../img/gog-small.png);
+    padding-left: 33px
+  }
+
+  div.googleplay a.apptitle {
+    background: url(../img/googleplay-small.png);
+    padding-left: 18px
+  }
+
+  div.macappstore a.apptitle {
+    background: url(../img/macappstore-small.png);
+    padding-left: 18px
+  }
+
+  div.operaaddons a.apptitle {
+    background: url(../img/operaaddons-small.png);
+    padding-left: 16px
+  }
+
+  div.steam a.apptitle {
+    background: url(../img/steam-small.png);
+    padding-left: 23px
+  }
+
+  div.snapcraft a.apptitle {
+    background: url(../img/snapcraft-small.png);
+    padding-left: 23px
+  }
+
+  div.microsoftstore a.apptitle {
+    background: url(../img/microsoftstore-small.png);
+    padding-left: 16px
+  }
+
+  div.wordpress a.apptitle {
+    background: url(../img/wordpress-small.png);
+    padding-left: 17px
+  }
+
+  @media only screen and (-webkit-min-device-pixel-ratio:1.5),
+  only screen and (min-resolution:240dpi) {
+
+    div.amazonapps a.apptitle {
+      background: url(../img/amazonapps-small@2x.png)
+    }
+
+    div.amazonalexa a.apptitle {
+      background: url(../img/amazonalexa-small@2x.png)
+    }
+
+    div.appstore a.apptitle {
+      background: url(../img/appstore-small@2x.png)
+    }
+
+    div.chromewebstore a.apptitle {
+      background: url(../img/chromewebstore-small@2x.png)
+    }
+
+    div.fdroid a.apptitle {
+      background: url(../img/fdroid-small@2x.png)
+    }
+
+    div.firefoxaddon a.apptitle {
+      background: url(../img/firefoxaddon-small@2x.png)
+    }
+
+    div.gog a.apptitle {
+      background: url(../img/gog-small@2x.png)
+    }
+
+    div.googleplay a.apptitle {
+      background: url(../img/googleplay-small@2x.png)
+    }
+
+    div.macappstore a.apptitle {
+      background: url(../img/macappstore-small@2x.png)
+    }
+
+    div.operaaddons a.apptitle {
+      background: url(../img/operaaddons-small@2x.png)
+    }
+
+    div.snapcraft a.apptitle {
+      background: url(../img/snapcraft-small@2x.png)
+    }
+
+    div.steam a.apptitle {
+      background: url(../img/steam-small@2x.png)
+    }
+
+    div.microsoftstore a.apptitle {
+      background: url(../img/microsoftstore-small@2x.png)
+    }
+
+    div.wordpress a.apptitle {
+      background: url(../img/wordpress-small@2x.png)
+    }
+
+  }
+
+  div.appdetails a.apptitle {
+    background-repeat: no-repeat !important;
+    background-position: center left !important;
+    background-size: auto 13px !important
+  }
+
+  div.wpappbox.simple,
+  div.wpappbox.compact {
+    height: 62px
+  }
+
+  div.wpappbox div.appicon,
+  div.wpappbox.compact div.appicon {
+    height: 60px;
+    width: 60px;
+    padding: 6px
+  }
+
+  div.wpappbox div.appicon img,
+  div.wpappbox.compact div.appicon img {
+    height: 48px;
+    width: 48px;
+    max-width: 48px
+  }
+
+  div.wpappbox div.appdetails>div,
+  div.wpappbox.compact div.appdetails>div {
+    padding: 0 6px
+  }
+
+  div.wpappbox div.appdetails,
+  div.wpappbox.compact div.appdetails {
+    font-size: 15px;
+    line-height: 15px;
+    padding-top: 8px
+  }
+
+  div.wpappbox div.apptitle,
+  div.wpappbox.compact div.apptitle,
+  div.wpappbox.error div.title {
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 6px
+  }
+
+  div.wpappbox.error div.appdetails>div,
+  div.wpappbox.error div.title {
+    white-space: normal;
+    line-height: 22px;
+    font-size: 16px;
+  }
+
+  div.wpappbox div.appdetails>div.buttons {
+    display: none;
+  }
+
+}
