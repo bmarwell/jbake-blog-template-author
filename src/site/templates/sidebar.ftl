@@ -40,7 +40,7 @@
           <a class="${socialmediaitem.css!socialmediaitem.name}" target="_blank"
              href="${socialmediaitem.link}" title="${socialmediaitem.title}">
             <svg class="bi" width="24" height="24" aria-label="${socialmediaitem.name}">
-              <use href="${content.rootpath!""}/images/bootstrap/${socialmediaitem.icon!socialmediaitem.id}.svg#${socialmediaitem.icon!socialmediaitem.id}"
+              <use href="${content.rootpath!""}images/bootstrap/${socialmediaitem.icon!socialmediaitem.id}.svg#${socialmediaitem.icon!socialmediaitem.id}"
                    width="24px"
                    height="24px"
               />

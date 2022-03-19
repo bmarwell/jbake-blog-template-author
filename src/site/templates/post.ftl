@@ -31,11 +31,13 @@
               title="View all posts in Software vorgestellt">Software vorgestellt</a></div>
     -->
     <div class="post-tags">
-    <#if (content.tags)??><#list (content.tags) as content_tag>
+    <#if (content.tags)??><#list (content.tags)>
       <ul>
+        <#items as content_tag>
         <li>
           <a href="<#if (content.rootpath)??>${content.rootpath}</#if>tags/${content_tag}.html">${content_tag}</a>
         </li>
+        </#items>
       </ul>
     </#list></#if>
     </div>
