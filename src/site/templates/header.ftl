@@ -142,13 +142,23 @@
     <!-- Le styles -->
     <!-- Author theme adapted from wordpress' Author theme. -->
     <link rel='dns-prefetch' href='https://fonts.googleapis.com'/>
+    <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'/>
     <link rel='stylesheet' id='ct-author-google-fonts-css'
           href='https://fonts.googleapis.com/css?family=Rokkitt%3A400%2C700%7CLato%3A400%2C700&#038;subset=latin%2Clatin-ext&#038;display=swap&#038;ver=5.8.3'
           type='text/css' media='all'/>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.0/build/styles/default.min.css">
-    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.0/build/highlight.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.8.0/dist/highlightjs-line-numbers.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.0/build/highlight.min.js"
+            integrity="sha512-BNc7saQYlxCL10lykUYhFBcnzdKMnjx5fp5s5wPucDyZ7rKNwCoqJh1GwEAIhuePEK4WM9askJBRsu7ma0Rzvg=="
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.8.0/dist/highlightjs-line-numbers.min.js"
+            integrity="sha256-575pualpuI2I0ifwPHEfC5VtYDdT7rRaAB19WGjbNEM="
+            crossorigin="anonymous"></script>
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/simplelightbox@2.10.2/dist/simple-lightbox.min.css"
+          integrity="sha256-vKdOMzseVP7mOv63cLP8nKXOJcZvAt4WNLw4RWWFKN8="
+          crossorigin="anonymous">
 
     <link id='parent-style-css' href="${content.rootpath!""}css/author.min.css" rel="stylesheet">
     <link href="${content.rootpath!""}css/asciidoctor.min.css" rel="stylesheet">

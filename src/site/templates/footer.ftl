@@ -43,6 +43,13 @@
       twitterFunctions.convertTweets();
     </script>
 
+    <!-- https://github.com/andreknieriem/simplelightbox -->
+    <script src="https://cdn.jsdelivr.net/npm/simplelightbox@2.10.2/dist/simple-lightbox.min.js"
+            integrity="sha256-komTawLRshxX6Zdrs7uHGtscp8AVbQ+Md34ITQ3gqD0="
+            crossorigin="anonymous"></script>
+    <script>
+      new SimpleLightbox('div a', { /* options */ });
+    </script>
 
   </body>
 </html>
