@@ -10,9 +10,62 @@
  * permissions and limitations under the License.
  */
 
-.hljs {
+/* fix author + highlight.js */
+pre,
+pre code.hljs,
+pre code.hljs table.hljs-ln {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+/* from github */
+pre.highlightjs {
+  font-size: 16px;
+  text-align: left;
+  direction: ltr;
+  margin-bottom: 1em;
+  font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
+  border: 1px solid #ddd;
+  border-bottom: 1px solid #ccc;
+  border-radius: 6px;
+  --color-canvas-default: #ffffff;
+  --color-fg-default: #24292f;
+  --color-fg-subtle: #6e7781;
+}
+code.hljs {
   white-space: pre;
   overflow-x: auto;
+  padding: 0;
+  margin: 0;
+  font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
+  font-size: 12px;
+  font-weight: 400;
+  background: var(--color-canvas-default);
+  border: 0;
+}
+td.hljs-ln-numbers {
+  color: var(--color-fg-subtle);
+  min-width: inherit;
+  background: rgba(0,0,0,0);
+  border: solid 1px #d9d9d9;
+  text-align: right;
+  cursor: pointer;
+  width: 1%;
+}
+td.hljs-ln-numbers:hover {
+  color: var(--color-fg-default);
+}
+td.hljs-ln-code {
+  text-align: left;
+  background: rgba(0,0,0,0);
+  border: 0;
+  padding: 1px 10px !important;
+  color: var(--color-fg-default);
+}
+
+td div.hljs-ln-n {
+  padding: 1px 10px !important;
 }
 
 .post-tags {

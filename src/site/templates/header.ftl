@@ -161,7 +161,6 @@
           crossorigin="anonymous">
 
     <link id='parent-style-css' href="${content.rootpath!""}css/author.min.css" rel="stylesheet">
-    <link href="${content.rootpath!""}css/asciidoctor.min.css" rel="stylesheet">
     <link href="${content.rootpath!""}css/custom.min.css" rel="stylesheet">
     <link href="${content.rootpath!""}css/appbox.min.css" rel="stylesheet">
 
