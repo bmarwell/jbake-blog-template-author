@@ -68,6 +68,12 @@ td div.hljs-ln-n {
   padding: 1px 10px !important;
 }
 
+/* in-line display of post tags */
 .post-tags {
   display: inline-flex;
+}
+
+/* max width of images */
+figure img {
+  max-width: 100%;
 }
