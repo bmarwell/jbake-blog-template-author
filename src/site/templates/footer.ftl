@@ -28,12 +28,6 @@
       </div>
     </div>
 
-    <#--
-     * TODO / missing:
-     * FitVids (production.min.js?ver=5.9.1)
-     * Shariff
-     * lightbox2 https://lokeshdhakar.com/projects/lightbox2/
-     -->
     <script src="${content.rootpath!""}js/author.min.js" ></script>
     <script src="${content.rootpath!""}js/custom.min.js" ></script>
     <script src="https://platform.twitter.com/widgets.js" ></script>

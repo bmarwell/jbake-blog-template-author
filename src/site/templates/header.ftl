@@ -159,6 +159,13 @@
           href="https://cdn.jsdelivr.net/npm/simplelightbox@2.10.2/dist/simple-lightbox.min.css"
           integrity="sha256-vKdOMzseVP7mOv63cLP8nKXOJcZvAt4WNLw4RWWFKN8="
           crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/shariff-plus@2.2.3/dist/shariff.complete.css"
+          integrity="sha256-5kyYNMPCDqGUwM2FH5271VzN6n0uPP4qo8CF/0RMOgE="
+          crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/shariff-plus@2.2.3/dist/shariff.complete.js"
+            integrity="sha256-w3RQhmXceT5KT2HdArsmuGMsWRa41occbLEZuBF219Y="
+            crossorigin="anonymous"></script>
 
     <link id='parent-style-css' href="${content.rootpath!""}css/author.min.css" rel="stylesheet">
     <link href="${content.rootpath!""}css/custom.min.css" rel="stylesheet">
