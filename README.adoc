@@ -1,0 +1,104 @@
+= JBake Blog Setup with Author Theme
+:toc:
+:idprefix:
+:icons: font
+
+This repository contains the brilliant link:https://de.wordpress.org/themes/author/[Author theme from Ben Sibley], originally written for WordPress.
+
+== Features
+
+Author theme::
+The Author theme was ported by me, including a rewrite of the JavaScript files to not use jQuery.
+No jQuery::
+Yes, I got rid of all jQuery.
+Really.
+Multi-Language-Support::
+While the blog roll (index) will show all languages, the posts itselves can contain a language idicator and a link to the translations.
+Metadata will be added where appropriate.
+Minification::
+When building with Apache Maven, all local CSS, JS, images(!) and HTML files will be minified.
+You can skip the HTML and image minifcation step by using `./mvnw package -Dsite.postprocess.skip=true`.
+Featured Images::
+You can include a featured image and even select the display type for twitter and linkedin!
+Simple Light Box::
+All your images will be opened in a mobile friendly lightbox when clicking them.
+Open Graph Metadata::
+Metadata for Twitter, Facebook etc. will automatically be inserted when available.
+Fallback options are available, too.
+JSON-LD support::
+Have crawlers read your data in a JSON format for linked data, based on schema.org.
+WP-Appbox port::
+You can insert links to the following stores via macro (incomplete):
+* Google Play Store
+* More to come
+Shariff sharing buttons::
+These sharing buttons do not compromise your security: No I-Frames or other injected code from the servers.
+YAML-based menu::
+The menu can be defined using YAML.
+No writing of complicated HTML anymore.
+Tag page descriptions::
+You can define descriptions for your tag page for better SEO visibility.
+
+
+== Usage instructions
+
+=== Initial setup
+
+1. Go through the link:jbake.properties[] file and edit everything you need.
+Some options can be disabled entirely, some cannot.
+Most options should have comments by now.
+2. Go through the files in `src/site/data`.
+ * link:src/site/data/authors.yaml[]:
+   Define at lease one author, this is mandatory.
+   Spelling matters, you must use the exact spelling everywhere.
+ * link:src/site/data/keywords.yaml[]:
+   Keywords are optional.
+   You can add descriptions for the tags pages here.
+   If not defined here, the tag page will just be missing the description.
+ * link:src/site/data/license.yaml[]:: Edit the license according to your need.
+   This will be applied to all CONTENT YOU WRITE, not to any of this repository.
+ * link:src/site/data/socialmedia.yaml[]:
+   You can define which buttons to show below your avatar.
+
+
+=== Writing Posts and Pages
+
+This section will only cover the AsciiDoc format.
+
+The following snippet is a sample header for your asciidoc posts:
+
+[source,asciidoc]
+----
+// This work is licensed under a
+// <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+
+= Site title
+:jbake-author: Author name as spelled in authors.yaml
+:jbake-date: 2017-03-09 20:16:13
+:jbake-updated: 2017-03-09 20:16:13
+:jbake-lang: de-DE
+:jbake-type: post
+:jbake-status: published
+:jbake-tags: open source, software, example, post, asciidoc, jbake
+:jbake-featuredimage: my-featured-image.png
+:jbake-featuredimagewidth: 2000
+:jbake-featuredimageheight: 2000
+:jbake-twittercard: large
+// :jbake-alternate: { "en_GB": "" }
+:toc: macro
+:idprefix:
+:icons: font
+----
+
+* The license is optional and specific for this content, but should in general be the same as defined in the license.yaml file.
+* Dates *MUST* be written in the ISO format, timezone UTC.
+* `lang` can be set to a two-letter ISO code (de, en) or can contain a region, separated by a hyphen.
+* Tags are a comma separated list of keywords. A keyword index will be created, as well as a page for each keyword.
+* If no featured image is present, the default featured image from link:jbake.properties[] will be used.
+* toc, idprefix and icons are optional. Remove or adjust to your liking.
+
+=== Publishing
+
+Compile your web site using `./mvnw package`.
+
+If you want a live preview, use `./mvnw generate-resources jbake:inline`.
