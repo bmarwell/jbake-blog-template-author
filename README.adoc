@@ -84,7 +84,7 @@ The following snippet is a sample header for your asciidoc posts:
 :jbake-featuredimagewidth: 2000
 :jbake-featuredimageheight: 2000
 :jbake-twittercard: large
-// :jbake-alternate: { "en_GB": "" }
+// :jbake-alternate: { "en-GB": "" }
 :toc: macro
 :idprefix:
 :icons: font

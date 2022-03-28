@@ -21,9 +21,19 @@
     <meta charset="utf-8"/>
     <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'/>
 
-    <link rel="alternate" href="https://blog.bmarwell.de/" hreflang="de"/>
-    <link rel="alternate" href="https://blog.bmarwell.de/en/" hreflang="en"/>
-    <link rel="canonical" href="https://blog.bmarwell.de/"/>
+    <#if (content.lang)?? && (content.uri)??>
+      <link rel="alternate" href="${config.site_host}/${content.uri}" hreflang="${content.lang}"/>
+    </#if>
+    <#if (content.alternate)??><#list content.alternate as langKey, langUri>
+      <#if (langUri?starts_with("/"))>
+    <link rel="alternate" href="${config.site_host}/${langUri}" hreflang="${langKey}"/>
+      <#else>
+    <link rel="alternate" href="${config.site_host}/${content.uri?keep_before_last("/")}/${langUri}" hreflang="${langKey}"/>
+      </#if>
+    </#list></#if>
+    <#if (content.uri)??>
+      <link rel="canonical" href="${config.site_host}/${content.uri}"/>
+    </#if>
 
     <#if (content.title)?? && (content.title)?contains("|")>
     <#-- The page has a full custom title, render it directly: -->
