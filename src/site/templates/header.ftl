@@ -180,6 +180,7 @@
     <link id='parent-style-css' href="${content.rootpath!""}css/author.min.css" rel="stylesheet">
     <link href="${content.rootpath!""}css/custom.min.css" rel="stylesheet">
     <link href="${content.rootpath!""}css/appbox.min.css" rel="stylesheet">
+    <link href="${content.rootpath!""}css/asciidoc.min.css" rel="stylesheet">
 
     <!-- Fav and touch icons -->
     <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
