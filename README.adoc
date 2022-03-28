@@ -40,9 +40,7 @@ Tag page descriptions::
 You can define descriptions for your tag page for better SEO visibility.
 
 
-== Usage instructions
-
-=== Initial setup
+== Setup instructions
 
 1. Go through the link:jbake.properties[] file and edit everything you need.
 Some options can be disabled entirely, some cannot.
@@ -61,9 +59,11 @@ Most options should have comments by now.
    You can define which buttons to show below your avatar.
 
 
-=== Writing Posts and Pages
+== Writing Posts and Pages
 
 This section will only cover the AsciiDoc format.
+
+=== AsciiDoc examples
 
 The following snippet is a sample header for your asciidoc posts:
 
@@ -97,8 +97,66 @@ The following snippet is a sample header for your asciidoc posts:
 * If no featured image is present, the default featured image from link:jbake.properties[] will be used.
 * toc, idprefix and icons are optional. Remove or adjust to your liking.
 
-=== Publishing
+== Adding twitter widgets
+
+This template supports adding timelines and tweets.
+
+One option is to include a timeline. At the moment, there is no freemarker macro,
+but an HTML passthrough will do.
+
+Be sure to add the classes "twitter" and "timeline".
+The `data-twitter-timeline-id` is the actual source for the generated timeline.
+As a fallback, you can insert or link the referenced timeline.
+
+.Adding a user timeline
+[source,asciidoc]
+----
+++++
+<div class="twitter timeline wp-block" data-twitter-timeline-id="bmarwell"><a href="https://twitter.com/bmarwell">https://twitter.com/bmarwell</a></div>
+++++
+----
+
+You can also link a specific tweet.
+Instead of the timeline class, use the `tweet` class.
+Again, you can optionally add some fallback content.
+
+.Adding a specific tweet
+[source,asciidoc]
+----
+++++
+<div class="twitter tweet wp-block" data-tweet-id="1508528412679356416">
+ https://twitter.com/bmarwell/status/1508528412679356416
+</div>
+++++
+----
+
+=== WP Appbox
+
+This is supported via HTML only, most data needs to be inserted by hand.
+A freemarker macro is in the making.
+
+=== Simple Lightbox
+
+All images should open in a simple lightbox on click.
+
+=== Custom robots.txt
+
+Delete the file `/src/site/content/robots.adoc` and create a file `/src/site/assets/robots.txt` instead.
+
+== Publishing
 
 Compile your web site using `./mvnw package`.
 
 If you want a live preview, use `./mvnw generate-resources jbake:inline`.
+
+== Roadmap
+
+* Appbox support
+* Better sitemap support.
+* Touch icon support
+* Fix a lot of HTML errors, e.g.
+ ** span with href
+ ** img without alt
+ ** img resolution attributes with "px" suffix
+ ** unencoded paths in href attributes to tags
+* Identify index sites and add metadata (e.g. lang attribute).
