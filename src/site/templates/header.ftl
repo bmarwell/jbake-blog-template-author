@@ -189,7 +189,7 @@
     <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
     <link rel="shortcut icon" href="${content.rootpath!""}favicon.ico">
 
-    <link rel="alternate" type="application/atom+xml" title="${config.site_title} &raquo; Feed" href="https://blog.bmarwell.de/feed/"/>
+    <link rel="alternate" type="application/atom+xml" title="${config.site_title} &raquo; Feed" href="${config.site_host}/feed/"/>
   </head>
   <body class="<#if (content.type) == "post">single single-post single-format-standard singular singular-post</#if>">
 

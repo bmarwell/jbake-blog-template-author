@@ -37,12 +37,6 @@
        <#if (content.lang)??>data-lang="${(content.lang)[0..*2]}"</#if>
     ></div>
 
-    <#-- TODO: Add categories -->
-    <#--
-    <div class="post-categories"><span>Published in</span><a
-              href="https://blog.bmarwell.de/information-technology/software-vorgestellt/"
-              title="View all posts in Software vorgestellt">Software vorgestellt</a></div>
-    -->
     <div class="post-tags">
     <#if (content.tags)??><#list (content.tags)>
       <ul>
