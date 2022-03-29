@@ -36,5 +36,5 @@ socialmedia:
     icon: rss-fill
     name: 'RSS Feed'
     css: *id
-    link: https://${config.site_host}/feed.xml
+    link: https://blog.bmarwell.de/feed.xml
     title: 'RSS Feed | Benjamin Marwell'

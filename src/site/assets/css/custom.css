@@ -77,3 +77,12 @@ td div.hljs-ln-n {
 figure img {
   max-width: 100%;
 }
+
+/* social media icons */
+img.social-media-icon {
+  filter: invert(85%) sepia(9%) saturate(0%) hue-rotate(133deg) brightness(95%) contrast(91%);
+}
+img.social-media-icon:hover {
+  filter: invert(0%) sepia(94%) saturate(23%) hue-rotate(355deg) brightness(108%) contrast(106%);
+  cursor: pointer;
+}
