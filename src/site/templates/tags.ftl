@@ -14,6 +14,7 @@
 <#-- need to name this not tags, because hash.tags will return nothing in jbake/freemarker. -->
 <#assign keywords = data.get('keywords.yaml').keywords />
 <#assign tagcontent = { "name": "${tag?trim}" } />
+<#import "macros/lang.ftl" as lang />
 
 <div id="page type-page status-publish entry">
   <article>
@@ -38,8 +39,7 @@
           <h4>${post.date?string("MMMM yyyy")}</h4>
           <ul>
         </#if>
-
-        <li>${post.date?string("yyyy-MM-dd")} - <a href="${content.rootpath}${post.uri}">${post.title}</a></li>
+        <li>${post.date?string("yyyy-MM-dd")} - <@lang.langIcon post /><a href="${content.rootpath}${post.uri?url_path}">${post.title}</a></li>
         <#assign last_month = post.date?string("MMMM yyyy")>
       </#list>
       </ul>

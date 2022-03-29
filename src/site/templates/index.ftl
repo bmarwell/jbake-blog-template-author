@@ -10,6 +10,7 @@
   ~ permissions and limitations under the License.
   -->
 <#include "header.ftl">
+<#import "macros/lang.ftl" as lang />
 
 <h1 class="screen-reader-text">${config.site_title}</h1>
 
@@ -23,8 +24,8 @@
 
       <article <#if (post.lang)??>lang="${post.lang}"</#if>>
         <div class='post-header'>
-          <h2 class='post-title <#if (config.site_language_indicator?boolean!true) && (post.lang)??>lang-${post.lang} lang-icon-append</#if>'>
-            <a href="${content.rootpath!""}${post.uri}">${post.title}</a>
+          <h2 class='post-title'>
+            <a href="${content.rootpath!""}${post.uri}">${post.title}</a><@lang.langIcon post false/>
           </h2>
           <@postmeta.postmeta post />
         </div>
@@ -36,7 +37,7 @@
             <a
               class="more-link"
               href="${content.rootpath!""}${post.uri}">
-              Continue reading 🠖
+              Continue reading »
               <span class="screen-reader-text">${post.title}</span>
             </a>
           </div>
