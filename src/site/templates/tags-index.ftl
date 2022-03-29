@@ -21,7 +21,7 @@
     <div class="post-content">
       <ul class="posts">
         <#list tags?sort_by("name") as tag>
-          <h2><a href="${content.rootpath}${tag.uri}">${tag.name}</a> ${tag.tagged_posts?size}</h2>
+          <h2><a href="${content.rootpath}${tag.uri?url_path}">${tag.name}</a> ${tag.tagged_posts?size}</h2>
         </#list>
       </ul>
     </div>
