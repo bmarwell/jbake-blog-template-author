@@ -25,13 +25,15 @@
     </div>
 
     <div class="post-tags">
-    <#if (content.tags)??><#list (content.tags) as content_tag>
-      <ul>
-        <li>
-          <a>${content_tag}</a>
-        </li>
-      </ul>
-    </#list></#if>
+      <#if (content.tags)??><#list (content.tags)>
+        <ul>
+          <#items as content_tag>
+            <li>
+              <a href="<#if (content.rootpath)??>${content.rootpath}</#if>tags/${content_tag?url_path}.html">${content_tag}</a>
+            </li>
+          </#items>
+        </ul>
+      </#list></#if>
     </div>
   </article>
 

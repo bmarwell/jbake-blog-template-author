@@ -15,8 +15,9 @@
 
 /* Lists */
 ul, ol, dl { font-size: 1em; line-height: 1.6; margin-bottom: 1.25em; list-style-position: outside; font-family: inherit; }
-
 ul, ol { margin-left: 1.5em; }
+
+li p { margin-bottom: 0.3125em; margin-top: 0; }
 
 /* Definition Lists */
 dl dt { margin-bottom: 0.3125em; font-weight: bold; }
