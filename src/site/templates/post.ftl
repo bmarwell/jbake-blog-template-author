@@ -42,7 +42,7 @@
       <ul>
         <#items as content_tag>
         <li>
-          <a href="<#if (content.rootpath)??>${content.rootpath}</#if>tags/${content_tag}.html">${content_tag}</a>
+          <a href="<#if (content.rootpath)??>${content.rootpath}</#if>tags/${content_tag?url_path}.html">${content_tag}</a>
         </li>
         </#items>
       </ul>

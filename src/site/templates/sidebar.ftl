@@ -47,8 +47,8 @@
              href="${socialmediaitem.link}" title="${socialmediaitem.title}">
             <img src="${content.rootpath!""}images/bootstrap/${socialmediaitem.icon!socialmediaitem.id}.svg#${socialmediaitem.icon!socialmediaitem.id}"
                  alt="${socialmediaitem.title}"
-                 height="24px"
-                 width="24px"
+                 height="24"
+                 width="24"
                  class="bi icon social-media-icon social-media-icon-${socialmediaitem.icon!socialmediaitem.id}"
             />
             </svg>
