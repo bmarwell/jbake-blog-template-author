@@ -11,7 +11,7 @@
   -->
 
 <div id="main-sidebar" class="main-sidebar" lang="en">
-  <header class="site-header" id="site-header" role="banner">
+  <header class="site-header" id="site-header">
     <div id="title-container" class="title-container">
       <#if (config.site_gravatar_hash)??>
       <div id="site-avatar"
@@ -20,9 +20,15 @@
       </div>
       </#if>
       <div class="container">
-        <h1 id='site-title' class='site-title'>
-          <a href="${content.rootpath!""}">${config.site_title}</a>
-        </h1>
+        <#if (content.title)??>
+          <h3 id='site-title' class='site-title'>
+            <a href="${content.rootpath!""}">${config.site_title}</a>
+          </h3>
+        <#else>
+          <h1 id='site-title' class='site-title'>
+            <a href="${content.rootpath!""}">${config.site_title}</a>
+          </h1>
+        </#if>
         <p class="tagline">${config.site_tagline}</p>
       </div>
     </div>
@@ -70,8 +76,8 @@
     </#list></#if>
   </header>
 
-  <aside class="sidebar sidebar-primary" id="sidebar-primary" role="complementary">
-    <h1 class="screen-reader-text">Sidebar</h1>
+  <aside class="sidebar sidebar-primary" id="sidebar-primary">
+    <h3 class="screen-reader-text">Sidebar</h3>
 
     <@menu.renderLanguages content />
 
