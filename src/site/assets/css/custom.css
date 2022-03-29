@@ -92,11 +92,17 @@ img.social-media-icon:hover {
   height: 11px;
   display: inline-block;
 }
+.lang-en::after {
+  content: url(../images/lang/gb.png);
+}
 .lang-en-GB::after {
   content: url(../images/lang/gb.png);
 }
 .lang-en-US::after {
   content: url(../images/lang/us.png);
+}
+.lang-de::after {
+  content: url(../images/lang/de.png);
 }
 .lang-de-DE::after {
   content: url(../images/lang/de.png);

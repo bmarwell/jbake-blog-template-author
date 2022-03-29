@@ -11,18 +11,49 @@
   ~ permissions and limitations under the License.
   -->
 
+<#macro langIconSpan lang spaceAfter=true>
+  <#if (config.site_language_indicator?boolean!true)>
+      <#compress><span class="lang-${lang} lang-icon-append"></span><#if spaceAfter>&nbsp;</#if></#compress>
+  <#else></#if>
+</#macro>
+
 <#macro langIcon post spaceAfter=true>
   <#if !(config.site_language_indicator?boolean!true)>
     <#return>
   </#if>
 
-  <#if (config.site_language_indicator?boolean!true) && (post.lang)??>
-      <#assign langClasses="lang-${post.lang} lang-icon-append">
-  <#elseif (config.site_language_indicator?boolean!true) && !(post.lang)??>
-      <#assign langClasses="lang-unknown lang-icon-append">
+  <#if (post.lang)??>
+    <@langIconSpan "${post.lang}" spaceAfter />
+  <#elseif !(post.lang)??>
+    <@langIconSpan "unknown" spaceAfter />
   <#else>
-      <#assign langClasses="">
   </#if>
+</#macro>
 
-  <#compress><span class="${langClasses}"></span><#if spaceAfter>&nbsp;</#if></#compress>
+<#macro tagDescriptionElement description lang>
+  <#if (lang == "unknown")>
+    <#assign langCode="">
+  <#else>
+    <#assign langCode="${lang}" />
+  </#if>
+  <@langIconSpan lang true /><span class="tag-description" lang="${langCode}">${description?trim}</span>
+</#macro>
+
+<#macro tagDescription keyword>
+  <#if !(keyword.description)??>
+    <#return />
+  </#if>
+  <#-- this macro supports two types of descriptions:
+    - a single description of unknown language
+    - an object (hash) of lang/description
+  -->
+  <#if (keyword.description?is_hash)>
+    <#list keyword.description as langIso, description>
+      <#if !(langIso?is_string) || (!(description!{})?is_string) ><#continue /></#if>
+      <#if !(langIso?length == 5 && langIso?contains('-')) && !(langIso?length == 2)><#continue /></#if>
+      <div><@tagDescriptionElement description langIso /></div>
+    </#list>
+  <#elseif (keyword.description?is_string)>
+    <@tagDescriptionElement keyword.description?trim "unknown" />
+  </#if>
 </#macro>

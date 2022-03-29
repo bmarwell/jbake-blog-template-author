@@ -24,9 +24,9 @@
 
     <div class="post-content">
       <#if (keywords[tag?trim])?? && (keywords[tag?trim].description)??>
-      <#assign tagcontent = tagcontent + { "description": "${keywords[tag?trim].description?trim}" } />
-      <div class="tag-description">${keywords[tag?trim].description?trim}</div>
+        <#assign tagcontent = tagcontent + { "description": "${keywords[tag?trim].description?trim}" } />
       </#if>
+      <@lang.tagDescription keywords[tag?trim]!{} />
       <!--<ul>-->
       <#list tag_posts as post>
         <#if (last_month)??>

@@ -11,13 +11,14 @@
   -->
 
 <#include "header.ftl">
+<#import "macros/lang.ftl" as lang />
 
 <div class="post type-post status-publish format-standard <#if (content.featuredimage)?? >has-post-thumbnail </#if> entry">
   <@postmeta.featuredimage content false />
 
   <article>
     <div class='post-header'>
-      <h1 class='post-title'>${content.title}</h1>
+      <h1 class='post-title'>${content.title}<@lang.langIcon content false/></h1>
       <@postmeta.postmeta content />
     </div>
     <div class="post-content">
