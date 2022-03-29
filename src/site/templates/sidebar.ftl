@@ -20,7 +20,7 @@
       </div>
       </#if>
       <div class="container">
-        <#if (content.title)??>
+        <#if (content.title)?? && (content.uri)?? && (content.uri != "index.html")>
           <h3 id='site-title' class='site-title'>
             <a href="${content.rootpath!""}">${config.site_title}</a>
           </h3>
