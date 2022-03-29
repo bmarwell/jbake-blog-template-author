@@ -46,7 +46,7 @@
             src="${content.rootpath!""}${post.featuredimage}"
           </#if>
           class="attachment-full size-full wp-post-image"
-          <#if (post.featuredimagealt)?? >alt="${post.featuredimagealt}"<#else>alt="Featured image of ${post.title}"</#if>
+          <#if (post.featuredimagealt)?? >alt="${post.featuredimagealt}"<#else>alt="Featured image of ${post.title?esc}"</#if>
         />
       <#if (link)></a></#if>
     </div>
