@@ -86,3 +86,24 @@ img.social-media-icon:hover {
   filter: invert(0%) sepia(94%) saturate(23%) hue-rotate(355deg) brightness(108%) contrast(106%);
   cursor: pointer;
 }
+
+/* language icons */
+.lang-icon-append::after {
+  height: 11px;
+  display: inline-block;
+}
+.lang-en-GB::after {
+  content: url(../images/lang/gb.png);
+}
+.lang-en-US::after {
+  content: url(../images/lang/us.png);
+}
+.lang-de-DE::after {
+  content: url(../images/lang/de.png);
+}
+.lang-de-AT::after {
+  content: url(../images/lang/at.png);
+}
+.lang-unknown::after {
+  content: url(../images/lang/unknown.png);
+}

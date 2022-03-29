@@ -23,7 +23,7 @@
 
       <article <#if (post.lang)??>lang="${post.lang}"</#if>>
         <div class='post-header'>
-          <h2 class='post-title'>
+          <h2 class='post-title <#if (config.site_language_indicator?boolean!true) && (post.lang)??>lang-${post.lang} lang-icon-append</#if>'>
             <a href="${content.rootpath!""}${post.uri}">${post.title}</a>
           </h2>
           <@postmeta.postmeta post />
