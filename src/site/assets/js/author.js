@@ -13,8 +13,6 @@
  * Converted to not using jQuery by Benjamin Marwell.
  */
 
-document.addEventListener('DOMContentLoaded', registerToggleDropdown, false);
-
 function registerToggleDropdown () {
 
   /* Set variables */
@@ -167,9 +165,14 @@ function registerToggleDropdown () {
   }
 
   // open the menu to display the current page if inside a dropdown menu
-  var currentMenuAncestor = document.getElementById('current-menu-ancestor')
-  if (currentMenuAncestor !== null) {
+  var currentMenuAncestor = Object.values(document.getElementsByClassName("current-menu-ancestor"))[0];
+  if (currentMenuAncestor !== null && currentMenuAncestor !== undefined) {
     currentMenuAncestor.classList.add("open")
+    var ancestorMenu = currentMenuAncestor.closest('li.menu-item-has-children');
+    while (ancestorMenu !== null && ancestorMenu !== undefined) {
+      ancestorMenu.classList.add("open");
+      ancestorMenu = ancestorMenu.parentElement.closest('li.menu-item-has-children');
+    }
   }
 
   // absolutely position the sidebar
@@ -446,3 +449,5 @@ function scrollTop() {
 
   return scrollTop;
 }
+
+document.addEventListener('DOMContentLoaded', registerToggleDropdown, false);

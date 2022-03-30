@@ -11,20 +11,19 @@
   -->
 <#macro renderMenuItem menuItem={} currentUri="" isSubMenu=false >
   <#assign currentItemClass="">
-  <#if (menuItem.link)?? && (menuItem.link?lastIndexOf("/") == menuItem.link?length - 1) >
-    <#if menuItem.link?substring(0, menuItem.link?length - 1) == (currentUri)>
-      <#assign currentItemClass=" current-menu-item current_page_item ">
-    </#if>
-  <#else>
-    <#if (menuItem.link)?? && (currentUri == (menuItem.link!"")) >
-      <#assign currentItemClass=" current-menu-item current_page_item ">
-    </#if>
+  <#if (menuItem.link)?? && ("/" + currentUri == (menuItem.link!"")) >
+    <#assign currentItemClass=" current-menu-item current_page_item">
   </#if>
-  <#assign currentItemHome="">
   <#if (menuItem.link)?? && ((menuItem.link == "") || (menuItem.link == "/")) >
-    <#assign currentItemHome="menu-item-home">
+    <#assign currentItemClass= currentItemClass + "menu-item-home">
   </#if>
-  <li class="menu-item <#if (menuItem.items![])?size &gt; 0>menu-item-has-children</#if> ${currentItemClass} ${currentItemHome}">
+  <#-- check if this is the current page's ancestor -->
+  <#if ((menuItem.items![])?size &gt; 0)><#list (menuItem.items) as childMenuItem>
+    <#if "/" + currentUri == (childMenuItem.link!"")>
+      <#assign currentItemClass = currentItemClass + " current-menu-ancestor" />
+    </#if>
+  </#list></#if>
+  <li class="menu-item <#if (menuItem.items![])?size &gt; 0>menu-item-has-children</#if> ${currentItemClass}" >
   <a <#if (menuItem.link)??>href="${menuItem.link}"</#if>>${menuItem.name}</a>
   <#if (menuItem.items![])?size &gt; 0>
     <button class="toggle-dropdown" aria-expanded="false">
