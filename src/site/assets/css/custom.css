@@ -113,3 +113,8 @@ img.social-media-icon:hover {
 .lang-unknown::after {
   content: url(../images/lang/unknown.png);
 }
+
+/* tables */
+td p {
+  margin: 0;
+}
