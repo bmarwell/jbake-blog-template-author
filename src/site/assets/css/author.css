@@ -315,7 +315,8 @@ th {
 .size-full img,
 .size-large img,
 .size-medium img,
-.size-thumbnail img {
+.size-thumbnail img,
+article img{
   max-width: 100%;
 }
 .alignright figcaption,
