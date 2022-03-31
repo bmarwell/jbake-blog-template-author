@@ -247,7 +247,7 @@ table {
   margin: 1.5em 0;
 }
 
-td {
+td:not(.tableblock) {
   padding: 0.5em 0.75em;
   border: solid 1px #D9D9D9;
 }
