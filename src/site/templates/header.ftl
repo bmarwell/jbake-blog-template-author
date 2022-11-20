@@ -151,11 +151,7 @@
 
     <!-- Le styles -->
     <!-- Author theme adapted from wordpress' Author theme. -->
-    <link rel='dns-prefetch' href='https://fonts.googleapis.com'/>
     <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'/>
-    <link rel='stylesheet' id='ct-author-google-fonts-css'
-          href='https://fonts.googleapis.com/css?family=Rokkitt%3A400%2C700%7CLato%3A400%2C700&#038;subset=latin%2Clatin-ext&#038;display=swap&#038;ver=5.8.3'
-          type='text/css' media='all'/>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.0/build/styles/default.min.css">
     <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.0/build/highlight.min.js"
@@ -204,4 +200,3 @@
     <section id="main" class="main" role="main">
     <#-- TODO: add breadcrumbs -->
       <div id="loop-container" class="loop-container">
-

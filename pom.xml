@@ -61,6 +61,17 @@
               <executable>${project.basedir}/src/site/assets/images/bootstrap/download.sh</executable>
             </configuration>
           </execution>
+
+          <execution>
+            <id>download-font</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>${project.basedir}/src/site/assets/fonts/download.sh</executable>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
 
