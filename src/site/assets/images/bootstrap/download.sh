@@ -21,6 +21,7 @@ ICONS=(
   "google"
   "instagram"
   "linkedin"
+  "mastodon"
   "paypal"
   "reddit"
   "rss"

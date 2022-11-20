@@ -10,6 +10,13 @@ socialmedia:
     link: https://twitter.com/bmarwell
     # link title/alt
     title: '@bmarwell'
+    
+  - id: &id mastodon
+    icon: *id
+    name: *id
+    css: *id
+    link: https://layer8.space/@bmarwell
+    title: '@bmarwell@layer8.space'
 
   - id: &id github
     icon: *id

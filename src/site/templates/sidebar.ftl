@@ -44,6 +44,7 @@
       <#items as socialmediaitem>
         <li>
           <a class="${socialmediaitem.css!socialmediaitem.name}" target="_blank"
+             rel="me"
              href="${socialmediaitem.link}" title="${socialmediaitem.title}">
             <img src="${content.rootpath!""}images/bootstrap/${socialmediaitem.icon!socialmediaitem.id}.svg#${socialmediaitem.icon!socialmediaitem.id}"
                  alt="${socialmediaitem.title}"
