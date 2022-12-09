@@ -45,7 +45,7 @@
     <#-- No title found in the page metadata, set the default: -->
       <#assign ftltitle="${config.site_title} &ndash; ${config.site_tagline}" />
     </#if>
-    <title>${ftltitle}</title>
+    <title>${ftltitle?replace('<[^>]+>','','r')}</title>
     <meta property="og:site_name" content="${config.site_title}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="template" content="Custom, based on Author 1.44"/>
@@ -63,7 +63,7 @@
     </#if>
     <meta name="generator" content="JBake">
 
-    <meta property="og:title" content="${ftltitle?esc}"/>
+    <meta property="og:title" content="${ftltitle?replace('<[^>]+>','','r')?esc}"/>
     <#switch (content.type)!"">
       <#case "post">
         <#if (content.date)??>
