@@ -21,7 +21,7 @@ curl \
   --fail \
   --show-error \
   --location \
-  --url "https://google-webfonts-helper.herokuapp.com/api/fonts/lato?download=zip&subsets=latin-ext,latin&variants=700,regular,italic,700italic&formats=woff,woff2" \
+  --url "https://gwfh.mranftl.com/api/fonts/lato?download=zip&subsets=latin-ext,latin&variants=700,900,regular,italic,700italic&formats=woff,woff2" \
   -o "lato.zip"
 
 unzip -o lato.zip
