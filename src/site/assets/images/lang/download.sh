@@ -17,7 +17,7 @@ set -eup pipefail
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 cd "${SCRIPT_DIR}" || exit 1
 
-curl --silent --fail --show-error -JL --url "http://famfamfam.com/lab/icons/flags/famfamfam_flag_icons.zip" -o "${SCRIPT_DIR}/famfamfam_flag_icons.zip"
+curl --silent --fail --show-error -JL --url "https://web.archive.org/web/20070819052622/http://www.famfamfam.com/lab/icons/flags/famfamfam_flag_icons.zip" -o "${SCRIPT_DIR}/famfamfam_flag_icons.zip"
 unzip "${SCRIPT_DIR}/famfamfam_flag_icons.zip" "png/*.png"
 rm "${SCRIPT_DIR}/famfamfam_flag_icons.zip"
 mv "${SCRIPT_DIR}/png/"*.png "${SCRIPT_DIR}/."
