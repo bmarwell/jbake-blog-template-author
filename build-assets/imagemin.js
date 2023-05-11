@@ -17,7 +17,7 @@ import imageminMozjpeg from "imagemin-mozjpeg";
 import imageminOptipng from "imagemin-optipng";
 import imageminSvgo from "imagemin-svgo";
 
-import glob from "glob";
+import { glob } from "glob";
 import util from "util";
 import fs from "fs/promises";
 
