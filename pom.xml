@@ -41,17 +41,6 @@
         <version>3.1.0</version>
         <executions>
           <execution>
-            <id>download-flags</id>
-            <phase>generate-resources</phase>
-            <goals>
-              <goal>exec</goal>
-            </goals>
-            <configuration>
-              <executable>${project.basedir}/src/site/assets/images/lang/download.sh</executable>
-            </configuration>
-          </execution>
-
-          <execution>
             <id>download-bootstrap-icons</id>
             <phase>generate-resources</phase>
             <goals>
@@ -152,7 +141,7 @@
 
           <execution>
             <id>optimize-images</id>
-            <phase>prepare-package</phase>
+            <phase>none</phase>
             <goals>
               <goal>yarn</goal>
             </goals>

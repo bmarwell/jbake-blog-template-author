@@ -28,7 +28,7 @@ let [, , ...files] = process.argv
     let ignore = ['node_modules', 'dist', 'build']
     const globPattern = path.join(
       process.cwd(),
-      'target/website/**/*.+(png|jpg|jpeg|gif|svg|webp)',
+      'src/site/**/*.+(png|jpg|jpeg|gif|svg|webp)',
     )
     files = await util.promisify(glob)(globPattern, {ignore})
     console.log(`found ${files.length} files.`)
