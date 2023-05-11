@@ -36,7 +36,7 @@
           <ul>
           </#if>
         <#else>
-          <h4>${post.date?string("MMMM yyyy")}</h4>
+          <h2>${post.date?string("MMMM yyyy")}</h2>
           <ul>
         </#if>
         <li>${post.date?string("yyyy-MM-dd")} - <@lang.langIcon post /><a href="${content.rootpath}${post.uri?url_path}">${post.title}</a></li>
