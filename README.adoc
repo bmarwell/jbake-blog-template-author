@@ -16,6 +16,10 @@ Multi-Language-Support::
 While the blog roll (index) will show all languages, the posts itselves can contain a language idicator and a link to the translations.
 Metadata will be added where appropriate.
 Minification::
+The new behaviour since 2023-05-11 is:
+Images will not be optimized on build. Instead, run `./mvnw com.github.eirslett:frontend-maven-plugin:yarn@optimize-images` to optimize all images in the `src/site` folder.
++
+The old behaviour was:
 When building with Apache Maven, all local CSS, JS, images(!) and HTML files will be minified.
 You can skip the HTML and image minifcation step by using `./mvnw package -Dsite.postprocess.skip=true`.
 Featured Images::
