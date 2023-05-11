@@ -11,6 +11,7 @@
  * permissions and limitations under the License.
  */
 
+import process from 'node:process';
 import path from 'path';
 import imagemin from "imagemin";
 import imageminMozjpeg from "imagemin-mozjpeg";
@@ -18,7 +19,6 @@ import imageminOptipng from "imagemin-optipng";
 import imageminSvgo from "imagemin-svgo";
 
 import { glob } from "glob";
-import util from "util";
 import fs from "fs/promises";
 
 let [, , ...files] = process.argv
@@ -30,7 +30,7 @@ let [, , ...files] = process.argv
       process.cwd(),
       'src/site/**/*.+(png|jpg|jpeg|gif|svg|webp)',
     )
-    files = await util.promisify(glob)(globPattern, {ignore})
+    files = await glob(globPattern, {ignore: ignore});
     console.log(`found ${files.length} files.`)
   }
 
