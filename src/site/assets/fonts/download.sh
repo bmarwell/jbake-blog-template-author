@@ -21,9 +21,19 @@ curl \
   --fail \
   --show-error \
   --location \
-  --url "https://gwfh.mranftl.com/api/fonts/lato?download=zip&subsets=latin-ext,latin&variants=700,900,regular,italic,700italic&formats=woff,woff2" \
+  --url "https://gwfh.mranftl.com/api/fonts/lato?download=zip&subsets=latin,latin-ext&variants=700,900,regular,italic,700italic&formats=woff2" \
   -o "lato.zip"
 
 unzip -o lato.zip
-
 rm lato.zip
+
+curl \
+  --silent \
+  --fail \
+  --show-error \
+  --location \
+  --url "https://gwfh.mranftl.com/api/fonts/rokkitt?download=zip&subsets=latin,latin-ext&variants=500,700,800,regular&formats=woff2" \
+  -o "rokkitt.zip"
+
+unzip -o rokkitt.zip
+rm rokkitt.zip
