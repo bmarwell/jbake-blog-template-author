@@ -160,3 +160,13 @@ td p {
 li p {
   margin: 0
 }
+
+/* make parts between sections a bit nicer */
+.sect1 + .sect1 {
+  border-top: 3px double #ebebeb;
+  padding-top: 1em;
+}
+
+.sect1 {
+  padding-bottom: 0.75em !important;
+}
