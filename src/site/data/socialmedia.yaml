@@ -11,6 +11,13 @@ socialmedia:
     # link title/alt
     title: '@bmarwell'
     
+  - id: &id bsky
+    icon: *id
+    name: BlueSky
+    css: *id
+    link: https://bsky.app/profile/bmarwell.de
+    title: '@bmarwell.de@bsky.app'
+
   - id: &id mastodon
     icon: *id
     name: *id
