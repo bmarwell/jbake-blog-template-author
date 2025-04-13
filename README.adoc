@@ -149,9 +149,10 @@ Delete the file `/src/site/content/robots.adoc` and create a file `/src/site/ass
 
 == Publishing
 
-Compile your web site using `./mvnw package`.
+Compile your website using `./mvnw package`.
+Then optionally compress all media using `./mvnw com.github.eirslett:frontend-maven-plugin:yarn@optimize-images`.
 
-If you want a live preview, use `./mvnw generate-resources jbake:inline`.
+If you want a live preview instead, use `./mvnw generate-resources jbake:inline`.
 
 == Roadmap
 
