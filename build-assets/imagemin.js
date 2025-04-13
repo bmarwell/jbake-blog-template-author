@@ -13,6 +13,7 @@
 
 import process from 'node:process';
 import path from 'path';
+import os from 'os';
 import imagemin from "imagemin";
 import imageminMozjpeg from "imagemin-mozjpeg";
 import imageminOptipng from "imagemin-optipng";
@@ -20,10 +21,37 @@ import imageminSvgo from "imagemin-svgo";
 
 import { glob } from "glob";
 import fs from "fs/promises";
+import pLimit from "p-limit";
 
 let [, , ...files] = process.argv
 
-;(async () => {
+async function optimizeImageFile( file ) {
+  const [ result ] = await imagemin( [ file ], {
+    glob: false,
+    plugins: [
+      imageminMozjpeg( {
+        quality: 80
+      } ),
+      imageminOptipng( {
+        optimizationLevel: 5
+      } ),
+      //require('imagemin-webp')(),
+      imageminSvgo( {
+        multipass: true,
+        js2svg: {
+          indent: 2
+        }
+      } ),
+      //require('imagemin-gifsicle')(),
+    ],
+  } )
+  await fs.writeFile( result.sourcePath, result.data )
+
+  return file;
+}
+
+(async () => {
+  // assemble files to compress
   if (!files.length) {
     let ignore = ['node_modules', 'dist', 'build']
     const globPattern = path.join(
@@ -34,29 +62,22 @@ let [, , ...files] = process.argv
     console.log(`found ${files.length} files.`)
   }
 
-  await Promise.all(
-    files.map(async (file) => {
-      const [result] = await imagemin([file], {
-        glob: false,
-        plugins: [
-          imageminMozjpeg({
-            quality: 80
-          }),
-          imageminOptipng({
-            optimizationLevel: 5
-          }),
-          //require('imagemin-webp')(),
-          imageminSvgo({
-            multipass: true,
-            js2svg: {
-              indent: 2
-            }
-          }),
-          //require('imagemin-gifsicle')(),
-        ],
-      })
-      await fs.writeFile(result.sourcePath, result.data)
-    }),
-  )
+  // limit is cpus-1, but min 1.
+  const cpus = os.cpus().length;
+  const maxConcurrency = Math.max(1, cpus - 1)
+
+  const limit = pLimit(maxConcurrency);
+
+  // concurrently process files (using limit)
+  const promises = files.map(async (file) => {
+    return limit(() => optimizeImageFile( file ));
+  });
+
+  await (async () => {
+    // Only three promises are run at once (as defined above)
+    const result = await Promise.all(promises);
+    console.log(result);
+  })();
+
   console.log(`Finished processing ${files.length} files`)
 })()
