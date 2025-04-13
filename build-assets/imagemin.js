@@ -33,7 +33,7 @@ async function optimizeImageFile( file ) {
         quality: 80
       } ),
       imageminOptipng( {
-        optimizationLevel: 5
+        optimizationLevel: 6
       } ),
       //require('imagemin-webp')(),
       imageminSvgo( {
