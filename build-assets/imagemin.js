@@ -56,7 +56,7 @@ async function optimizeImageFile( file ) {
     let ignore = ['node_modules', 'dist', 'build']
     const globPattern = path.join(
       process.cwd(),
-      'src/site/**/*.+(png|jpg|jpeg|gif|svg|webp)',
+      'target/website/**/*.+(png|jpg|jpeg|gif|svg|webp)',
     )
     files = await glob(globPattern, {ignore: ignore});
     console.log(`found ${files.length} files.`)
