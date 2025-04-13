@@ -26,6 +26,7 @@ Featured Images::
 You can include a featured image and even select the display type for twitter and linkedin!
 Simple Light Box::
 All your images will be opened in a mobile friendly lightbox when clicking them.
+Just make sure to add a link attribute to your image block or inline image.
 Open Graph Metadata::
 Metadata for Twitter, Facebook etc. will automatically be inserted when available.
 Fallback options are available, too.
