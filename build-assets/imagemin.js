@@ -25,7 +25,7 @@ import pLimit from "p-limit";
 
 let [, , ...files] = process.argv
 
-async function optimizeImageFile( file ) {
+async function optimizeImageFile( file, index, total ) {
   const [ result ] = await imagemin( [ file ], {
     glob: false,
     plugins: [
@@ -46,6 +46,10 @@ async function optimizeImageFile( file ) {
     ],
   } )
   await fs.writeFile( result.sourcePath, result.data )
+
+  if (index % 10 === 0) {
+    console.log(`Processed ${index}/${total} files`)
+  }
 
   return file;
 }
@@ -68,15 +72,15 @@ async function optimizeImageFile( file ) {
 
   const limit = pLimit(maxConcurrency);
 
+
   // concurrently process files (using limit)
-  const promises = files.map(async (file) => {
-    return limit(() => optimizeImageFile( file ));
+  const promises = files.map(async (file, index) => {
+    return limit(() => optimizeImageFile( file, index, files.length ));
   });
 
   await (async () => {
     // Only three promises are run at once (as defined above)
-    const result = await Promise.all(promises);
-    console.log(result);
+    await Promise.all(promises);
   })();
 
   console.log(`Finished processing ${files.length} files`)

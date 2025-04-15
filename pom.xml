@@ -65,6 +65,29 @@
       </plugin>
 
       <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.3.1</version>
+        <executions>
+          <execution>
+            <id>copy-fontawesome</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${basedir}/target/website</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${project.basedir}/node_modules/@fortawesome/fontawesome-free</directory>
+                  <filtering>false</filtering>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
         <groupId>com.github.eirslett</groupId>
         <artifactId>frontend-maven-plugin</artifactId>
         <version>1.15.1</version>
@@ -97,32 +120,32 @@
 
           <execution>
             <id>terser-minify-author</id>
-            <phase>process-sources</phase>
+            <phase>prepare-package</phase>
             <goals>
               <goal>yarn</goal>
             </goals>
             <configuration>
-              <arguments>run terser -o ${project.basedir}/src/site/assets/js/author.min.js ${project.basedir}/src/site/assets/js/author.js</arguments>
+              <arguments>run terser -o ${project.basedir}/target/website/js/author.min.js ${project.basedir}/target/website/js/author.js</arguments>
             </configuration>
           </execution>
           <execution>
             <id>terser-minify-custom</id>
-            <phase>process-sources</phase>
+            <phase>prepare-package</phase>
             <goals>
               <goal>yarn</goal>
             </goals>
             <configuration>
-              <arguments>run terser -o ${project.basedir}/src/site/assets/js/custom.min.js ${project.basedir}/src/site/assets/js/custom.js</arguments>
+              <arguments>run terser -o ${project.basedir}/target/website/js/custom.min.js ${project.basedir}/target/website/js/custom.js</arguments>
             </configuration>
           </execution>
           <execution>
             <id>cleancss-minify</id>
-            <phase>process-sources</phase>
+            <phase>prepare-package</phase>
             <goals>
               <goal>yarn</goal>
             </goals>
             <configuration>
-              <arguments>run cleancss --batch --batch-suffix .min ${project.basedir}/src/site/assets/css/{author,custom,appbox,asciidoctor}.css</arguments>
+              <arguments>run cleancss --batch --batch-suffix .min ${project.basedir}/target/website/css/{author,custom,appbox,asciidoctor}.css</arguments>
             </configuration>
           </execution>
 
@@ -141,7 +164,7 @@
 
           <execution>
             <id>optimize-images</id>
-            <phase>none</phase>
+            <phase>package</phase>
             <goals>
               <goal>yarn</goal>
             </goals>

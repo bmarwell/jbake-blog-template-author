@@ -10,7 +10,6 @@
  * permissions and limitations under the License.
  */
 
-@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.0/css/font-awesome.css);
 /* ========================================================================== Embedded content ========================================================================== */
 /** Remove border when inside `a` element in IE 8/9. */
 img { border: 0; }
@@ -252,7 +251,7 @@ p a > code:hover { color: #561309; }
 table.tableblock #preamble > .sectionbody > .paragraph:first-of-type p { font-size: inherit; }
 
 .admonitionblock > table { border: 0; background: none; width: 100%; }
-.admonitionblock > table td.icon { text-align: center; width: 80px; }
+.admonitionblock > table td.icon { text-align: center; min-width: 80px; }
 .admonitionblock > table td.icon img { max-width: none; }
 .admonitionblock > table td.icon .title { font-weight: bold; text-transform: uppercase; }
 .admonitionblock > table td.content { padding-left: 1.125em; padding-right: 1.25em; border-left: 1px solid #dddddd; color: #6f6f6f; }
@@ -510,12 +509,103 @@ div.unbreakable { page-break-inside: avoid; }
 
 span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 
-.admonitionblock td.icon [class^="icon-"]:before { font-size: 2.5em; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); cursor: default; }
-.admonitionblock td.icon .icon-note:before { content: "\f05a"; color: #005498; color: #003f72; }
-.admonitionblock td.icon .icon-tip:before { content: "\f0eb"; text-shadow: 1px 1px 2px rgba(155, 155, 0, 0.8); color: #111; }
-.admonitionblock td.icon .icon-warning:before { content: "\f071"; color: #bf6900; }
-.admonitionblock td.icon .icon-caution:before { content: "\f06d"; color: #bf3400; }
-.admonitionblock td.icon .icon-important:before { content: "\f06a"; color: #bf0000; }
+.admonitionblock {
+  margin: 1.4rem 0 0
+}
+
+.admonitionblock p, .admonitionblock td.content {
+  font-size: .88889rem
+}
+
+.admonitionblock td.content > .title + *, .admonitionblock td.content > :not(.title):first-child {
+  margin-top: 0
+}
+
+.admonitionblock pre {
+  font-size: .83333rem
+}
+
+.admonitionblock > table {
+  table-layout: fixed;
+  position: relative;
+  width: 100%
+}
+
+.admonitionblock td.content {
+  padding: 1rem 1rem .75rem;
+  background: #fafafa;
+  width: 100%;
+  word-wrap: anywhere
+}
+
+
+.admonitionblock .icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: .83333rem;
+  padding: 0 .5rem;
+  height: 1.25rem;
+  line-height: 1;
+  font-weight: 500;
+  text-transform: uppercase;
+  border-radius: .45rem;
+  -webkit-transform: translate(-.5rem, -50%);
+  transform: translate(-.5rem, -50%)
+}
+
+.admonitionblock.caution .icon {
+  background-color: #a0439c;
+  color: #fff
+}
+
+.admonitionblock.important .icon {
+  background-color: #d32f2f;
+  color: #fff
+}
+
+.admonitionblock.note .icon {
+  background-color: #217ee7;
+  color: #fff
+}
+
+.admonitionblock.tip .icon {
+  background-color: #41af46;
+  color: #fff
+}
+
+.admonitionblock.warning .icon {
+  background-color: #e18114;
+  color: #fff
+}
+
+.admonitionblock .icon i {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 100%
+}
+
+.admonitionblock .icon i::after {
+  content: attr(title)
+}
+
+.admonitionblock .icon { border-radius: 1rem; }
+i.fa[class^='icon-'], i.fa[class*=' icon-']::before { content: ""; height: .88889rem; width: 1.25rem; margin-right: 0.25rem; margin-left: -0.5rem; }
+
+.admonitionblock td.content > .title + *, .admonitionblock td.content > :not(.title):first-child {
+  margin-top: 0
+}
+
+.admonitionblock td.icon [class^="icon-"]::before { font: var(--fa-font-solid); -webkit-font-smoothing: antialiased; font-size: 2.5em; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); cursor: default; }
+.admonitionblock td.icon .icon-note::before { content: "\f05a"; color: #005498; color: #003f72; }
+.admonitionblock td.icon .icon-tip::before { content: "\f0eb"; text-shadow: 1px 1px 2px rgba(155, 155, 0, 0.8); color: #111; }
+.admonitionblock td.icon .icon-warning::before { content: "\f071"; color: #bf6900; }
+.admonitionblock td.icon .icon-caution::before { content: "\f06d"; color: #bf3400; }
+.admonitionblock td.icon .icon-important::before { content: "\f06a"; color: #bf0000; }
 
 .conum { display: inline-block; color: white !important; background-color: #222222; -webkit-border-radius: 100px; border-radius: 100px; text-align: center; width: 20px; height: 20px; font-size: 12px; font-weight: bold; line-height: 20px; font-family: Arial, sans-serif; font-style: normal; position: relative; top: -2px; letter-spacing: -1px; }
 .conum * { color: white !important; }
