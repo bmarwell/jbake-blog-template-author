@@ -1935,6 +1935,11 @@ signal-exit@^4.0.1:
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-4.1.0.tgz#952188c1cbd546070e2dd20d0f41c0ae0530cb04"
   integrity sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==
 
+simple-lightbox@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/simple-lightbox/-/simple-lightbox-2.1.0.tgz#e8b4a10fd21eee255d5eba503eef70bbe7f6128a"
+  integrity sha512-cfIe4fKEA/qObvOKs1mbMCOhKYAClFrdZyWjZ+BJFyWOeg+ckjhydM+JajCL+nF9GRcidqfv15BYl3gfbzawXQ==
+
 slash@^5.1.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-5.1.0.tgz#be3adddcdf09ac38eebe8dcdc7b1a57a75b095ce"

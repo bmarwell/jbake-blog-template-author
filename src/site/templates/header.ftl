@@ -151,23 +151,17 @@
 
     <!-- Le styles -->
     <!-- Author theme adapted from wordpress' Author theme. -->
-    <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'/>
-
     <link rel="stylesheet" href="${content.rootpath!""}lib/highlight.js/styles/default.min.css" />
 
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/simplelightbox@2.10.2/dist/simple-lightbox.min.css"
-          integrity="sha256-vKdOMzseVP7mOv63cLP8nKXOJcZvAt4WNLw4RWWFKN8="
-          crossorigin="anonymous">
-    <link rel="stylesheet"
-          href="${content.rootpath!""}lib/shariff-plus/shariff.min.css" />
+    <link rel="stylesheet" href="${content.rootpath!""}lib/simple-lightbox/simpleLightbox.min.css" />
+    <link rel="stylesheet" href="${content.rootpath!""}lib/shariff-plus/shariff.min.css" />
 
-    <link href="${content.rootpath!""}lib/fontawesome/css/fontawesome.min.css" rel="stylesheet">
-    <link href="${content.rootpath!""}lib/fontawesome/css/brands.min.css" rel="stylesheet">
-    <link href="${content.rootpath!""}css/asciidoctor.min.css" rel="stylesheet">
-    <link id='parent-style-css' href="${content.rootpath!""}css/author.min.css" rel="stylesheet">
-    <link href="${content.rootpath!""}css/custom.min.css" rel="stylesheet">
-    <link href="${content.rootpath!""}css/appbox.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="${content.rootpath!""}lib/fontawesome/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="${content.rootpath!""}lib/fontawesome/css/brands.min.css" />
+    <link rel="stylesheet" href="${content.rootpath!""}css/asciidoctor.min.css" />
+    <link rel="stylesheet" href="${content.rootpath!""}css/author.min.css" id='parent-style-css' />
+    <link rel="stylesheet" href="${content.rootpath!""}css/custom.min.css" />
+    <link rel="stylesheet" href="${content.rootpath!""}css/appbox.min.css" />
 
     <!-- Fav and touch icons -->
     <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
