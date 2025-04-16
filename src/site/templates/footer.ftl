@@ -29,6 +29,9 @@
     </div>
 
     <!-- async css -->
+    <link rel="preload" href="${content.rootpath!""}lib/fontawesome/css/solid.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="${content.rootpath!""}lib/fontawesome/css/solid.min.css"></noscript>
+
     <link rel="preload" href="${content.rootpath!""}lib/fontawesome/css/fontawesome.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="${content.rootpath!""}lib/fontawesome/css/fontawesome.min.css"></noscript>
 
