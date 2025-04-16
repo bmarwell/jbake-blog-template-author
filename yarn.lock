@@ -2,6 +2,16 @@
 # yarn lockfile v1
 
 
+"@fontsource/lato@^5.2.5":
+  version "5.2.5"
+  resolved "https://registry.yarnpkg.com/@fontsource/lato/-/lato-5.2.5.tgz#cf552f13a569aff28625d9d37db35ca26be7d594"
+  integrity sha512-d8aogKOul7a3eYG3UzTG8PB6A0D+6tlkFQCACmKQ7qTwB3XS6QmkSW1L0vYbVE9CfCRq/Zpb5sG3gNA6yJea/A==
+
+"@fontsource/rokkitt@^5.2.5":
+  version "5.2.5"
+  resolved "https://registry.yarnpkg.com/@fontsource/rokkitt/-/rokkitt-5.2.5.tgz#8af6f3a6cd450129f3bd0d9d06ecce7e44893209"
+  integrity sha512-PvtQ1PR9yVGE4z0Lztxq/vMNMQ3hHDjQXMyBs5ml5BlmR3T8CwNzAeOW255tX5WVpRVzxzf/esBlc5BXSN7Pzg==
+
 "@fortawesome/fontawesome-free@^5.8.2":
   version "5.15.4"
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.15.4.tgz#ecda5712b61ac852c760d8b3c79c96adca5554e5"

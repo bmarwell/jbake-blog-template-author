@@ -151,6 +151,11 @@
 
     <!-- Le styles -->
     <!-- Author theme adapted from wordpress' Author theme. -->
+    <link rel="stylesheet" href="${content.rootpath!""}lib/@fontsource/lato/index.css"/>
+    <link rel="stylesheet" href="${content.rootpath!""}lib/@fontsource/lato/latin-ext.css"/>
+    <link rel="stylesheet" href="${content.rootpath!""}lib/@fontsource/rokkitt/index.css"/>
+    <link rel="stylesheet" href="${content.rootpath!""}lib/@fontsource/rokkitt/latin-ext.css"/>
+
     <link rel="stylesheet" href="${content.rootpath!""}lib/highlight.js/styles/default.min.css" />
 
     <link rel="stylesheet" href="${content.rootpath!""}lib/simple-lightbox/simpleLightbox.min.css" />

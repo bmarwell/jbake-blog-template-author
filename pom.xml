@@ -50,17 +50,6 @@
               <executable>${project.basedir}/src/site/assets/images/bootstrap/download.sh</executable>
             </configuration>
           </execution>
-
-          <execution>
-            <id>download-font</id>
-            <phase>generate-resources</phase>
-            <goals>
-              <goal>exec</goal>
-            </goals>
-            <configuration>
-              <executable>${project.basedir}/src/site/assets/fonts/download.sh</executable>
-            </configuration>
-          </execution>
         </executions>
       </plugin>
 
@@ -159,6 +148,22 @@
               <resources>
                 <resource>
                   <directory>${project.basedir}/node_modules/country-flag-icons/3x2</directory>
+                  <filtering>false</filtering>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+          <execution>
+            <id>copy-fonts</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${basedir}/target/website/lib/@fontsource</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${project.basedir}/node_modules/@fontsource</directory>
                   <filtering>false</filtering>
                 </resource>
               </resources>
