@@ -32,6 +32,8 @@
     <script src="${content.rootpath!""}js/custom.min.js" ></script>
     <script src="https://platform.twitter.com/widgets.js" ></script>
 
+    <script src="${content.rootpath!""}lib/shariff-plus/shariff.complete.js"></script>
+
     <script src="${content.rootpath!""}lib/highlight.js/highlight.min.js"></script>
     <script src="${content.rootpath!""}lib/highlight.js/languages/bash.min.js"></script>
     <script src="${content.rootpath!""}lib/highlight.js/languages/java.min.js"></script>
