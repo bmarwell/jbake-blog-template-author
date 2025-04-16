@@ -148,6 +148,22 @@
               </resources>
             </configuration>
           </execution>
+          <execution>
+            <id>copy-country-flag-icons</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${basedir}/target/website/lib/country-flag-icons</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${project.basedir}/node_modules/country-flag-icons/3x2</directory>
+                  <filtering>false</filtering>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
 

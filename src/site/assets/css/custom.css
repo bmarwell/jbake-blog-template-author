@@ -188,29 +188,29 @@ img.social-media-icon:hover {
 
 /* language icons */
 .lang-icon-append::after {
-  height: 11px;
-  display: inline-block;
+  height: 16px;
+  display: inline-flex;
 }
 .lang-en::after {
-  content: url(../images/lang/gb.png);
+  content: url(../lib/country-flag-icons/GB.svg);
 }
 .lang-en-GB::after {
-  content: url(../images/lang/gb.png);
+  content: url(../lib/country-flag-icons/GB.svg);
 }
 .lang-en-US::after {
-  content: url(../images/lang/us.png);
+  content: url(../lib/country-flag-icons/US.svg);
 }
 .lang-de::after {
-  content: url(../images/lang/de.png);
+  content: url(../lib/country-flag-icons/DE.svg);
 }
 .lang-de-DE::after {
-  content: url(../images/lang/de.png);
+  content: url(../lib/country-flag-icons/DE.svg);
 }
 .lang-de-AT::after {
-  content: url(../images/lang/at.png);
+  content: url(../lib/country-flag-icons/AT.svg);
 }
 .lang-unknown::after {
-  content: url(../images/lang/unknown.png);
+  content: url(../lib/country-flag-icons/ZZ.svg);
 }
 
 /* tables */

@@ -3,17 +3,17 @@ flags:
     img: /images/lang/unknown.png
     alt: Unknown
   'en-GB':
-    img: /images/lang/gb.png
+    img: /lib/country-flag-icons/GB.svg
     alt: English (British)
   'en':
-    img: /images/lang/gb.png
+    img: /lib/country-flag-icons/GB.svg
     alt: English (Global)
   'de-DE':
-    img: /images/lang/de.png
+    img: /lib/country-flag-icons/DE.svg
     alt: Deutsch (Deutschland)
   'de-AT':
-    img: /images/lang/at.png
+    img: /lib/country-flag-icons/AT.svg
     alt: Deutsch (Österreich)
   'de':
-    img: /images/lang/de.png
+    img: /lib/country-flag-icons/DE.svg
     alt: Deutsch (Global)
