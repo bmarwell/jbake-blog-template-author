@@ -75,7 +75,7 @@
               <goal>copy-resources</goal>
             </goals>
             <configuration>
-              <outputDirectory>${basedir}/target/website</outputDirectory>
+              <outputDirectory>${basedir}/target/website/lib/fontawesome</outputDirectory>
               <resources>
                 <resource>
                   <directory>${project.basedir}/node_modules/@fortawesome/fontawesome-free</directory>

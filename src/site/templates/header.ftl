@@ -173,7 +173,7 @@
             integrity="sha256-w3RQhmXceT5KT2HdArsmuGMsWRa41occbLEZuBF219Y="
             crossorigin="anonymous"></script>
 
-    <link href="${content.rootpath!""}css/fontawesome.min.css" rel="stylesheet">
+    <link href="${content.rootpath!""}lib/fontawesome/css/fontawesome.min.css" rel="stylesheet">
     <link href="${content.rootpath!""}css/asciidoctor.min.css" rel="stylesheet">
     <link id='parent-style-css' href="${content.rootpath!""}css/author.min.css" rel="stylesheet">
     <link href="${content.rootpath!""}css/custom.min.css" rel="stylesheet">
