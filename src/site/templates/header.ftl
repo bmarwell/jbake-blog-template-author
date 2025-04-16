@@ -153,13 +153,7 @@
     <!-- Author theme adapted from wordpress' Author theme. -->
     <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'/>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.0/build/styles/default.min.css">
-    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.0/build/highlight.min.js"
-            integrity="sha512-BNc7saQYlxCL10lykUYhFBcnzdKMnjx5fp5s5wPucDyZ7rKNwCoqJh1GwEAIhuePEK4WM9askJBRsu7ma0Rzvg=="
-            crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.8.0/dist/highlightjs-line-numbers.min.js"
-            integrity="sha256-575pualpuI2I0ifwPHEfC5VtYDdT7rRaAB19WGjbNEM="
-            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="${content.rootpath!""}lib/highlight.js/styles/default.min.css" />
 
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/simplelightbox@2.10.2/dist/simple-lightbox.min.css"

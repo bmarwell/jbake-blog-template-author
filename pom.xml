@@ -84,6 +84,38 @@
               </resources>
             </configuration>
           </execution>
+          <execution>
+            <id>copy-highlight.js</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${basedir}/target/website/lib/highlight.js</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${project.basedir}/node_modules/@highlightjs/cdn-assets</directory>
+                  <filtering>false</filtering>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+          <execution>
+            <id>copy-highlightjs-line-numbers</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${basedir}/target/website/lib/highlightjs-line-numbers.js</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${project.basedir}/node_modules/highlightjs-line-numbers.js/dist</directory>
+                  <filtering>false</filtering>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
 

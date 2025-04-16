@@ -31,6 +31,16 @@
     <script src="${content.rootpath!""}js/author.min.js" ></script>
     <script src="${content.rootpath!""}js/custom.min.js" ></script>
     <script src="https://platform.twitter.com/widgets.js" ></script>
+
+    <script src="${content.rootpath!""}lib/highlight.js/highlight.min.js"></script>
+    <script src="${content.rootpath!""}lib/highlight.js/languages/bash.min.js"></script>
+    <script src="${content.rootpath!""}lib/highlight.js/languages/java.min.js"></script>
+    <script src="${content.rootpath!""}lib/highlight.js/languages/javascript.min.js"></script>
+    <script src="${content.rootpath!""}lib/highlight.js/languages/php.min.js"></script>
+    <script src="${content.rootpath!""}lib/highlight.js/languages/xml.min.js"></script>
+    <script src="${content.rootpath!""}lib/highlight.js/languages/yaml.min.js"></script>
+    <script src="${content.rootpath!""}lib/highlightjs-line-numbers.js/highlightjs-line-numbers.min.js"></script>
+
     <script>
       hljs.highlightAll();
       hljs.initLineNumbersOnLoad();

@@ -15,6 +15,8 @@
     "imagemin": "node ./build-assets/imagemin.js"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^6.7.2"
+    "@fortawesome/fontawesome-free": "^6.7.2",
+    "@highlightjs/cdn-assets": "^11.11.1",
+    "highlightjs-line-numbers.js": "^2.9.0"
   }
 }
