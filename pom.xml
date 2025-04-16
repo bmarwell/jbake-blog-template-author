@@ -193,16 +193,6 @@
             </configuration>
           </execution>
           <execution>
-            <id>terser-minify-custom</id>
-            <phase>prepare-package</phase>
-            <goals>
-              <goal>yarn</goal>
-            </goals>
-            <configuration>
-              <arguments>run terser -o ${project.basedir}/target/website/js/custom.min.js ${project.basedir}/target/website/js/custom.js</arguments>
-            </configuration>
-          </execution>
-          <execution>
             <id>cleancss-minify</id>
             <phase>prepare-package</phase>
             <goals>
