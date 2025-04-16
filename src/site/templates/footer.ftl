@@ -58,9 +58,11 @@
 
     <script src="${content.rootpath!""}lib/highlight.js/highlight.min.js?date=${cacheBuster}"></script>
     <script src="${content.rootpath!""}lib/highlight.js/languages/bash.min.js?date=${cacheBuster}"></script>
+    <script src="${content.rootpath!""}lib/highlight.js/languages/ini.min.js?date=${cacheBuster}"></script>
     <script src="${content.rootpath!""}lib/highlight.js/languages/java.min.js?date=${cacheBuster}"></script>
     <script src="${content.rootpath!""}lib/highlight.js/languages/javascript.min.js?date=${cacheBuster}"></script>
     <script src="${content.rootpath!""}lib/highlight.js/languages/php.min.js?date=${cacheBuster}"></script>
+    <script src="${content.rootpath!""}lib/highlight.js/languages/shell.min.js?date=${cacheBuster}"></script>
     <script src="${content.rootpath!""}lib/highlight.js/languages/xml.min.js?date=${cacheBuster}"></script>
     <script src="${content.rootpath!""}lib/highlight.js/languages/yaml.min.js?date=${cacheBuster}"></script>
     <script src="${content.rootpath!""}lib/highlightjs-line-numbers.js/highlightjs-line-numbers.min.js?date=${cacheBuster}"></script>
