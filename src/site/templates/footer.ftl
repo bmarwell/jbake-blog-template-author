@@ -28,6 +28,25 @@
       </div>
     </div>
 
+    <!-- async css -->
+    <link rel="preload" href="${content.rootpath!""}lib/fontawesome/css/fontawesome.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="${content.rootpath!""}lib/fontawesome/css/fontawesome.min.css"></noscript>
+
+    <link rel="preload" href="${content.rootpath!""}lib/fontawesome/css/brands.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="${content.rootpath!""}lib/fontawesome/css/brands.min.css"></noscript>
+
+    <link rel="preload" href="${content.rootpath!""}lib/highlight.js/styles/default.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="${content.rootpath!""}lib/highlight.js/styles/default.min.css"></noscript>
+
+    <link rel="preload" href="${content.rootpath!""}lib/simple-lightbox/simpleLightbox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="${content.rootpath!""}lib/simple-lightbox/simpleLightbox.min.css"></noscript>
+
+    <link rel="preload" href="${content.rootpath!""}lib/shariff-plus/shariff.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="${content.rootpath!""}lib/shariff-plus/shariff.min.css"></noscript>
+
+    <link rel="preload" href="${content.rootpath!""}css/appbox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="${content.rootpath!""}css/appbox.min.css"></noscript>
+
     <script src="${content.rootpath!""}js/author.min.js" ></script>
     <script src="${content.rootpath!""}lib/simple-lightbox/simpleLightbox.min.js"></script>
 
