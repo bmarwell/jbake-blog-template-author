@@ -28,41 +28,42 @@
       </div>
     </div>
 
+    <#assign cacheBuster = ((.now)?date?iso_utc)>
     <!-- async css -->
-    <link rel="preload" href="${content.rootpath!""}lib/fontawesome/css/solid.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="${content.rootpath!""}lib/fontawesome/css/solid.min.css"></noscript>
+    <link rel="preload" href="${content.rootpath!""}lib/fontawesome/css/solid.min.css?date=${cacheBuster}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="${content.rootpath!""}lib/fontawesome/css/solid.min.css?date=${cacheBuster}"></noscript>
 
-    <link rel="preload" href="${content.rootpath!""}lib/fontawesome/css/fontawesome.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="${content.rootpath!""}lib/fontawesome/css/fontawesome.min.css"></noscript>
+    <link rel="preload" href="${content.rootpath!""}lib/fontawesome/css/fontawesome.min.css?date=${cacheBuster}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="${content.rootpath!""}lib/fontawesome/css/fontawesome.min.css?date=${cacheBuster}"></noscript>
 
-    <link rel="preload" href="${content.rootpath!""}lib/fontawesome/css/brands.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="${content.rootpath!""}lib/fontawesome/css/brands.min.css"></noscript>
+    <link rel="preload" href="${content.rootpath!""}lib/fontawesome/css/brands.min.css?date=${cacheBuster}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="${content.rootpath!""}lib/fontawesome/css/brands.min.css?date=${cacheBuster}"></noscript>
 
-    <link rel="preload" href="${content.rootpath!""}lib/highlight.js/styles/default.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="${content.rootpath!""}lib/highlight.js/styles/default.min.css"></noscript>
+    <link rel="preload" href="${content.rootpath!""}lib/highlight.js/styles/default.min.css?date=${cacheBuster}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="${content.rootpath!""}lib/highlight.js/styles/default.min.css?date=${cacheBuster}"></noscript>
 
-    <link rel="preload" href="${content.rootpath!""}lib/simple-lightbox/simpleLightbox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="${content.rootpath!""}lib/simple-lightbox/simpleLightbox.min.css"></noscript>
+    <link rel="preload" href="${content.rootpath!""}lib/simple-lightbox/simpleLightbox.min.css?date=${cacheBuster}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="${content.rootpath!""}lib/simple-lightbox/simpleLightbox.min.css?date=${cacheBuster}"></noscript>
 
-    <link rel="preload" href="${content.rootpath!""}lib/shariff-plus/shariff.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="${content.rootpath!""}lib/shariff-plus/shariff.min.css"></noscript>
+    <link rel="preload" href="${content.rootpath!""}lib/shariff-plus/shariff.min.css?date=${cacheBuster}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="${content.rootpath!""}lib/shariff-plus/shariff.min.css?date=${cacheBuster}"></noscript>
 
-    <link rel="preload" href="${content.rootpath!""}css/appbox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="${content.rootpath!""}css/appbox.min.css"></noscript>
+    <link rel="preload" href="${content.rootpath!""}css/appbox.min.css?date=${cacheBuster}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="${content.rootpath!""}css/appbox.min.css?date=${cacheBuster}"></noscript>
 
     <script src="${content.rootpath!""}js/author.min.js" ></script>
-    <script src="${content.rootpath!""}lib/simple-lightbox/simpleLightbox.min.js"></script>
+    <script src="${content.rootpath!""}lib/simple-lightbox/simpleLightbox.min.js?date=${cacheBuster}"></script>
 
-    <script src="${content.rootpath!""}lib/shariff-plus/shariff.complete.js"></script>
+    <script src="${content.rootpath!""}lib/shariff-plus/shariff.complete.js?date=${cacheBuster}"></script>
 
-    <script src="${content.rootpath!""}lib/highlight.js/highlight.min.js"></script>
-    <script src="${content.rootpath!""}lib/highlight.js/languages/bash.min.js"></script>
-    <script src="${content.rootpath!""}lib/highlight.js/languages/java.min.js"></script>
-    <script src="${content.rootpath!""}lib/highlight.js/languages/javascript.min.js"></script>
-    <script src="${content.rootpath!""}lib/highlight.js/languages/php.min.js"></script>
-    <script src="${content.rootpath!""}lib/highlight.js/languages/xml.min.js"></script>
-    <script src="${content.rootpath!""}lib/highlight.js/languages/yaml.min.js"></script>
-    <script src="${content.rootpath!""}lib/highlightjs-line-numbers.js/highlightjs-line-numbers.min.js"></script>
+    <script src="${content.rootpath!""}lib/highlight.js/highlight.min.js?date=${cacheBuster}"></script>
+    <script src="${content.rootpath!""}lib/highlight.js/languages/bash.min.js?date=${cacheBuster}"></script>
+    <script src="${content.rootpath!""}lib/highlight.js/languages/java.min.js?date=${cacheBuster}"></script>
+    <script src="${content.rootpath!""}lib/highlight.js/languages/javascript.min.js?date=${cacheBuster}"></script>
+    <script src="${content.rootpath!""}lib/highlight.js/languages/php.min.js?date=${cacheBuster}"></script>
+    <script src="${content.rootpath!""}lib/highlight.js/languages/xml.min.js?date=${cacheBuster}"></script>
+    <script src="${content.rootpath!""}lib/highlight.js/languages/yaml.min.js?date=${cacheBuster}"></script>
+    <script src="${content.rootpath!""}lib/highlightjs-line-numbers.js/highlightjs-line-numbers.min.js?date=${cacheBuster}"></script>
 
     <script>
       hljs.highlightAll();

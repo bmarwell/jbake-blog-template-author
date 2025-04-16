@@ -1,0 +1,74 @@
+<Files "feed.xml">
+    AddType application/atom+xml .xml
+    AddCharset UTF-8 .xml
+    ForceType 'application/atom+xml; charset=UTF-8'
+</Files>
+
+# Enable compression
+# Enable Zstandard compression
+<IfModule mod_zstd.c>
+   AddEncoding zstd .zst
+   AddOutputFilterByType ZSTD text/plain
+   AddOutputFilterByType ZSTD text/html
+   AddOutputFilterByType ZSTD text/xml
+   AddOutputFilterByType ZSTD text/css
+   AddOutputFilterByType ZSTD application/xml
+   AddOutputFilterByType ZSTD application/xhtml+xml
+   AddOutputFilterByType ZSTD application/rss+xml
+   AddOutputFilterByType ZSTD application/javascript
+   AddOutputFilterByType ZSTD application/x-javascript
+</IfModule>
+
+# Enable Brotli compression
+<IfModule mod_brotli.c>
+   AddOutputFilterByType BROTLI_COMPRESS text/plain
+   AddOutputFilterByType BROTLI_COMPRESS text/html
+   AddOutputFilterByType BROTLI_COMPRESS text/xml
+   AddOutputFilterByType BROTLI_COMPRESS text/css
+   AddOutputFilterByType BROTLI_COMPRESS application/xml
+   AddOutputFilterByType BROTLI_COMPRESS application/xhtml+xml
+   AddOutputFilterByType BROTLI_COMPRESS application/rss+xml
+   AddOutputFilterByType BROTLI_COMPRESS application/javascript
+   AddOutputFilterByType BROTLI_COMPRESS application/x-javascript
+</IfModule>
+
+# old deflate compression
+<IfModule mod_deflate.c>
+   AddOutputFilterByType DEFLATE text/plain
+   AddOutputFilterByType DEFLATE text/html
+   AddOutputFilterByType DEFLATE text/xml
+   AddOutputFilterByType DEFLATE text/css
+   AddOutputFilterByType DEFLATE application/xml
+   AddOutputFilterByType DEFLATE application/xhtml+xml
+   AddOutputFilterByType DEFLATE application/rss+xml
+   AddOutputFilterByType DEFLATE application/javascript
+   AddOutputFilterByType DEFLATE application/x-javascript
+</IfModule>
+
+# Set the Vary header to inform proxies that content can vary by Accept-Encoding
+<IfModule mod_headers.c>
+   Header append Vary Accept-Encoding
+</IfModule>
+
+# Set up caching for images, CSS, and JavaScript files
+<IfModule mod_expires.c>
+   ExpiresActive On
+   ExpiresByType image/jpg "access plus 1 year"
+   ExpiresByType image/jpeg "access plus 1 year"
+   ExpiresByType image/gif "access plus 1 year"
+   ExpiresByType image/png "access plus 1 year"
+   ExpiresByType text/css "access plus 1 month"
+   ExpiresByType text/x-javascript "access plus 1 month"
+   ExpiresByType image/x-icon "access plus 1 year"
+   ExpiresDefault "access plus 2 days"
+</IfModule>
+
+# Caching HTML files
+<FilesMatch "\.(html|htm)$">
+   FileETag None
+   <IfModule mod_headers.c>
+       Header unset ETag
+       Header set Cache-Control "max-age=3600, private, must-revalidate"
+   </IfModule>
+</FilesMatch>
+

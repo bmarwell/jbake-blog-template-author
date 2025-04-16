@@ -151,14 +151,15 @@
 
     <!-- Le styles -->
     <!-- Author theme adapted from wordpress' Author theme. -->
-    <link rel="stylesheet" href="${content.rootpath!""}lib/@fontsource/lato/index.css"/>
-    <link rel="stylesheet" href="${content.rootpath!""}lib/@fontsource/lato/latin-ext.css"/>
-    <link rel="stylesheet" href="${content.rootpath!""}lib/@fontsource/rokkitt/index.css"/>
-    <link rel="stylesheet" href="${content.rootpath!""}lib/@fontsource/rokkitt/latin-ext.css"/>
+    <#assign cacheBuster = ((.now)?date?iso_utc)>
+    <link rel="stylesheet" href="${content.rootpath!""}lib/@fontsource/lato/index.css?date=${cacheBuster}"/>
+    <link rel="stylesheet" href="${content.rootpath!""}lib/@fontsource/lato/latin-ext.css?date=${cacheBuster}"/>
+    <link rel="stylesheet" href="${content.rootpath!""}lib/@fontsource/rokkitt/index.css?date=${cacheBuster}"/>
+    <link rel="stylesheet" href="${content.rootpath!""}lib/@fontsource/rokkitt/latin-ext.css?date=${cacheBuster}"/>
 
-    <link rel="stylesheet" href="${content.rootpath!""}css/asciidoctor.min.css" />
-    <link rel="stylesheet" href="${content.rootpath!""}css/author.min.css" id='parent-style-css' />
-    <link rel="stylesheet" href="${content.rootpath!""}css/custom.min.css" />
+    <link rel="stylesheet" href="${content.rootpath!""}css/asciidoctor.min.css?date=${cacheBuster}" />
+    <link rel="stylesheet" href="${content.rootpath!""}css/author.min.css?date=${cacheBuster}" id='parent-style-css' />
+    <link rel="stylesheet" href="${content.rootpath!""}css/custom.min.css?date=${cacheBuster}" />
 
     <!-- Fav and touch icons -->
     <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
