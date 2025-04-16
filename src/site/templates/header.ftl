@@ -163,6 +163,7 @@
           href="${content.rootpath!""}lib/shariff-plus/shariff.min.css" />
 
     <link href="${content.rootpath!""}lib/fontawesome/css/fontawesome.min.css" rel="stylesheet">
+    <link href="${content.rootpath!""}lib/fontawesome/css/brands.min.css" rel="stylesheet">
     <link href="${content.rootpath!""}css/asciidoctor.min.css" rel="stylesheet">
     <link id='parent-style-css' href="${content.rootpath!""}css/author.min.css" rel="stylesheet">
     <link href="${content.rootpath!""}css/custom.min.css" rel="stylesheet">
