@@ -33,26 +33,6 @@
 
   <build>
     <plugins>
-
-      <!-- download assets -->
-      <plugin>
-        <artifactId>exec-maven-plugin</artifactId>
-        <groupId>org.codehaus.mojo</groupId>
-        <version>3.5.0</version>
-        <executions>
-          <execution>
-            <id>download-bootstrap-icons</id>
-            <phase>generate-resources</phase>
-            <goals>
-              <goal>exec</goal>
-            </goals>
-            <configuration>
-              <executable>${project.basedir}/src/site/assets/images/bootstrap/download.sh</executable>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>
         <version>3.3.1</version>
@@ -164,6 +144,22 @@
               <resources>
                 <resource>
                   <directory>${project.basedir}/node_modules/@fontsource</directory>
+                  <filtering>false</filtering>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+          <execution>
+            <id>copy-bootstrap-icons</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${basedir}/target/website/images/bootstrap</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${project.basedir}/node_modules/bootstrap-icons/icons</directory>
                   <filtering>false</filtering>
                 </resource>
               </resources>
