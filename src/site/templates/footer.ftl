@@ -45,7 +45,6 @@
     <script>
       hljs.highlightAll();
       hljs.initLineNumbersOnLoad();
-      twitterFunctions.convertTweets();
     </script>
 
     <script>
