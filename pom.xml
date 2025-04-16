@@ -241,7 +241,7 @@
             </goals>
             <configuration>
               <skip>${site.postprocess.skip}</skip>
-              <arguments>run imagemin</arguments>
+              <arguments>run sharp</arguments>
             </configuration>
           </execution>
         </executions>

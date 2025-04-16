@@ -10,42 +10,41 @@
  * KIND, either express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-
 import process from 'node:process';
 import path from 'path';
 import os from 'os';
-import imagemin from "imagemin";
-import imageminMozjpeg from "imagemin-mozjpeg";
-import imageminOptipng from "imagemin-optipng";
-import imageminSvgo from "imagemin-svgo";
-
 import { glob } from "glob";
 import fs from "fs/promises";
 import pLimit from "p-limit";
+import sharp from "sharp";
 
 let [, , ...files] = process.argv
 
-async function optimizeImageFile( file, index, total ) {
-  const [ result ] = await imagemin( [ file ], {
-    glob: false,
-    plugins: [
-      imageminMozjpeg( {
-        quality: 80
-      } ),
-      imageminOptipng( {
-        optimizationLevel: 6
-      } ),
-      //require('imagemin-webp')(),
-      imageminSvgo( {
-        multipass: true,
-        js2svg: {
-          indent: 2
-        }
-      } ),
-      //require('imagemin-gifsicle')(),
-    ],
-  } )
-  await fs.writeFile( result.sourcePath, result.data )
+async function optimizeImageFile(file, index, total) {
+  if (file.endsWith(".jpg") || file.endsWith(".jpeg")) {
+    const optiJpeg = await sharp(file)
+      .jpeg({ mozjpeg: true, quality: 80 })
+      .toBuffer();
+    await fs.writeFile(file, optiJpeg);
+
+    const webp = await sharp(file)
+      .webp({quality: 80})
+      .toBuffer();
+
+    await fs.writeFile(file.replace(".jpeg", "").replace(".jpg", "") + ".webp", webp);
+  } else if (file.endsWith(".png")) {
+    const optiPng = await sharp(file)
+      .png({ compressionLevel: 6, palette: true, quality: 85, effort: 10 })
+      .toBuffer();
+
+    await fs.writeFile(file, optiPng);
+  } else if (file.endsWith(".gif")) {
+    const optiGif = await sharp(file)
+      .gif({ effort: 10 })
+      .toBuffer();
+
+    await fs.writeFile(file, optiGif);
+  }
 
   if (index % 10 === 0) {
     console.log(`Processed ${index}/${total} files`)
@@ -54,17 +53,14 @@ async function optimizeImageFile( file, index, total ) {
   return file;
 }
 
-(async () => {
-  // assemble files to compress
-  if (!files.length) {
-    let ignore = ['node_modules', 'dist', 'build']
-    const globPattern = path.join(
-      process.cwd(),
-      'target/website/**/*.+(png|jpg|jpeg|gif|svg|webp)',
-    )
-    files = await glob(globPattern, {ignore: ignore});
-    console.log(`found ${files.length} files.`)
-  }
+async function compress() {
+  let ignore = ['node_modules', 'dist', 'build']
+  const globPattern = path.join(
+    process.cwd(),
+    'target/website/**/*.+(png|jpg|jpeg|gif|svg|webp)',
+  )
+  files = await glob(globPattern, {ignore: ignore});
+  console.log(`found ${files.length} files.`)
 
   // limit is cpus-1, but min 1.
   const cpus = os.cpus().length;
@@ -72,8 +68,6 @@ async function optimizeImageFile( file, index, total ) {
 
   const limit = pLimit(maxConcurrency);
 
-
-  // concurrently process files (using limit)
   const promises = files.map(async (file, index) => {
     return limit(() => optimizeImageFile( file, index, files.length ));
   });
@@ -84,4 +78,6 @@ async function optimizeImageFile( file, index, total ) {
   })();
 
   console.log(`Finished processing ${files.length} files`)
-})()
+}
+
+await compress();

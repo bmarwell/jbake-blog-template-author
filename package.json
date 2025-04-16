@@ -9,10 +9,11 @@
     "imagemin-optipng": "^8.0.0",
     "imagemin-svgo": "^11.0.0",
     "p-limit": "^6.2.0",
+    "sharp": "^0.34.1",
     "terser": "^5.12.1"
   },
   "scripts": {
-    "imagemin": "node ./build-assets/imagemin.js"
+    "sharp": "node ./build-assets/sharp.js"
   },
   "dependencies": {
     "@fontsource/lato": "^5.2.5",
