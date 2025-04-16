@@ -15,7 +15,7 @@
   font-style: normal;
   font-weight: 900;
   font-display: block;
-  src: url("../webfonts/fa-solid-900.woff2");
+  src: url("../lib/fontawesome/webfonts/fa-solid-900.woff2");
 }
 
 :root, :host {
