@@ -31,7 +31,6 @@
     <script src="${content.rootpath!""}js/author.min.js" ></script>
     <script src="${content.rootpath!""}js/custom.min.js" ></script>
     <script src="${content.rootpath!""}lib/simple-lightbox/simpleLightbox.min.js"></script>
-    <script src="https://platform.twitter.com/widgets.js" ></script>
 
     <script src="${content.rootpath!""}lib/shariff-plus/shariff.complete.js"></script>
 
