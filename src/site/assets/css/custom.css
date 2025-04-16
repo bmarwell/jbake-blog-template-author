@@ -103,7 +103,8 @@ img.social-media-icon:hover {
 /* language icons */
 .lang-icon-append::after {
   height: 16px;
-  display: inline-flex;
+  width: 32px;
+  display: inline-block;
 }
 .lang-en::after {
   content: url(../lib/country-flag-icons/GB.svg);
