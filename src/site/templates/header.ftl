@@ -55,7 +55,7 @@
     <#else>
     <#-- leave out og:description, so it will fill from the body. -->
     </#if>
-    <#if (content.type == "post") && (content.author)??>
+    <#if (content.author)??>
     <meta name="author" content="${content.author}">
     </#if>
     <#if (content.tags)??>
