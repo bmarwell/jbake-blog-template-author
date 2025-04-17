@@ -11,17 +11,15 @@ Author theme::
 The Author theme was ported by me, including a rewrite of the JavaScript files to not use jQuery.
 No jQuery::
 Yes, I got rid of all jQuery.
-Really.
+Really. +
+_However_, shariff-plus still uses jQuery internally.
+Follow https://github.com/richard67/shariff-plus/pull/22 and I will integrate it the moment it is ready!
 Multi-Language-Support::
 While the blog roll (index) will show all languages, the posts itselves can contain a language idicator and a link to the translations.
 Metadata will be added where appropriate.
 Minification::
 The new behaviour since 2023-05-11 is:
-Images will not be optimized on build. Instead, run `./mvnw com.github.eirslett:frontend-maven-plugin:yarn@optimize-images` to optimize all images in the `src/site` folder.
-+
-The old behaviour was:
-When building with Apache Maven, all local CSS, JS, images(!) and HTML files will be minified.
-You can skip the HTML and image minifcation step by using `./mvnw package -Dsite.postprocess.skip=true`.
+Images will not be optimized on build. Instead, run `./mvnw com.github.eirslett:frontend-maven-plugin:yarn@optimize-images` to optimize all images in the `target/website` folder.
 Featured Images::
 You can include a featured image and even select the display type for twitter and linkedin!
 Simple Light Box::
@@ -105,33 +103,16 @@ The following snippet is a sample header for your asciidoc posts:
 == Adding twitter widgets
 
 This template supports adding timelines and tweets.
+This can be done using Twitters embed function.
 
-One option is to include a timeline. At the moment, there is no freemarker macro,
-but an HTML passthrough will do.
-
-Be sure to add the classes "twitter" and "timeline".
-The `data-twitter-timeline-id` is the actual source for the generated timeline.
-As a fallback, you can insert or link the referenced timeline.
-
-.Adding a user timeline
-[source,asciidoc]
-----
-++++
-<div class="twitter timeline wp-block" data-twitter-timeline-id="bmarwell"><a href="https://twitter.com/bmarwell">https://twitter.com/bmarwell</a></div>
-++++
-----
-
-You can also link a specific tweet.
-Instead of the timeline class, use the `tweet` class.
-Again, you can optionally add some fallback content.
+You can also link a specific tweet, which is probably the more common option.
+Just use Twitters/Xs embed code.
 
 .Adding a specific tweet
 [source,asciidoc]
 ----
 ++++
-<div class="twitter tweet wp-block" data-tweet-id="1508528412679356416">
- https://twitter.com/bmarwell/status/1508528412679356416
-</div>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">For me powermock is a big code smell....</p>&mdash; Karl Heinz Marbaise (@khmarbaise) <a href="https://twitter.com/khmarbaise/status/1330851804062609409?ref_src=twsrc%5Etfw">November 23, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 ++++
 ----
 
@@ -151,9 +132,10 @@ Delete the file `/src/site/content/robots.adoc` and create a file `/src/site/ass
 == Publishing
 
 Compile your website using `./mvnw package`.
-Then optionally compress all media using `./mvnw com.github.eirslett:frontend-maven-plugin:yarn@optimize-images`.
+This will also run `sharp` (an alternative to `imagemin`) and compress all images.
 
-If you want a live preview instead, use `./mvnw generate-resources jbake:inline`.
+If you want a live preview instead, use `./mvnw prepare-package jbake:inline`.
+In case you do not need hot code reload, just start a web server in `target/website` and run `./mvnw prepare-package` - this will skip the image optimization process which can take a while.
 
 == Roadmap
 
