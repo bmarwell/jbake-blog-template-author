@@ -19,11 +19,6 @@
   resolved "https://registry.yarnpkg.com/@fontsource/rokkitt/-/rokkitt-5.2.5.tgz#8af6f3a6cd450129f3bd0d9d06ecce7e44893209"
   integrity sha512-PvtQ1PR9yVGE4z0Lztxq/vMNMQ3hHDjQXMyBs5ml5BlmR3T8CwNzAeOW255tX5WVpRVzxzf/esBlc5BXSN7Pzg==
 
-"@fortawesome/fontawesome-free@^5.8.2":
-  version "5.15.4"
-  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.15.4.tgz#ecda5712b61ac852c760d8b3c79c96adca5554e5"
-  integrity sha512-eYm8vijH/hpzr/6/1CJ/V/Eb1xQFW2nnUKArb3z+yUWv7HTwj6M7SP957oMjfZjAHU6qpoNc2wQvIxBLWYa/Jg==
-
 "@fortawesome/fontawesome-free@^6.7.2":
   version "6.7.2"
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-6.7.2.tgz#8249de9b7e22fcb3ceb5e66090c30a1d5492b81a"
@@ -1523,7 +1518,7 @@ jackspeak@^4.0.1:
   dependencies:
     "@isaacs/cliui" "^8.0.2"
 
-jquery@^3.4.1:
+jquery@^3.7.1:
   version "3.7.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.7.1.tgz#083ef98927c9a6a74d05a6af02806566d16274de"
   integrity sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg==
@@ -2069,13 +2064,13 @@ semver@^7.7.1:
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.7.1.tgz#abd5098d82b18c6c81f6074ff2647fd3e7220c9f"
   integrity sha512-hlq8tAfn0m/61p4BVRcPzIGr6LKiMwo4VM6dGi6pt4qcRkmNzTcWq6eCEjEh+qXjkMDvPlOFFSGwQjoEa6gyMA==
 
-shariff-plus@^2.3.1:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/shariff-plus/-/shariff-plus-2.3.1.tgz#4151048dd63e7c4050f081baef9d30c9ef92075f"
-  integrity sha512-O6FGUhXw1Vtz/aZjhuVVh1tglwFj9l09J9z5p9M6TnJnWU7dQZJYWS/g3ugquFO3C6iklYSzOhdqKkP6eDkkGw==
+shariff-plus@2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/shariff-plus/-/shariff-plus-2.3.2.tgz#46c19f562a2bc6fd331157b5f39a8c4bec4b4221"
+  integrity sha512-BAVHG6tczSitQTCo07Rky94K+xBnNBql7Yudmxie4z0cm0Zw/ceHLUMcDY1rvSJlSZdbHc3moNz4ZtAUts1v/g==
   dependencies:
-    "@fortawesome/fontawesome-free" "^5.8.2"
-    jquery "^3.4.1"
+    "@fortawesome/fontawesome-free" "^6.7.2"
+    jquery "^3.7.1"
 
 sharp@^0.34.1:
   version "0.34.1"
