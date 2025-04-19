@@ -41,7 +41,8 @@ The menu can be defined using YAML.
 No writing of complicated HTML anymore.
 Tag page descriptions::
 You can define descriptions for your tag page for better SEO visibility.
-
+Matomo tracking::
+Enable Matomo tracking for your blog with just three settings (`enabled`, `url`, `site_id`).
 
 == Setup instructions
 
