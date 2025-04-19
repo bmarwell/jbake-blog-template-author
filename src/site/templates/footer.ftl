@@ -77,7 +77,7 @@
     </script>
 
     <#-- Matomo stats tracking -->
-    <#if (config.matomo_enabled)?? && (config.matomo_enabled == "true") && (config.matomo_site_id)?? && (config.matomo_url)??>
+    <#if (config.site_matomo_enabled)?? && (config.site_matomo_enabled == "true") && (config.site_matomo_site_id)?? && (config.site_matomo_url)??>
     <!-- Matomo -->
     <script>
       var _paq = window._paq = window._paq || [];
@@ -85,9 +85,9 @@
       _paq.push(['trackPageView']);
       _paq.push(['enableLinkTracking']);
       (function() {
-        var u="//${config.matomo_url}/";
+        var u="//${config.site_matomo_url}/";
         _paq.push(['setTrackerUrl', u+'matomo.php']);
-        _paq.push(['setSiteId', '${config.matomo_site_id}']);
+        _paq.push(['setSiteId', '${config.site_matomo_site_id}']);
         var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
         g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
       })();
