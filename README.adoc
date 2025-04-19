@@ -35,7 +35,8 @@ You can insert links to the following stores via macro (incomplete):
 * Google Play Store
 * More to come
 Shariff sharing buttons::
-These sharing buttons do not compromise your security: No I-Frames or other injected code from the servers.
+These sharing buttons do not compromise your security: No I-Frames or other injected code from the servers. +
+You can also enable shariff per page using `:jbake-shariff: true`.
 YAML-based menu::
 The menu can be defined using YAML.
 No writing of complicated HTML anymore.
