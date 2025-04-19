@@ -24,6 +24,19 @@
       ${content.body}
     </div>
 
+    <div class="shariff"
+      <#if ((content.shariff)?? && content.shariff == "true") && (config.shariff_services)??><#list (config.shariff_services)><@compress single_line=true>
+        data-services="[
+     <#items as service>
+     &quot;${service}&quot;,
+     </#items>
+     ]"
+      </@compress>
+      </#list></#if>
+      <#if (config.shariff_backend_url)??> data-backend-url="${config.shariff_backend_url}"</#if>
+      <#if (content.lang)??>data-lang="${(content.lang)[0..*2]}"</#if>
+    ></div>
+
     <div class="post-tags">
       <#if (content.tags)??><#list (content.tags)>
         <ul>
