@@ -77,7 +77,7 @@
     </script>
 
     <#-- Matomo stats tracking -->
-    <#if ((config.matomo_enabled)!"false" == "true") && (config.matomo_site_id)?? && (config.matomo_url)??>
+    <#if (config.matomo_enabled)?? && (config.matomo_enabled == "true") && (config.matomo_site_id)?? && (config.matomo_url)??>
     <!-- Matomo -->
     <script>
       var _paq = window._paq = window._paq || [];
