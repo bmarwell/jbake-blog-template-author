@@ -43,9 +43,9 @@
     <script type="text/plain" data-category="github_comments" data-service="giscus" async>
     var giscusConfig = {
       repo: "${config.site_giscus_repo}",
-      repoId: "${config.site_giscus_repo_id}",
+      "repo-id": "${config.site_giscus_repo_id}",
       category: "${config.site_giscus_category}",
-      categoryId: "${config.site_giscus_category_id}",
+      "category-id": "${config.site_giscus_category_id}",
       mapping: "${config.site_giscus_mapping}",
       strict: "0",
       "reactions-enabled": "true",
