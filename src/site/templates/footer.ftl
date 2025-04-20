@@ -100,7 +100,7 @@
     <!-- End Matomo Code -->
     </#if>
 
-    <#if config.site_matomo_enabled?boolean!false >
+    <#if config.site_matomo_enabled?boolean!false || config.site_giscus_enabled?boolean!false >
     <script src="${content.rootpath!""}lib/vanilla-cookieconsent/cookieconsent.umd.js"></script>
     <script type="module" src="${content.rootpath!""}js/cookieconsent-config.js"></script>
     </#if>

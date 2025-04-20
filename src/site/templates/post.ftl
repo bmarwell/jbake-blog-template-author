@@ -38,7 +38,47 @@
        <#if (content.lang)??>data-lang="${(content.lang)[0..*2]}"</#if>
     ></div>
 
-    <div class="post-tags">
+    <#if config.site_giscus_enabled?boolean!false >
+    <div id="giscus-comments-container" class="giscus-comments-container"></div>
+    <script type="text/plain" data-category="github_comments" data-service="giscus" async>
+    var giscusConfig = {
+      repo: "${config.site_giscus_repo}",
+      repoId: "${config.site_giscus_repo_id}",
+      category: "${config.site_giscus_category}",
+      categoryId: "${config.site_giscus_category_id}",
+      mapping: "${config.site_giscus_mapping}",
+      strict: "0",
+      "reactions-enabled": "true",
+      "emit-metadata": "0",
+      "input-position": "top",
+      theme: "${config.site_giscus_theme}",
+      lang: "en",
+      loading: "lazy"
+    }
+    const container = document.getElementById('giscus-comments-container');
+    if (container && !container.querySelector('.giscus')) {
+      const script = document.createElement('script');
+      script.src = 'https://giscus.app/client.js';
+
+      for (const attr in giscusConfig) {
+        script.setAttribute(`data-${r"${attr}"}`, giscusConfig[attr]);
+      }
+
+      script.setAttribute("crossorigin", "anonymous");
+      script.toggleAttribute("async", true)
+
+      container.appendChild(script);
+    }
+    </script>
+    </#if>
+
+    <#-- TODO: Add categories -->
+    <#--
+    <div class="post-categories"><span>Published in</span><a
+              href="https://blog.bmarwell.de/information-technology/software-vorgestellt/"
+              title="View all posts in software showcase">software showcase</a></div>
+    -->
+    <div class="post-tags hide-for-print">
     <#if (content.tags)??><#list (content.tags)>
       <ul>
         <#items as content_tag>
@@ -51,7 +91,7 @@
     </div>
   </article>
 
-  <nav class="further-reading">
+  <nav class="further-reading hide-for-print">
     <#if (content.previousContent)??>
     <div class="previous">
       <span>Previous post</span>
