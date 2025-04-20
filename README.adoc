@@ -44,6 +44,8 @@ Tag page descriptions::
 You can define descriptions for your tag page for better SEO visibility.
 Matomo tracking::
 Enable Matomo tracking for your blog with just three settings (`enabled`, `url`, `site_id`).
+GDPR cookie consent::
+If either GitHub comments (giscus) or Analytics (Matomo) or both are enabled, a GDPR cookie consent banner will be shown.
 
 == Setup instructions
 
