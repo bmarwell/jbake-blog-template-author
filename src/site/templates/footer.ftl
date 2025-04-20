@@ -30,6 +30,11 @@
 
     <#assign cacheBuster = ((.now)?date?iso_utc)>
     <!-- async css -->
+    <#if config.site_matomo_enabled?boolean!false >
+    <link rel="preload" href="${content.rootpath!""}lib/vanilla-cookieconsent/cookieconsent.css?date=${cacheBuster}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="${content.rootpath!""}lib/vanilla-cookieconsent/cookieconsent.css?date=${cacheBuster}"></noscript>
+    </#if>
+
     <link rel="preload" href="${content.rootpath!""}lib/fontawesome/css/solid.min.css?date=${cacheBuster}" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="${content.rootpath!""}lib/fontawesome/css/solid.min.css?date=${cacheBuster}"></noscript>
 
@@ -79,7 +84,7 @@
     <#-- Matomo stats tracking -->
     <#if (config.site_matomo_enabled)?? && (config.site_matomo_enabled == "true") && (config.site_matomo_site_id)?? && (config.site_matomo_url)??>
     <!-- Matomo -->
-    <script>
+    <script type="text/plain" data-category="analytics" data-service="Matomo">
       var _paq = window._paq = window._paq || [];
       /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
       _paq.push(['trackPageView']);
@@ -93,6 +98,11 @@
       })();
     </script>
     <!-- End Matomo Code -->
+    </#if>
+
+    <#if config.site_matomo_enabled?boolean!false >
+    <script src="${content.rootpath!""}lib/vanilla-cookieconsent/cookieconsent.umd.js"></script>
+    <script type="module" src="${content.rootpath!""}js/cookieconsent-config.js"></script>
     </#if>
 
   </body>

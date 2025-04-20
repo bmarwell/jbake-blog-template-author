@@ -24,6 +24,7 @@
     "country-flag-icons": "^1.5.18",
     "highlightjs-line-numbers.js": "^2.9.0",
     "shariff-plus": "2.3.2",
-    "simple-lightbox": "^2.1.0"
+    "simple-lightbox": "^2.1.0",
+    "vanilla-cookieconsent": "^3.1.0"
   }
 }
