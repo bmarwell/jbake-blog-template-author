@@ -71,6 +71,9 @@
         <#items as menuitem>
           <@menu.renderMenuItem menuitem content.uri />
         </#items>
+        <#if config.site_matomo_enabled?boolean!false || config.site_giscus_enabled?boolean!false >
+          <li class="menu-item"><a href="#" type="button" data-cc="show-preferencesModal">Manage cookie preferences</a></li>
+        </#if>
         </ul>
       </nav>
     </div>
