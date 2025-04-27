@@ -41,6 +41,9 @@
     <#elseif (content.title)??>
     <#-- standard title, append the project name appended for SEO: -->
       <#assign ftltitle="${content.title} | ${config.site_title}" />
+    <#elseif (currentPageNumber)?? && (currentPageNumber > 1)>
+    <#-- The page is a paginated index, add the page number: -->
+      <#assign ftltitle="Page ${currentPageNumber} | ${config.site_title} — ${config.site_tagline}" />
     <#else>
     <#-- No title found in the page metadata, set the default: -->
       <#assign ftltitle="${config.site_title} &ndash; ${config.site_tagline}" />
