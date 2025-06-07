@@ -10,7 +10,7 @@
     "imagemin-svgo": "^11.0.0",
     "p-limit": "^6.2.0",
     "sharp": "0.34.2",
-    "terser": "5.40.0"
+    "terser": "5.41.0"
   },
   "scripts": {
     "sharp": "node ./build-assets/sharp.js"
