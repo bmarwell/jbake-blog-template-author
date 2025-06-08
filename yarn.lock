@@ -9,15 +9,15 @@
   dependencies:
     tslib "^2.4.0"
 
-"@fontsource/lato@^5.2.5":
-  version "5.2.5"
-  resolved "https://registry.yarnpkg.com/@fontsource/lato/-/lato-5.2.5.tgz#cf552f13a569aff28625d9d37db35ca26be7d594"
-  integrity sha512-d8aogKOul7a3eYG3UzTG8PB6A0D+6tlkFQCACmKQ7qTwB3XS6QmkSW1L0vYbVE9CfCRq/Zpb5sG3gNA6yJea/A==
+"@fontsource/lato@5.2.6":
+  version "5.2.6"
+  resolved "https://registry.yarnpkg.com/@fontsource/lato/-/lato-5.2.6.tgz#d7af1bc81f2fe41072d2870f63d7bc3dbe7d6f45"
+  integrity sha512-ykbyuHKHdFsV8QNWPgo2kkCV0veY8/w1HzPlTd7f08LRGGYijPoN7QHkVKPq5QLpgeNauPPe+0a6oRhd8b6MpQ==
 
-"@fontsource/rokkitt@^5.2.5":
-  version "5.2.5"
-  resolved "https://registry.yarnpkg.com/@fontsource/rokkitt/-/rokkitt-5.2.5.tgz#8af6f3a6cd450129f3bd0d9d06ecce7e44893209"
-  integrity sha512-PvtQ1PR9yVGE4z0Lztxq/vMNMQ3hHDjQXMyBs5ml5BlmR3T8CwNzAeOW255tX5WVpRVzxzf/esBlc5BXSN7Pzg==
+"@fontsource/rokkitt@5.2.6":
+  version "5.2.6"
+  resolved "https://registry.yarnpkg.com/@fontsource/rokkitt/-/rokkitt-5.2.6.tgz#dd9d80df1958f4b868745f1865caec9a36c46b81"
+  integrity sha512-3qOGZxz1EVt+Rn7PkexEFHxa0U+gc0U8GCke+ivfqmYOydSycVMD+RXtwkvUyA1+zR8bKQHXQKqi5UkO8np07A==
 
 "@fortawesome/fontawesome-free@^6.7.2":
   version "6.7.2"
