@@ -19,6 +19,11 @@
   resolved "https://registry.yarnpkg.com/@fontsource/rokkitt/-/rokkitt-5.2.6.tgz#dd9d80df1958f4b868745f1865caec9a36c46b81"
   integrity sha512-3qOGZxz1EVt+Rn7PkexEFHxa0U+gc0U8GCke+ivfqmYOydSycVMD+RXtwkvUyA1+zR8bKQHXQKqi5UkO8np07A==
 
+"@fortawesome/fontawesome-free@7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-7.0.0.tgz#e4a6788a2d395ea97e7812a096e29bf9c95b944c"
+  integrity sha512-X48nISrSOa89zu2VMljC4XaRf8NmgTwQBVHfS2Nu5G00ZwM31oOVrAtGxZF3b6wDYf9lJsf/Eq4cCSFKIkOWPQ==
+
 "@fortawesome/fontawesome-free@^6.7.2":
   version "6.7.2"
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-6.7.2.tgz#8249de9b7e22fcb3ceb5e66090c30a1d5492b81a"
