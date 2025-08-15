@@ -1805,12 +1805,12 @@ p-is-promise@^1.1.0:
   resolved "https://registry.yarnpkg.com/p-is-promise/-/p-is-promise-1.1.0.tgz#9c9456989e9f6588017b0434d56097675c3da05e"
   integrity sha1-nJRWmJ6fZYgBewQ01WCXZ1w9oF4=
 
-p-limit@^6.2.0:
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/p-limit/-/p-limit-6.2.0.tgz#c254d22ba6aeef441a3564c5e6c2f2da59268a0f"
-  integrity sha512-kuUqqHNUqoIWp/c467RI4X6mmyuojY5jGutNU0wVTmEOOfcuwLqyMVoAi9MKi2Ak+5i9+nhmrK4ufZE8069kHA==
+p-limit@7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/p-limit/-/p-limit-7.0.0.tgz#18e2aab64e87718f96b2fcfd70f598bbd1d847a8"
+  integrity sha512-WeCdPG5OjujcMWjSkOS0kt3bo+LmroXLmOnJ4SPhZfz5pffQxDUNcYscbZgyGwKf9r9z7gRfKjDNno5cZyQAZQ==
   dependencies:
-    yocto-queue "^1.1.1"
+    yocto-queue "^1.2.1"
 
 p-map-series@^1.0.0:
   version "1.0.0"
@@ -2548,7 +2548,7 @@ yauzl@^2.4.2:
     buffer-crc32 "~0.2.3"
     fd-slicer "~1.1.0"
 
-yocto-queue@^1.1.1:
+yocto-queue@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-1.2.1.tgz#36d7c4739f775b3cbc28e6136e21aa057adec418"
   integrity sha512-AyeEbWOu/TAXdxlV9wmGcR0+yh2j3vYPGOECcIj2S7MkrLyC7ne+oye2BKTItt0ii2PHk4cDy+95+LshzbXnGg==
