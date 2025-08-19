@@ -8,7 +8,7 @@
     "imagemin-mozjpeg": "^10.0.0",
     "imagemin-optipng": "^8.0.0",
     "imagemin-svgo": "^11.0.0",
-    "p-limit": "7.0.0",
+    "p-limit": "7.1.0",
     "sharp": "0.34.3",
     "terser": "5.43.1"
   },
