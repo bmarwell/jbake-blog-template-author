@@ -1805,10 +1805,10 @@ p-is-promise@^1.1.0:
   resolved "https://registry.yarnpkg.com/p-is-promise/-/p-is-promise-1.1.0.tgz#9c9456989e9f6588017b0434d56097675c3da05e"
   integrity sha1-nJRWmJ6fZYgBewQ01WCXZ1w9oF4=
 
-p-limit@7.1.0:
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/p-limit/-/p-limit-7.1.0.tgz#eb9721142d36e03b50f37fc06de0ba6788380dee"
-  integrity sha512-7LbrpOjbzBWFHFgRtVrIAwBwW1bB7c7n914Q2+CXr1TvOfbTrVHAEH1Ya9PwDwAoKLeiRrczymYWPwaHNOQ0vA==
+p-limit@7.1.1:
+  version "7.1.1"
+  resolved "https://registry.yarnpkg.com/p-limit/-/p-limit-7.1.1.tgz#1f349332b179e370ede603078d975048b9e904a2"
+  integrity sha512-i8PyM2JnsNChVSYWLr2BAjNoLi0BAYC+wecOnZnVV+YSNJkzP7cWmvI34dk0WArWfH9KwBHNoZI3P3MppImlIA==
   dependencies:
     yocto-queue "^1.2.1"
 
