@@ -636,10 +636,10 @@ core-util-is@~1.0.0:
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.3.tgz#a6042d3634c2b27e9328f837b965fac83808db85"
   integrity sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==
 
-country-flag-icons@1.5.20:
-  version "1.5.20"
-  resolved "https://registry.yarnpkg.com/country-flag-icons/-/country-flag-icons-1.5.20.tgz#a373b13f2b2899a2ef85a4b6fb6a80b8f38f9a01"
-  integrity sha512-ldchBFYlw2dXXGXO6q/xCYaFiiK/eg5qSctBRDzUTDvHqAdIMOVTj1sp0OWVo7g6h+RURTjlu+5BhtGwIbe9tg==
+country-flag-icons@1.5.21:
+  version "1.5.21"
+  resolved "https://registry.yarnpkg.com/country-flag-icons/-/country-flag-icons-1.5.21.tgz#f7502b144c523f5a6ad8d29de780c90a5f9a131e"
+  integrity sha512-0KmU4oeiyAM+F+atzK99ghQDQJKxEY3tiDhnRraVFL4o65rZgrmrx7xKi0b+hxcVpcEpuUbu+KCC6TKTZQTDcA==
 
 cross-spawn@^5.0.1:
   version "5.1.0"
