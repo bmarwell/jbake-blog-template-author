@@ -9,7 +9,7 @@
     "imagemin-optipng": "^8.0.0",
     "imagemin-svgo": "^11.0.0",
     "p-limit": "7.2.0",
-    "sharp": "0.34.4",
+    "sharp": "0.34.5",
     "terser": "5.44.1"
   },
   "scripts": {
