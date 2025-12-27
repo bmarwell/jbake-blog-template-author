@@ -65,3 +65,12 @@
     on <time datetime="${post.date?datetime?string.iso_s_u}">${post.date?string("dd")}${ordinalsuffix(post)} of ${post.date?string("MMMM, yyyy")}</time>
   </#if>
 </#macro>
+
+<#-- set crawl visilibility for search engines -->
+<#macro robotsmeta type>
+    <#if type == "archive" || type == "tag" || type == "tags">
+    <meta name='robots' content="noindex,follow" />
+    <#else>
+    <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'/>
+    </#if>
+</#macro>
