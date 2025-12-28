@@ -53,31 +53,28 @@
     <link rel="preload" href="${content.rootpath!""}lib/shariff-plus/shariff.min.css?date=${cacheBuster}" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="${content.rootpath!""}lib/shariff-plus/shariff.min.css?date=${cacheBuster}"></noscript>
 
-    <link rel="preload" href="${content.rootpath!""}css/appbox.min.css?date=${cacheBuster}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="${content.rootpath!""}css/appbox.min.css?date=${cacheBuster}"></noscript>
+    <script src="${content.rootpath!""}js/author.min.js" defer></script>
+    <script src="${content.rootpath!""}lib/simple-lightbox/simpleLightbox.min.js?date=${cacheBuster}" defer></script>
 
-    <script src="${content.rootpath!""}js/author.min.js" ></script>
-    <script src="${content.rootpath!""}lib/simple-lightbox/simpleLightbox.min.js?date=${cacheBuster}"></script>
+    <script src="${content.rootpath!""}lib/shariff-plus/shariff.complete.js?date=${cacheBuster}" async></script>
 
-    <script src="${content.rootpath!""}lib/shariff-plus/shariff.complete.js?date=${cacheBuster}"></script>
+    <script src="${content.rootpath!""}lib/highlight.js/highlight.min.js?date=${cacheBuster}" defer></script>
+    <script src="${content.rootpath!""}lib/highlight.js/languages/bash.min.js?date=${cacheBuster}" defer></script>
+    <script src="${content.rootpath!""}lib/highlight.js/languages/ini.min.js?date=${cacheBuster}" defer></script>
+    <script src="${content.rootpath!""}lib/highlight.js/languages/java.min.js?date=${cacheBuster}" defer></script>
+    <script src="${content.rootpath!""}lib/highlight.js/languages/javascript.min.js?date=${cacheBuster}" defer></script>
+    <script src="${content.rootpath!""}lib/highlight.js/languages/php.min.js?date=${cacheBuster}" defer></script>
+    <script src="${content.rootpath!""}lib/highlight.js/languages/shell.min.js?date=${cacheBuster}" defer></script>
+    <script src="${content.rootpath!""}lib/highlight.js/languages/xml.min.js?date=${cacheBuster}" defer></script>
+    <script src="${content.rootpath!""}lib/highlight.js/languages/yaml.min.js?date=${cacheBuster}" defer></script>
+    <script src="${content.rootpath!""}lib/highlightjs-line-numbers.js/highlightjs-line-numbers.min.js?date=${cacheBuster}" defer></script>
 
-    <script src="${content.rootpath!""}lib/highlight.js/highlight.min.js?date=${cacheBuster}"></script>
-    <script src="${content.rootpath!""}lib/highlight.js/languages/bash.min.js?date=${cacheBuster}"></script>
-    <script src="${content.rootpath!""}lib/highlight.js/languages/ini.min.js?date=${cacheBuster}"></script>
-    <script src="${content.rootpath!""}lib/highlight.js/languages/java.min.js?date=${cacheBuster}"></script>
-    <script src="${content.rootpath!""}lib/highlight.js/languages/javascript.min.js?date=${cacheBuster}"></script>
-    <script src="${content.rootpath!""}lib/highlight.js/languages/php.min.js?date=${cacheBuster}"></script>
-    <script src="${content.rootpath!""}lib/highlight.js/languages/shell.min.js?date=${cacheBuster}"></script>
-    <script src="${content.rootpath!""}lib/highlight.js/languages/xml.min.js?date=${cacheBuster}"></script>
-    <script src="${content.rootpath!""}lib/highlight.js/languages/yaml.min.js?date=${cacheBuster}"></script>
-    <script src="${content.rootpath!""}lib/highlightjs-line-numbers.js/highlightjs-line-numbers.min.js?date=${cacheBuster}"></script>
-
-    <script>
+    <script defer>
       hljs.highlightAll();
       hljs.initLineNumbersOnLoad();
     </script>
 
-    <script>
+    <script defer>
       new SimpleLightbox('div a', { /* options */ });
     </script>
 
@@ -107,7 +104,7 @@
     </#if>
 
     <#if config.site_matomo_enabled?boolean!false || config.site_giscus_enabled?boolean!false >
-    <script src="${content.rootpath!""}lib/vanilla-cookieconsent/cookieconsent.umd.js"></script>
+    <script src="${content.rootpath!""}lib/vanilla-cookieconsent/cookieconsent.umd.js" defer></script>
     <script type="module" src="${content.rootpath!""}js/cookieconsent-config.js"></script>
     </#if>
 
