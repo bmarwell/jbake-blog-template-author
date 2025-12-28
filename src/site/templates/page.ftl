@@ -14,13 +14,18 @@
 
 <div class="page type-page status-publish entry">
 
-  <article>
-    <div class='post-header'>
-      <h1 class='post-title'>${content.title}</h1>
+  <article itemscope itemtype="https://schema.org/Article">
+    <header class='post-header'>
+      <h1 class='post-title' itemprop="headline">${content.title}</h1>
+      <div itemprop="author" itemscope itemtype="https://schema.org/Person">
+        <meta itemprop="name" content="${content.author!'Benjamin Marwell'}" />
+      </div>
+      <meta itemprop="datePublished" content="${content.date?datetime?string.iso_s_u}" />
+      <#if (content.updated)??><meta itemprop="dateModified" content="${content.updated?string}" /></#if>
       <@postmeta.postmeta content />
-    </div>
+    </header>
 
-    <div class="post-content">
+    <div class="post-content" itemprop="articleBody">
       ${content.body}
     </div>
 
