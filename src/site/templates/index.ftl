@@ -14,7 +14,7 @@
 
 <h1 class="screen-reader-text">${config.site_title}</h1>
 
-<div id="loop-container" class="loop-container">
+<div id="loop-container" class="loop-container" itemscope itemtype="https://schema.org/ItemList">
 <#list posts as post>
   <#if (post.status == "published"  && post?index >= (currentPageNumber-1) * config.index_posts_per_page?eval && post?index < currentPageNumber * config.index_posts_per_page?eval)>
     <div class="post type-post status-publish format-standard <#if (post.featuredimage)?? >has-post-thumbnail </#if>hentry entry"
@@ -22,25 +22,39 @@
 
       <@postmeta.featuredimage post />
 
-      <article <#if (post.lang)??>lang="${post.lang}"</#if>>
-        <div class='post-header'>
-          <h2 class='post-title'>
-            <a href="${content.rootpath!""}${post.uri}">${post.title}</a><@lang.langIcon post false/>
+      <article <#if (post.lang)??>lang="${post.lang}"</#if> itemscope itemtype="https://schema.org/BlogPosting" itemprop="itemListElement">
+        <#if (post.featuredimage)??>
+          <#if (post.featuredimage)?starts_with("http")>
+        <link itemprop="image" href="${post.featuredimage}" />
+          <#elseif (post.featuredimage)?starts_with("/")>
+        <link itemprop="image" href="${config.site_host}${post.featuredimage}" />
+          <#else>
+        <link itemprop="image" href="${config.site_host}/${post.uri?keep_before_last("/")}/${post.featuredimage}" />
+          </#if>
+        </#if>
+        <header class='post-header'>
+          <h2 class='post-title' itemprop="headline">
+            <a href="${content.rootpath!""}${post.uri}" itemprop="url">${post.title}</a><@lang.langIcon post false/>
           </h2>
+          <div itemprop="author" itemscope itemtype="https://schema.org/Person">
+            <meta itemprop="name" content="${post.author!'Benjamin Marwell'}" />
+          </div>
+          <meta itemprop="datePublished" content="${post.date?datetime?string.iso_s_u}" />
           <@postmeta.postmeta post />
-        </div>
+        </header>
         <div class="post-content">
-          <p <#if (post.lang)??>lang="${post.lang}"</#if>>
+          <p <#if (post.lang)??>lang="${post.lang}"</#if> itemprop="abstract">
             ${post.body?keep_after("<p>")?keep_before("</p>")}
           </p>
-          <div class="more-link-wrapper">
+          <footer class="more-link-wrapper">
             <a
               class="more-link"
-              href="${content.rootpath!""}${post.uri}">
+              href="${content.rootpath!""}${post.uri}"
+              rel="bookmark">
               Continue reading »
               <span class="screen-reader-text">${post.title}</span>
             </a>
-          </div>
+          </footer>
         </div>
       </article>
     </div>
