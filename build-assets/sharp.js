@@ -39,7 +39,10 @@ const RESPONSIVE_WIDTHS = [400, 800, 1200];
 /**
  * Generates responsive variants for featured images (large images).
  * Creates multiple width variants and WebP versions for each.
- * Only processes images >= 800px wide to avoid unnecessary upscaling.
+ *
+ * Always generates all configured sizes (400w, 800w, 1200w) for consistency,
+ * even if the target size equals the original width. This keeps the logic simple
+ * and ensures srcset references are never broken.
  */
 async function generateResponsiveVariants(file, imageInfo) {
   const { width, height } = imageInfo;
@@ -54,25 +57,26 @@ async function generateResponsiveVariants(file, imageInfo) {
   const isJpeg = ext === '.jpg' || ext === '.jpeg';
 
   for (const targetWidth of RESPONSIVE_WIDTHS) {
-    // Don't create variants larger than original
-    if (targetWidth >= width) {
-      continue;
-    }
-
+    // Always generate the variant, even if it matches the original size
+    // This keeps things simple and consistent
     const targetHeight = Math.round((height / width) * targetWidth);
     const resizedPath = `${basePath}-${targetWidth}w${ext}`;
     const webpPath = `${basePath}-${targetWidth}w.webp`;
 
+    // If target size is larger than original, use original dimensions
+    const actualWidth = Math.min(targetWidth, width);
+    const actualHeight = Math.round((height / width) * actualWidth);
+
     // Generate resized original format
     if (isJpeg) {
       const resizedJpeg = await sharp(file)
-        .resize(targetWidth, targetHeight, { fit: 'cover' })
+        .resize(actualWidth, actualHeight, { fit: 'cover' })
         .jpeg({ mozjpeg: true, quality: 80 })
         .toBuffer();
       await fs.writeFile(resizedPath, resizedJpeg);
     } else {
       const resizedPng = await sharp(file)
-        .resize(targetWidth, targetHeight, { fit: 'cover' })
+        .resize(actualWidth, actualHeight, { fit: 'cover' })
         .png({ compressionLevel: 6, palette: true, quality: 85, effort: 10 })
         .toBuffer();
       await fs.writeFile(resizedPath, resizedPng);
@@ -80,7 +84,7 @@ async function generateResponsiveVariants(file, imageInfo) {
 
     // Generate WebP variant
     const webpVariant = await sharp(file)
-      .resize(targetWidth, targetHeight, { fit: 'cover' })
+      .resize(actualWidth, actualHeight, { fit: 'cover' })
       .webp({ quality: 80 })
       .toBuffer();
     await fs.writeFile(webpPath, webpVariant);
@@ -118,6 +122,13 @@ async function optimizeImageFile(file, index, total) {
         .toBuffer();
 
       await fs.writeFile(file, optiPng);
+
+      // Generate WebP version of the PNG
+      const webp = await sharp(file)
+        .webp({ quality: 80 })
+        .toBuffer();
+
+      await fs.writeFile(file.replace(".png", "") + ".webp", webp);
 
       // Generate responsive variants for large images
       await generateResponsiveVariants(file, imageInfo);

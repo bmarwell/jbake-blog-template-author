@@ -52,21 +52,20 @@
       <#if isLargeImage>
         <picture>
           <#-- WebP sources with responsive sizes -->
-          <#-- Only include size variants that are smaller than the original -->
           <source
             type="image/webp"
-            srcset="${content.rootpath!""}${baseImgPath}-400w.webp 400w<#if (post.featuredimagewidth)?number gt 800>,
-                    ${content.rootpath!""}${baseImgPath}-800w.webp 800w</#if><#if (post.featuredimagewidth)?number gt 1200>,
-                    ${content.rootpath!""}${baseImgPath}-1200w.webp 1200w</#if>,
+            srcset="${content.rootpath!""}${baseImgPath}-400w.webp 400w,
+                    ${content.rootpath!""}${baseImgPath}-800w.webp 800w,
+                    ${content.rootpath!""}${baseImgPath}-1200w.webp 1200w,
                     ${content.rootpath!""}${baseImgPath}.webp ${post.featuredimagewidth}w"
             sizes="(max-width: 549px) 100vw, (max-width: 949px) 50vw, 412px"
           />
           <#-- Original format sources with responsive sizes -->
           <source
             type="image/${(imgExt == 'jpg')?then('jpeg', imgExt)}"
-            srcset="${content.rootpath!""}${baseImgPath}-400w.${imgExt} 400w<#if (post.featuredimagewidth)?number gt 800>,
-                    ${content.rootpath!""}${baseImgPath}-800w.${imgExt} 800w</#if><#if (post.featuredimagewidth)?number gt 1200>,
-                    ${content.rootpath!""}${baseImgPath}-1200w.${imgExt} 1200w</#if>,
+            srcset="${content.rootpath!""}${baseImgPath}-400w.${imgExt} 400w,
+                    ${content.rootpath!""}${baseImgPath}-800w.${imgExt} 800w,
+                    ${content.rootpath!""}${baseImgPath}-1200w.${imgExt} 1200w,
                     ${content.rootpath!""}${imgPath} ${post.featuredimagewidth}w"
             sizes="(max-width: 549px) 100vw, (max-width: 949px) 50vw, 412px"
           />
