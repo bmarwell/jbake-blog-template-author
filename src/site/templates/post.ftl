@@ -16,12 +16,17 @@
 <div class="post type-post status-publish format-standard <#if (content.featuredimage)?? >has-post-thumbnail </#if> entry">
   <@postmeta.featuredimage content false />
 
-  <article>
-    <div class='post-header'>
-      <h1 class='post-title'>${content.title}<@lang.langIcon content false/></h1>
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <header class='post-header'>
+      <h1 class='post-title' itemprop="headline">${content.title}<@lang.langIcon content false/></h1>
+      <div itemprop="author" itemscope itemtype="https://schema.org/Person">
+        <meta itemprop="name" content="${content.author!'Benjamin Marwell'}" />
+      </div>
+      <meta itemprop="datePublished" content="${content.date?datetime?string.iso_s_u}" />
+      <#if (content.updated)??><meta itemprop="dateModified" content="${content.updated?string}" /></#if>
       <@postmeta.postmeta content />
-    </div>
-    <div class="post-content">
+    </header>
+    <div class="post-content" itemprop="articleBody">
         ${content.body}
     </div>
 
