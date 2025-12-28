@@ -1,3 +1,9 @@
+# MIME types
+<IfModule mod_mime.c>
+    AddType font/woff2 .woff2
+    AddType image/webp .webp
+</IfModule>
+
 <Files "feed.xml">
     AddType application/atom+xml .xml
     AddCharset UTF-8 .xml
