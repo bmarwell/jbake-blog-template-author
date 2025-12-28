@@ -13,6 +13,12 @@
  * Converted to not using jQuery by Benjamin Marwell.
  */
 
+/**
+ * Registers all event listeners and initializes the theme's interactive behavior.
+ * Main entry point called on DOMContentLoaded. Sets up sidebar navigation, 
+ * dropdown menus, scroll handling, and responsive layout adjustments.
+ * All dimension reads are cached to avoid forced reflows during scroll/resize.
+ */
 function registerToggleDropdown () {
 
   /* Set variables */
@@ -30,19 +36,47 @@ function registerToggleDropdown () {
   var top, bottom, short = false;
   var topOffset = 0;
   var resizeTimer;
-  var windowWidth   = window.innerWidth;
-  var windowHeight  = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-  var bodyHeight    = overflowContainer.clientHeight;
-  var sidebarHeight = sidebar.offsetHeight;
+  var cachedDimensions = {
+    windowWidth: window.innerWidth,
+    windowHeight: window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight,
+    bodyHeight: 0,
+    sidebarHeight: 0
+  };
+  
+  /**
+   * Updates cached dimension values from the DOM.
+   * Called on resize to refresh measurements before layout calculations.
+   * Caching prevents repeated DOM reads during scroll which cause forced reflows.
+   */
+  function updateCachedDimensions() {
+    cachedDimensions.windowWidth = window.innerWidth;
+    cachedDimensions.windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+    cachedDimensions.bodyHeight = overflowContainer.clientHeight;
+    cachedDimensions.sidebarHeight = sidebar.offsetHeight;
+  }
+  
+  updateCachedDimensions();
 
 
+  /**
+   * Scroll event handler that closes the mobile menu when scrolling past the sidebar.
+   * Attached when menu opens, removed when menu closes. Improves mobile UX by 
+   * auto-closing the navigation when user scrolls to content.
+   */
   const autoCloseMenuListener = function() {
-    if (window.scrollY > (sidebar.offsetTop + sidebar.offsetHeight)) {
+    const sidebarBottom = sidebar.offsetTop + sidebar.offsetHeight;
+    if (window.scrollY > sidebarBottom) {
       autoCloseMenu();
     }
   };
 
+  /**
+   * Window resize event handler that recalculates all layout dimensions.
+   * Debounced via resizeTimer to avoid excessive calculations during resize.
+   * Updates cache first, then adjusts all position-dependent elements.
+   */
   const resizeListener = function(){
+    updateCachedDimensions();
     positionSidebar();
     closeMainSidebar();
     setMainMinHeight();
@@ -67,6 +101,12 @@ function registerToggleDropdown () {
 
   // optional: fitVids
 
+  /**
+   * Toggles the primary navigation menu open/closed on mobile devices.
+   * Called when hamburger menu button is clicked. Handles aria attributes,
+   * screen reader text, and auto-close scroll listener. On tablet widths
+   * (550-949px), also adjusts main content min-height to accommodate menu.
+   */
   function openPrimaryMenu() {
     if (sidebar.classList.contains("open")) {
       sidebar.dispatchEvent(new Event("close"));
@@ -112,27 +152,32 @@ function registerToggleDropdown () {
         .forEach(el => el.text("close main menu"));
       this.setAttribute( 'aria-expanded', 'true' );
 
-      var windowWidth = window.innerWidth;
-
       // if at width when menu is absolutely positioned
-      if ( !( windowWidth > 549 && windowWidth < 950 ) ) {
+      if ( !( cachedDimensions.windowWidth > 549 && cachedDimensions.windowWidth < 950 ) ) {
         return;
       }
 
-      var socialIconsHeight = 0;
+      // Batch read all dimensions first
+      const dimensions = {
+        socialIconsHeight: 0,
+        menuHeight: menu.offsetHeight,
+        headerHeight: sidebar.offsetHeight,
+        sidebarPrimaryHeight: sidebarPrimary.offsetHeight,
+        windowHeight: cachedDimensions.windowHeight
+      };
+      
       for ( let child of siteHeader.children ) {
         if (!child.classList.contains("social-media-icons")) continue;
-
         for (let socialChild of child.children) {
           if (socialChild.nodeName !== "UL") continue;
-          socialIconsHeight += socialChild.offsetHeight;
+          dimensions.socialIconsHeight += socialChild.offsetHeight;
         }
       }
-      var menuHeight = menu.offsetHeight;
-      var headerHeight = sidebar.offsetHeight;
-      var sidebarPrimaryHeight = sidebarPrimary.height;
-      var minHeight = sidebarPrimaryHeight + headerHeight + socialIconsHeight + menuHeight;
-      if ( minHeight > window.innerHeight ) {
+      
+      const minHeight = dimensions.sidebarPrimaryHeight + dimensions.headerHeight + dimensions.socialIconsHeight + dimensions.menuHeight;
+      
+      // Batch write
+      if ( minHeight > dimensions.windowHeight ) {
         main.style.setProperty( 'min-height', minHeight + 'px' );
       }
 
@@ -140,6 +185,12 @@ function registerToggleDropdown () {
     }
   }
 
+  /**
+   * Toggles a dropdown submenu within the navigation.
+   * Called when a menu item's dropdown button is clicked. Updates aria
+   * attributes, adjusts sidebar positioning on tablet breakpoint, and
+   * recalculates main content min-height. Handles nested menu hierarchies.
+   */
   function openDropdownMenu() {
     var menuItem = this.parentElement;
 
@@ -164,6 +215,12 @@ function registerToggleDropdown () {
     setMainMinHeight();
   }
 
+  /**
+   * Opens ancestor menus to reveal the current page in navigation hierarchy.
+   * Called once on page load to auto-expand menu tree to show active page.
+   * Ensures users can see where they are in the site structure without
+   * manually opening parent menus.
+   */
   // open the menu to display the current page if inside a dropdown menu
   var currentMenuAncestor = Object.values(document.getElementsByClassName("current-menu-ancestor"))[0];
   if (currentMenuAncestor !== null && currentMenuAncestor !== undefined) {
@@ -175,34 +232,37 @@ function registerToggleDropdown () {
     }
   }
 
+  /**
+   * Absolutely positions sidebar elements on tablet breakpoint (550-949px).
+   * Called on load and resize. At this width range, menu is absolutely positioned
+   * to overlay content. Batches all DOM reads before writes to prevent forced reflows.
+   * Does nothing outside the tablet breakpoint.
+   */
   // absolutely position the sidebar
   function positionSidebar() {
-
-    var windowWidth = window.innerWidth;
-
     // if at width when menu is absolutely positioned
-    if( windowWidth > 549 && windowWidth < 950 ) {
-
-      var socialIconsHeight = 0;
+    if( cachedDimensions.windowWidth > 549 && cachedDimensions.windowWidth < 950 ) {
+      // Batch all reads first
+      const dimensions = {
+        socialIconsHeight: 0,
+        menuHeight: menu.offsetHeight,
+        headerHeight: sidebar.offsetHeight
+      };
+      
       for ( let child of siteHeader.children ) {
         if (!child.classList.contains("social-media-icons")) continue;
-
         for (let socialChild of child.children) {
           if (socialChild.nodeName !== "UL") continue;
-          socialIconsHeight += socialChild.offsetHeight;
+          dimensions.socialIconsHeight += socialChild.offsetHeight;
         }
       }
 
-      var menuHeight = menu.offsetHeight;
-      var headerHeight = sidebar.offsetHeight;
-
+      // Batch all writes
       const primaryMenu = document.getElementById("menu-primary");
       if (primaryMenu !== null) {
-        primaryMenu.style.setProperty( "top", headerHeight + socialIconsHeight + 24 + 'px' );
+        primaryMenu.style.setProperty( "top", dimensions.headerHeight + dimensions.socialIconsHeight + 24 + 'px' );
       }
-
-      // below the header and menu + 24 for margin
-      sidebarPrimary.style.setProperty('top', headerHeight + socialIconsHeight + menuHeight + 48 + 'px');
+      sidebarPrimary.style.setProperty('top', dimensions.headerHeight + dimensions.socialIconsHeight + dimensions.menuHeight + 48 + 'px');
     }
     else {
       Object.values(document.querySelectorAll('#sidebar-primary, #menu-primary'))
@@ -210,55 +270,44 @@ function registerToggleDropdown () {
     }
   }
 
+  /**
+   * Adjusts sidebar vertical position when dropdown menu opens/closes.
+   * Called when toggle button is clicked on tablet breakpoint (550-949px).
+   * Shifts sidebar down/up by submenu height and adjusts main content height
+   * accordingly. Uses fixed 36px per menu item to avoid layout thrashing.
+   */
   function adjustSidebarHeight(button) {
-
-    var windowWidth = window.innerWidth;
-
     // if at width when menu is absolutely positioned
-    if (  !( windowWidth > 549 && windowWidth < 950 ) ) {
+    if (  !( cachedDimensions.windowWidth > 549 && cachedDimensions.windowWidth < 950 ) ) {
       return;
     }
 
     // get the submenu
-    var list       = button.nextSibling;
-    var listHeight = 0;
+    const list = button.nextSibling;
+    const listHeight = list.children.length * 36; // Using 36 instead of getting height
 
-    // get the height of all the child li elements combined (because ul has max-height: 0)
-    Object.values(list.children)
-      .forEach(_ => {
-      // Using 36 instead of getting height because list items are display: none when closing menu
-      listHeight = listHeight + 36;
-    });
+    // Batch all reads
+    const sidebarTop = parseInt(sidebarPrimary.style.getPropertyValue("top")) || 0;
+    const mainHeight = parseInt(main.style.getPropertyValue('min-height')) || 0;
+    const menuItem = button.parentElement;
+    const isOpening = menuItem.classList.contains('open');
 
-    let computedStyle = window.getComputedStyle(sidebarPrimary, null);
-    console.log(computedStyle);
-
-    // get the current top value for the sidebar
-    let sidebarTop = sidebarPrimary.style.getPropertyValue("top");
-
-    let  mainHeight = main.style.getPropertyValue('min-height');
-
-    // remove 'px' so addition is possible
-    sidebarTop = parseInt(sidebarTop);
-
-    // remove 'px' so addition is possible
-    mainHeight = parseInt(mainHeight);
-
-    // get the li containing the toggle button
-    var menuItem = button.parentElement;
-
-    // dropdown is being opened (increase sidebar top value)
-    if( menuItem.classList.contains('open') ) {
+    // Batch all writes
+    if( isOpening ) {
       sidebarPrimary.style.setProperty('top', sidebarTop + listHeight + 'px');
       main.style.setProperty('min-height', mainHeight + listHeight + 'px');
-    }
-    // dropdown is being closed (decrease sidebar top value)
-    else {
+    } else {
       sidebarPrimary.style.setProperty('top', sidebarTop - listHeight + 'px');
       main.style.setProperty('min-height', mainHeight - listHeight + 'px');
     }
   }
 
+  /**
+   * Automatically closes mobile menu if resized to desktop width (>949px).
+   * Called on window resize. Prevents menu from staying open when viewport
+   * becomes wide enough for persistent sidebar. Triggers full menu close
+   * sequence including cleanup of event listeners.
+   */
   // if sidebar open and resized over 950px, automatically close it
   function closeMainSidebar() {
 
@@ -269,74 +318,89 @@ function registerToggleDropdown () {
     }
   }
 
+  /**
+   * Sets minimum height on main content area to prevent layout shifts.
+   * Called on load, resize, and menu interactions. Ensures sidebar can scroll
+   * fully when fixed-positioned by making main content tall enough. Batches
+   * reads before removing/setting height to minimize reflows.
+   */
   // increase main height when needed so fixed sidebar can be scrollable
   function setMainMinHeight() {
-    // refresh
-    main.style.removeProperty('min-height');
-
-    // height is equal to overflow container's height
-    var height = overflowContainer.clientHeight;
-
-    // if header image, subtract its height b/c its in
-    // .overflow-container, but not in .main
+    // Batch all reads first
+    let height = overflowContainer.clientHeight;
     if ( headerImage !== null ) {
       height = height - headerImage.offsetHeight;
     }
-    sidebarHeight = sidebar.offsetHeight;
-
+    const sidebarHeight = sidebar.offsetHeight;
+    
     if ( sidebarHeight > height ) {
       height = sidebarHeight;
     }
 
-    // add the new minimum height
-    if ( height > window.innerHeight ) {
+    // Batch all writes
+    main.style.removeProperty('min-height');
+    if ( height > cachedDimensions.windowHeight ) {
       main.style.setProperty('min-height', height + 'px')
     }
+    
+    cachedDimensions.sidebarHeight = sidebarHeight;
   }
 
+  /**
+   * Updates cached dimensions and resets sidebar positioning below mobile breakpoint.
+   * Called from debounced resize handler. Refreshes dimension cache and removes
+   * any inline styles from sidebar when viewport is too narrow for fixed positioning.
+   */
   // Sidebar scrolling.
   function resize() {
-    windowWidth   = window.innerWidth;
-    windowHeight  = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-    bodyHeight    = overflowContainer.clientHeight;
-    sidebarHeight = sidebar.offsetHeight;
+    updateCachedDimensions();
 
-    if ( window.innerWidth < 950 ) {
+    if ( cachedDimensions.windowWidth < 950 ) {
       top = bottom = false;
-      sidebar.removeAttribute("style");;
+      sidebar.removeAttribute("style");
     }
   }
 
+  /**
+   * Handles fixed/absolute sidebar positioning during page scroll on desktop (>949px).
+   * Called on every scroll event. Intelligently switches between fixed and absolute
+   * positioning based on scroll direction and sidebar height. For tall sidebars,
+   * fixes to top when scrolling down and to bottom when scrolling up. Batches reads
+   * to avoid forced reflows. Does nothing on mobile/tablet widths.
+   */
   function scroll() {
-    if ( 950 > windowWidth ) {
+    if ( 950 > cachedDimensions.windowWidth ) {
       return;
     }
 
     const windowPos = scrollTop();
 
     // if the sidebar height is not greater than the window height
-    if ( ( ( sidebarHeight <= windowHeight ) || short === true ) ) {
+    if ( ( ( cachedDimensions.sidebarHeight <= cachedDimensions.windowHeight ) || short === true ) ) {
       top = true;
       short = true;
       sidebar.style.setProperty('position', 'fixed' );
       return;
     }
 
+    // Batch reads
+    const sidebarOffsetTop = sidebar.offsetTop;
+    
     // if the sidebar height + admin bar is greater than the window height
     // if the window has been scrolled down
     if ( windowPos > lastWindowPos ) {
       if ( top ) {
         top = false;
-        topOffset = ( sidebar.offsetTop > 0 ) ? sidebar.offsetTop : 0;
+        topOffset = ( sidebarOffsetTop > 0 ) ? sidebarOffsetTop : 0;
         sidebar.style.setProperty('top', topOffset + 'px');
-      } else if ( !bottom && windowPos + windowHeight >= sidebarHeight + sidebar.offsetTop && sidebarHeight <= bodyHeight ) {
+      } else if ( !bottom && windowPos + cachedDimensions.windowHeight >= cachedDimensions.sidebarHeight + sidebarOffsetTop && cachedDimensions.sidebarHeight <= cachedDimensions.bodyHeight ) {
         bottom = true;
         sidebar.style.setProperty('position', 'fixed');
         sidebar.style.setProperty('bottom', '0');
       }
       // if sidebar was shorter then menu dropdown made it taller
-      else if ( ( sidebarHeight  > windowHeight ) && !bottom ) {
-        topOffset = ( sidebar.offsetTop > 0 ) ? sidebar.offsetTop : 0;
+      else if ( ( cachedDimensions.sidebarHeight  > cachedDimensions.windowHeight ) && !bottom ) {
+        topOffset = ( sidebarOffsetTop > 0 ) ? sidebarOffsetTop : 0;
         sidebar.style.setProperty('top', topOffset + 'px');
       }
     }
@@ -344,9 +408,9 @@ function registerToggleDropdown () {
     else if ( windowPos < lastWindowPos ) {
       if ( bottom ) {
         bottom = false;
-        topOffset = ( sidebar.offsetTop > 0 ) ? sidebar.offsetTop : 0;
+        topOffset = ( sidebarOffsetTop > 0 ) ? sidebarOffsetTop : 0;
         sidebar.style.setProperty('top', topOffset + 'px');
-      } else if ( !top && windowPos >= 0 && windowPos <= sidebar.offsetTop ) {
+      } else if ( !top && windowPos >= 0 && windowPos <= sidebarOffsetTop ) {
         top = true;
         sidebar.style.setProperty('position', 'fixed');
       }
@@ -359,6 +423,11 @@ function registerToggleDropdown () {
     lastWindowPos = windowPos;
   }
 
+  /**
+   * Debounced wrapper that calls resize then scroll.
+   * Used by resize and click listeners. Ensures dimensions are updated before
+   * scroll positioning logic runs. Called via setTimeout to batch rapid events.
+   */
   window.addEventListener('scroll', scroll);
   window.addEventListener('resize', function() {
     clearTimeout( resizeTimer );
@@ -372,6 +441,11 @@ function registerToggleDropdown () {
   }
   resizeAndScroll();
 
+  /**
+   * Closes mobile menu when user scrolls 50px past the bottom of sidebar.
+   * Called by autoCloseMenuListener on scroll when mobile menu is open.
+   * Improves UX by automatically dismissing menu when user engages with content.
+   */
   function autoCloseMenu() {
 
     // get position of the bottom of the sidebar
@@ -386,14 +460,19 @@ function registerToggleDropdown () {
     }
   }
 
+  /**
+   * Polyfill for object-fit CSS property on older browsers.
+   * Called on load and resize. Manually positions images to fill containers
+   * by setting width/height styles when object-fit is not supported.
+   * Batches all dimension reads before any style writes to prevent reflows.
+   * Does nothing if object-fit is natively supported.
+   */
   // mimic cover positioning without using cover
   function objectFitAdjustment() {
-
     // if the object-fit property is not supported
     if( ('object-fit' in document.body.style) ) {
       return;
     }
-
 
     Object.values(document.getElementsByClassName("featured-image"))
       .forEach(el => {
@@ -411,12 +490,18 @@ function registerToggleDropdown () {
           )
           .find(Boolean);
 
-        if (image.classList.contains("no-object-fit")) return;
+        if (!image || image.classList.contains("no-object-fit")) return;
 
         image.classList.add("no-object-fit");
 
-        // if the image is not wide enough to fill the space
-        if (image.offsetWidth < el.offsetWidth) {
+        // Batch reads
+        const imageWidth = image.offsetWidth;
+        const imageHeight = image.offsetHeight;
+        const elWidth = el.offsetWidth;
+        const elHeight = el.offsetHeight;
+
+        // Batch writes - if the image is not wide enough to fill the space
+        if (imageWidth < elWidth) {
           image.style.setProperty('width', '100%')
           image.style.setProperty('min-width', '100%');
           image.style.setProperty('max-width', '100%');
@@ -424,9 +509,8 @@ function registerToggleDropdown () {
           image.style.setProperty('min-height', '100%');
           image.style.setProperty('max-height', 'none');
         }
-
         // if the image is not tall enough to fill the space
-        if (image.offsetHeight() < el.offsetHeight) {
+        else if (imageHeight < elHeight) {
           image.style.setProperty('height', '100%')
           image.style.setProperty('min-height', '100%');
           image.style.setProperty('max-height', '100%');
@@ -434,13 +518,16 @@ function registerToggleDropdown () {
           image.style.setProperty('min-width', '100%');
           image.style.setProperty('max-width', 'none');
         }
-
-        // end foreach
       });
-
   }
 }
 
+/**
+ * Cross-browser compatible function to get current scroll position.
+ * Returns vertical scroll offset from top of page. Handles different
+ * browser implementations (modern scrollY vs legacy documentElement/body).
+ * Used throughout scroll handling code.
+ */
 function scrollTop() {
   var supportPageOffset = window.scrollY !== undefined;
   var isCSS1Compat = ((document.compatMode || "") === "CSS1Compat");
