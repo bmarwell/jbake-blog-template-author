@@ -10,6 +10,19 @@
  * KIND, either express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+
+/**
+ * Image optimization and responsive variant generation script.
+ *
+ * Processes all images in target/website to:
+ * 1. Optimize JPEGs with mozjpeg
+ * 2. Optimize PNGs with optipng
+ * 3. Generate WebP versions
+ * 4. Create responsive variants (400w, 800w, 1200w) for large images (≥800px)
+ *
+ * Important: Generated responsive variants (files ending in -NNNw.ext) are excluded
+ * from processing to avoid recursive generation and errors.
+ */
 import process from 'node:process';
 import path from 'path';
 import os from 'os';
@@ -20,34 +33,108 @@ import sharp from "sharp";
 
 let [, , ...files] = process.argv
 
-async function optimizeImageFile(file, index, total) {
-  if (file.endsWith(".jpg") || file.endsWith(".jpeg")) {
-    const optiJpeg = await sharp(file)
-      .jpeg({ mozjpeg: true, quality: 80 })
-      .toBuffer();
-    await fs.writeFile(file, optiJpeg);
+// Responsive image sizes for featured images
+const RESPONSIVE_WIDTHS = [400, 800, 1200];
 
-    const webp = await sharp(file)
-      .webp({quality: 80})
-      .toBuffer();
+/**
+ * Generates responsive variants for featured images (large images).
+ * Creates multiple width variants and WebP versions for each.
+ * Only processes images >= 800px wide to avoid unnecessary upscaling.
+ */
+async function generateResponsiveVariants(file, imageInfo) {
+  const { width, height } = imageInfo;
 
-    await fs.writeFile(file.replace(".jpeg", "").replace(".jpg", "") + ".webp", webp);
-  } else if (file.endsWith(".png")) {
-    const optiPng = await sharp(file)
-      .png({ compressionLevel: 6, palette: true, quality: 85, effort: 10 })
-      .toBuffer();
-
-    await fs.writeFile(file, optiPng);
-  } else if (file.endsWith(".gif")) {
-    const optiGif = await sharp(file)
-      .gif({ effort: 10 })
-      .toBuffer();
-
-    await fs.writeFile(file, optiGif);
+  // Only generate responsive variants for images that benefit from it (>= 800px)
+  if (width < 800) {
+    return;
   }
 
-  if (index % 10 === 0) {
-    console.log(`Processed ${index}/${total} files`)
+  const basePath = file.replace(/\.(jpg|jpeg|png)$/i, '');
+  const ext = file.match(/\.(jpg|jpeg|png)$/i)[0].toLowerCase();
+  const isJpeg = ext === '.jpg' || ext === '.jpeg';
+
+  for (const targetWidth of RESPONSIVE_WIDTHS) {
+    // Don't create variants larger than original
+    if (targetWidth >= width) {
+      continue;
+    }
+
+    const targetHeight = Math.round((height / width) * targetWidth);
+    const resizedPath = `${basePath}-${targetWidth}w${ext}`;
+    const webpPath = `${basePath}-${targetWidth}w.webp`;
+
+    // Generate resized original format
+    if (isJpeg) {
+      const resizedJpeg = await sharp(file)
+        .resize(targetWidth, targetHeight, { fit: 'cover' })
+        .jpeg({ mozjpeg: true, quality: 80 })
+        .toBuffer();
+      await fs.writeFile(resizedPath, resizedJpeg);
+    } else {
+      const resizedPng = await sharp(file)
+        .resize(targetWidth, targetHeight, { fit: 'cover' })
+        .png({ compressionLevel: 6, palette: true, quality: 85, effort: 10 })
+        .toBuffer();
+      await fs.writeFile(resizedPath, resizedPng);
+    }
+
+    // Generate WebP variant
+    const webpVariant = await sharp(file)
+      .resize(targetWidth, targetHeight, { fit: 'cover' })
+      .webp({ quality: 80 })
+      .toBuffer();
+    await fs.writeFile(webpPath, webpVariant);
+  }
+}
+
+async function optimizeImageFile(file, index, total) {
+  try {
+    let imageInfo;
+
+    if (file.endsWith(".jpg") || file.endsWith(".jpeg")) {
+      const image = sharp(file);
+      imageInfo = await image.metadata();
+
+      const optiJpeg = await image
+        .jpeg({ mozjpeg: true, quality: 80 })
+        .toBuffer();
+      await fs.writeFile(file, optiJpeg);
+
+      const webp = await sharp(file)
+        .webp({quality: 80})
+        .toBuffer();
+
+      await fs.writeFile(file.replace(".jpeg", "").replace(".jpg", "") + ".webp", webp);
+
+      // Generate responsive variants for large images
+      await generateResponsiveVariants(file, imageInfo);
+
+    } else if (file.endsWith(".png")) {
+      const image = sharp(file);
+      imageInfo = await image.metadata();
+
+      const optiPng = await image
+        .png({ compressionLevel: 6, palette: true, quality: 85, effort: 10 })
+        .toBuffer();
+
+      await fs.writeFile(file, optiPng);
+
+      // Generate responsive variants for large images
+      await generateResponsiveVariants(file, imageInfo);
+
+    } else if (file.endsWith(".gif")) {
+      const optiGif = await sharp(file)
+        .gif({ effort: 10 })
+        .toBuffer();
+
+      await fs.writeFile(file, optiGif);
+    }
+
+    if (index % 10 === 0) {
+      console.log(`Processed ${index}/${total} files`)
+    }
+  } catch (error) {
+    console.warn(`Warning: Could not process ${file}: ${error.message}`);
   }
 
   return file;
@@ -60,6 +147,15 @@ async function compress() {
     'target/website/**/*.+(png|jpg|jpeg|gif|svg|webp)',
   )
   files = await glob(globPattern, {ignore: ignore});
+  
+  // IMPORTANT: Filter out generated responsive variants to avoid reprocessing them.
+  // This prevents "unsupported image format" errors when trying to process
+  // files that were just created by this script (e.g., *-400w.jpg, *-800w.webp).
+  files = files.filter(file => {
+    // Exclude files that match the responsive variant pattern: *-NNNw.ext
+    return !file.match(/-\d+w\.(jpg|jpeg|png|webp)$/);
+  });
+
   console.log(`found ${files.length} files.`)
 
   // limit is cpus-1, but min 1.

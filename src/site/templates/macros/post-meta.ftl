@@ -30,25 +30,71 @@
 
 <#macro featuredimage post link=true>
   <#if (post.featuredimage)?? >
+    <#-- Determine the base image path and extension -->
+    <#local imgPath="">
+    <#if (post.featuredimage)?starts_with("/")>
+      <#local imgPath = post.featuredimage>
+    <#elseif !(post.featuredimage)?contains("/")>
+      <#local imgPath = post.uri?keep_before_last("/") + "/" + post.featuredimage>
+    <#else>
+      <#local imgPath = post.featuredimage>
+    </#if>
+
+    <#local baseImgPath = imgPath?keep_before_last(".")>
+    <#local imgExt = imgPath?keep_after_last(".")>
+    <#local isLargeImage = (post.featuredimagewidth)?? && ((post.featuredimagewidth)?number >= 800)>
+
     <div class="featured-image">
       <#if (link)>
       <a href="${content.rootpath!""}${post.uri}" tabindex="-1">${post.title}
       </#if>
-        <img
-          <#if (post.featuredimagewidth)?? >width="${post.featuredimagewidth}"</#if>
-          <#if (post.featuredimageheight)?? >height="${post.featuredimageheight}"</#if>
-          <#if (post.featuredimage)?starts_with("/")>
-            <#-- absolute URI. -->
-            src="${post.featuredimage}"
-          <#elseif !(post.featuredimage)?contains("/")>
-            <#-- relative URL. Figure out the directory this blog post is in. -->
-            src="${content.rootpath!""}${post.uri?keep_before_last("/")}/${post.featuredimage}"
-          <#else>
-            src="${content.rootpath!""}${post.featuredimage}"
-          </#if>
-          class="attachment-full size-full wp-post-image"
-          <#if (post.featuredimagealt)?? >alt="${post.featuredimagealt}"<#else>alt="Featured image of ${post.title?esc}"</#if>
-        />
+      <#-- Use picture tag with responsive sources for large images -->
+      <#if isLargeImage>
+        <picture>
+          <#-- WebP sources with responsive sizes -->
+          <source
+            type="image/webp"
+            srcset="${content.rootpath!""}${baseImgPath}-400w.webp 400w,
+                    ${content.rootpath!""}${baseImgPath}-800w.webp 800w,
+                    ${content.rootpath!""}${baseImgPath}-1200w.webp 1200w,
+                    ${content.rootpath!""}${imgPath?keep_before_last(".")}.webp ${post.featuredimagewidth}w"
+            sizes="(max-width: 549px) 100vw, (max-width: 949px) 50vw, 412px"
+          />
+          <#-- Original format sources with responsive sizes -->
+          <source
+            type="image/${(imgExt == 'jpg')?then('jpeg', imgExt)}"
+            srcset="${content.rootpath!""}${baseImgPath}-400w.${imgExt} 400w,
+                    ${content.rootpath!""}${baseImgPath}-800w.${imgExt} 800w,
+                    ${content.rootpath!""}${baseImgPath}-1200w.${imgExt} 1200w,
+                    ${content.rootpath!""}${imgPath} ${post.featuredimagewidth}w"
+            sizes="(max-width: 549px) 100vw, (max-width: 949px) 50vw, 412px"
+          />
+          <#-- Fallback img for older browsers -->
+          <img
+            src="${content.rootpath!""}${baseImgPath}-800w.${imgExt}"
+            <#if (post.featuredimagewidth)?? >width="${post.featuredimagewidth}"</#if>
+            <#if (post.featuredimageheight)?? >height="${post.featuredimageheight}"</#if>
+            class="attachment-full size-full wp-post-image"
+            <#if (post.featuredimagealt)?? >alt="${post.featuredimagealt}"<#else>alt="Featured image of ${post.title?esc}"</#if>
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
+      <#else>
+        <#-- Small images: simple img tag with WebP fallback in picture -->
+        <picture>
+          <source type="image/webp" srcset="${content.rootpath!""}${imgPath?keep_before_last(".")}.webp">
+          <img
+            <#if (post.featuredimagewidth)?? >width="${post.featuredimagewidth}"</#if>
+            <#if (post.featuredimageheight)?? >height="${post.featuredimageheight}"</#if>
+            src="${content.rootpath!""}${imgPath}"
+            class="attachment-full size-full wp-post-image"
+            <#if (post.featuredimagealt)?? >alt="${post.featuredimagealt}"<#else>alt="Featured image of ${post.title?esc}"</#if>
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
+      </#if>
       <#if (link)></a></#if>
     </div>
   </#if>
