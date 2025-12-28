@@ -55,11 +55,29 @@
       <name>${post.author}</name>
     </author>
     </#if>
+    <#--
+      Content strategy: Show excerpt only (configurable via feed.excerpt.only)
+      Reason: Prevents spammy crawlers from republishing full content before
+      Google indexes the original, which could flag the original as duplicate.
+
+      Note: Properties in jbake.properties with dots are accessed with underscores
+      in templates: feed.excerpt.only -> config.feed_excerpt_only
+    -->
+    <#if (config.feed_excerpt_only)?? && (config.feed_excerpt_only == "true")>
+    <content type="html">
+      <#escape x as x?xml>
+      <#-- Extract first paragraph as excerpt, same logic as index.ftl -->
+      <p>${post.body?keep_after("<p>")?keep_before("</p>")}</p>
+      <p><a href="${config.site_host}/${post.uri}">Continue reading »</a></p>
+      </#escape>
+    </content>
+    <#else>
     <content type="html">
       <#escape x as x?xml>
       ${post.body}
       </#escape>
     </content>
+    </#if>
   </entry>
 
   </#list>
