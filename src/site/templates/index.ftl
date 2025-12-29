@@ -13,7 +13,7 @@
 <#import "macros/lang.ftl" as lang />
 <#import "macros/utils.ftl" as utils />
 
-<#assign firstPostOnPage = true />
+<#assign firstFeaturedImageOnPage = true />
 
 <div id="loop-container" class="loop-container" itemscope itemtype="https://schema.org/ItemList">
 <#list posts as post>
@@ -21,8 +21,10 @@
     <div class="post type-post status-publish format-standard <#if (post.featuredimage)?? >has-post-thumbnail </#if>hentry entry"
       <#if (post.lang)??>lang="${post.lang}"</#if> >
 
-      <@postmeta.featuredimage post=post link=true isLCP=firstPostOnPage />
-      <#assign firstPostOnPage = false />
+      <@postmeta.featuredimage post=post link=true isLCP=(firstFeaturedImageOnPage && (post.featuredimage)??) />
+      <#if (post.featuredimage)??>
+        <#assign firstFeaturedImageOnPage = false />
+      </#if>
 
       <article <#if (post.lang)??>lang="${post.lang}"</#if> itemscope itemtype="https://schema.org/BlogPosting" itemprop="itemListElement">
         <#if (post.featuredimage)??>

@@ -69,7 +69,7 @@
             <#if (post.featuredimageheight)?? >height="${post.featuredimageheight}"</#if>
             class="attachment-full size-full wp-post-image"
             <#if (post.featuredimagealt)?? >alt="${post.featuredimagealt}"<#else>alt="Featured image of ${post.title?esc}"</#if>
-            <#if !isLCP>loading="lazy"</#if>
+            <#if isLCP>fetchpriority="high"<#else>loading="lazy"</#if>
             decoding="async"
           />
         </picture>
@@ -83,7 +83,7 @@
             src="${content.rootpath!""}${imgPath}"
             class="attachment-full size-full wp-post-image"
             <#if (post.featuredimagealt)?? >alt="${post.featuredimagealt}"<#else>alt="Featured image of ${post.title?esc}"</#if>
-            <#if !isLCP>loading="lazy"</#if>
+            <#if isLCP>fetchpriority="high"<#else>loading="lazy"</#if>
             decoding="async"
           />
         </picture>
