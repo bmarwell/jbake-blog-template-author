@@ -14,7 +14,7 @@
 <#import "macros/lang.ftl" as lang />
 
 <div class="post type-post status-publish format-standard <#if (content.featuredimage)?? >has-post-thumbnail </#if> entry">
-  <@postmeta.featuredimage content false />
+  <@postmeta.featuredimage post=content link=false isLCP=true />
 
   <article itemscope itemtype="https://schema.org/BlogPosting">
     <header class='post-header'>

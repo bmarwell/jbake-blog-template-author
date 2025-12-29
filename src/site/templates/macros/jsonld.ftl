@@ -1,3 +1,5 @@
+<#import "utils.ftl" as utils />
+
 <#macro jsonld content type>
   <#if (config.site_jsonld!true) == false><#return></#if>
   <#setting datetime_format="yyyy-MM-dd HH:mm:ss">
@@ -17,18 +19,8 @@
     <#assign jsonld = jsonld + { "name": "${content.name?trim}" } />
   </#if>
   <#if (content.featuredimage)??>
-    <#if (content.featuredimage)?starts_with("http")>
-      <#assign featuredImageAbsolutePath = content.featuredimage?trim >
-    <#elseif (content.featuredimage)?starts_with("/")>
-      <#-- absolute path is not sufficient -- featured images must be an absolute URL. -->
-      <#assign featuredImageAbsolutePath = config.site_host + content.featuredimage/>
-    <#elseif (content.featuredimage)?contains("/")>
-      <#assign featuredImageAbsolutePath = "${config.site_host}/${(content.uri?substring(0, content.uri?last_index_of('/')))}/${content.featuredimage}" />
-    <#else>
-      <#-- relative URI starting with ./ or ../ or directly with the image name. -->
-      <#assign featuredImageAbsolutePath = "${config.site_host}/${(content.uri?substring(0, content.uri?last_index_of('/')))}/${content.featuredimage}" />
-    </#if>
-    <#assign jsonld = jsonld + { "image": "${featuredImageAbsolutePath?trim}" } />
+    <#assign featuredImageAbsolutePath = utils.resolveImagePath(content.featuredimage, content.uri, config.site_host) />
+    <#assign jsonld = jsonld + { "image": "${featuredImageAbsolutePath}" } />
   <#elseif (config.site_default_featured_image_file)??>
     <#assign jsonld = jsonld + { "image": "${config.site_default_featured_image_file?trim}" } />
   </#if>

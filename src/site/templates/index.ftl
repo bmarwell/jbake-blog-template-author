@@ -11,6 +11,9 @@
   -->
 <#include "header.ftl">
 <#import "macros/lang.ftl" as lang />
+<#import "macros/utils.ftl" as utils />
+
+<#assign firstPostOnPage = true />
 
 <div id="loop-container" class="loop-container" itemscope itemtype="https://schema.org/ItemList">
 <#list posts as post>
@@ -18,17 +21,12 @@
     <div class="post type-post status-publish format-standard <#if (post.featuredimage)?? >has-post-thumbnail </#if>hentry entry"
       <#if (post.lang)??>lang="${post.lang}"</#if> >
 
-      <@postmeta.featuredimage post />
+      <@postmeta.featuredimage post=post link=true isLCP=firstPostOnPage />
+      <#assign firstPostOnPage = false />
 
       <article <#if (post.lang)??>lang="${post.lang}"</#if> itemscope itemtype="https://schema.org/BlogPosting" itemprop="itemListElement">
         <#if (post.featuredimage)??>
-          <#if (post.featuredimage)?starts_with("http")>
-        <link itemprop="image" href="${post.featuredimage}" />
-          <#elseif (post.featuredimage)?starts_with("/")>
-        <link itemprop="image" href="${config.site_host}${post.featuredimage}" />
-          <#else>
-        <link itemprop="image" href="${config.site_host}/${post.uri?keep_before_last("/")}/${post.featuredimage}" />
-          </#if>
+        <link itemprop="image" href="${utils.resolveImagePath(post.featuredimage, post.uri, config.site_host)}" />
         </#if>
         <header class='post-header'>
           <h2 class='post-title' itemprop="headline">

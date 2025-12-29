@@ -12,6 +12,7 @@
   -->
 <#import "macros/post-meta.ftl" as postmeta>
 <#import "macros/jsonld.ftl" as jsonld>
+<#import "macros/utils.ftl" as utils>
 <#if (content.lang)??>
 <html lang="${content.lang}">
 <#else>
@@ -119,21 +120,9 @@
     <#else></#if>
     <#-- custom featured image if it exists or default featured image. -->
     <#if (content.featuredimage)?? >
-      <#if (content.featuredimage)?starts_with("http")>
-    <meta property="og:image" content="${content.featuredimage}"/>
-    <meta property="twitter:image" content="${content.featuredimage}"/>
-      <#elseif (content.featuredimage)?starts_with("/")>
-        <#-- absolute path is not sufficient -- featured images must be an absolute URL. -->
-    <meta property="og:image" content="${config.site_host}${content.featuredimage}"/>
-    <meta property="twitter:image" content="${config.site_host}${content.featuredimage}"/>
-      <#elseif (content.featuredimage)?contains("/")>
-        <#assign imageprefix="${config.site_host}/${(content.uri?substring(0, content.uri?last_index_of('/')))}/" />
-      <#else>
-        <#-- relative URI starting with ./ or directly with the image name. -->
-        <#assign imageprefix="${config.site_host}/${(content.uri?substring(0, content.uri?last_index_of('/')))}" />
-    <meta property="og:image" content="${imageprefix}${content.featuredimage}"/>
-    <meta property="twitter:image" content="${imageprefix}${content.featuredimage}"/>
-      </#if>
+      <#assign featuredImageUrl = utils.resolveImagePath(content.featuredimage, content.uri, config.site_host) />
+    <meta property="og:image" content="${featuredImageUrl}"/>
+    <meta property="twitter:image" content="${featuredImageUrl}"/>
       <#if (content.featuredimagewidth)??>
     <meta property="og:image:width" content="${content.featuredimagewidth}"/>
       </#if>
@@ -145,10 +134,10 @@
     <meta property="og:image" content='${content.rootpath!""}${config.site_default_featured_image_file}'/>
       </#if>
       <#if (config.site_default_featured_image_width)??>
-        <meta property="og:image:width" content='${config.site_default_featured_image_width}'/>
+    <meta property="og:image:width" content='${config.site_default_featured_image_width}'/>
       </#if>
       <#if (config.site_default_featured_image_height)??>
-        <meta property="og:image:height" content='${config.site_default_featured_image_height}'/>
+    <meta property="og:image:height" content='${config.site_default_featured_image_height}'/>
       </#if>
     </#if>
 

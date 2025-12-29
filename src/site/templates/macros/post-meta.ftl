@@ -11,6 +11,7 @@
   ~ permissions and limitations under the License.
   -->
 <#setting locale="en_GB" />
+<#import "utils.ftl" as utils />
 
 <#function ordinalsuffix post>
 <#switch post.date?string("d")>
@@ -28,18 +29,10 @@
 </#switch>
 </#function>
 
-<#macro featuredimage post link=true>
+<#macro featuredimage post link=true isLCP=false>
   <#if (post.featuredimage)?? >
-    <#-- Determine the base image path and extension -->
-    <#local imgPath="">
-    <#if (post.featuredimage)?starts_with("/")>
-      <#local imgPath = post.featuredimage>
-    <#elseif !(post.featuredimage)?contains("/")>
-      <#local imgPath = post.uri?keep_before_last("/") + "/" + post.featuredimage>
-    <#else>
-      <#local imgPath = post.featuredimage>
-    </#if>
-
+    <#-- Resolve image path and extract base/extension -->
+    <#local imgPath = utils.resolveImagePath(post.featuredimage, post.uri, config.site_host, false)>
     <#local baseImgPath = imgPath?keep_before_last(".")>
     <#local imgExt = imgPath?keep_after_last(".")>
     <#local isLargeImage = (post.featuredimagewidth)?? && ((post.featuredimagewidth)?number >= 800)>
@@ -76,7 +69,7 @@
             <#if (post.featuredimageheight)?? >height="${post.featuredimageheight}"</#if>
             class="attachment-full size-full wp-post-image"
             <#if (post.featuredimagealt)?? >alt="${post.featuredimagealt}"<#else>alt="Featured image of ${post.title?esc}"</#if>
-            loading="lazy"
+            <#if !isLCP>loading="lazy"</#if>
             decoding="async"
           />
         </picture>
@@ -90,7 +83,7 @@
             src="${content.rootpath!""}${imgPath}"
             class="attachment-full size-full wp-post-image"
             <#if (post.featuredimagealt)?? >alt="${post.featuredimagealt}"<#else>alt="Featured image of ${post.title?esc}"</#if>
-            loading="lazy"
+            <#if !isLCP>loading="lazy"</#if>
             decoding="async"
           />
         </picture>
