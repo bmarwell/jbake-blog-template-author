@@ -69,13 +69,21 @@
     <script src="${content.rootpath!""}lib/highlight.js/languages/yaml.min.js?date=${cacheBuster}" defer></script>
     <script src="${content.rootpath!""}lib/highlightjs-line-numbers.js/highlightjs-line-numbers.min.js?date=${cacheBuster}" defer></script>
 
-    <script defer>
-      hljs.highlightAll();
-      hljs.initLineNumbersOnLoad();
-    </script>
+    <script>
+      // Initialize hljs and SimpleLightbox after DOM is ready and scripts are loaded
+      // Using DOMContentLoaded ensures deferred scripts have executed
+      window.addEventListener('DOMContentLoaded', function() {
+        // Check if hljs is available (deferred script loaded)
+        if (typeof hljs !== 'undefined') {
+          hljs.highlightAll();
+          hljs.initLineNumbersOnLoad();
+        }
 
-    <script defer>
-      new SimpleLightbox('div a', { /* options */ });
+        // Check if SimpleLightbox is available
+        if (typeof SimpleLightbox !== 'undefined') {
+          new SimpleLightbox('div a', { /* options */ });
+        }
+      });
     </script>
 
     <#-- Matomo stats tracking -->
