@@ -155,19 +155,29 @@
     <!-- Le styles -->
     <!-- Author theme adapted from wordpress' Author theme. -->
     <#assign cacheBuster = ((.now)?date?iso_utc)>
-    <!-- Preload critical fonts -->
-    <link rel="preload" href="${content.rootpath!""}lib/@fontsource/lato/index.css?date=${cacheBuster}" as="style"/>
-    <link rel="preload" href="${content.rootpath!""}lib/@fontsource/rokkitt/index.css?date=${cacheBuster}" as="style"/>
 
-    <!-- Critical CSS - loaded synchronously -->
-    <link rel="stylesheet" href="${content.rootpath!""}lib/@fontsource/lato/index.css?date=${cacheBuster}" fetchpriority="high"/>
-    <link rel="stylesheet" href="${content.rootpath!""}lib/@fontsource/lato/latin-ext.css?date=${cacheBuster}"/>
-    <link rel="stylesheet" href="${content.rootpath!""}lib/@fontsource/rokkitt/index.css?date=${cacheBuster}" fetchpriority="high"/>
-    <link rel="stylesheet" href="${content.rootpath!""}lib/@fontsource/rokkitt/latin-ext.css?date=${cacheBuster}"/>
+    <!-- Critical CSS only - minimal blocking -->
+    <link rel="stylesheet" href="${content.rootpath!""}css/author.min.css?date=${cacheBuster}" id='parent-style-css' />
+    <link rel="stylesheet" href="${content.rootpath!""}css/custom.min.css?date=${cacheBuster}" />
 
-    <link rel="stylesheet" href="${content.rootpath!""}css/asciidoctor.min.css?date=${cacheBuster}" />
-    <link rel="stylesheet" href="${content.rootpath!""}css/author.min.css?date=${cacheBuster}" id='parent-style-css' fetchpriority="high" />
-    <link rel="stylesheet" href="${content.rootpath!""}css/custom.min.css?date=${cacheBuster}" fetchpriority="high" />
+    <!-- Fonts - deferred with font-display: swap for instant text rendering -->
+    <!-- Lato (body font) - load asynchronously -->
+    <link rel="preload" href="${content.rootpath!""}lib/@fontsource/lato/index.css?date=${cacheBuster}" as="style" onload="this.onload=null;this.rel='stylesheet'"/>
+    <noscript><link rel="stylesheet" href="${content.rootpath!""}lib/@fontsource/lato/index.css?date=${cacheBuster}"/></noscript>
+
+    <link rel="preload" href="${content.rootpath!""}lib/@fontsource/lato/latin-ext.css?date=${cacheBuster}" as="style" onload="this.onload=null;this.rel='stylesheet'"/>
+    <noscript><link rel="stylesheet" href="${content.rootpath!""}lib/@fontsource/lato/latin-ext.css?date=${cacheBuster}"/></noscript>
+
+    <!-- Rokkitt (heading font) - load asynchronously with lower priority -->
+    <link rel="preload" href="${content.rootpath!""}lib/@fontsource/rokkitt/index.css?date=${cacheBuster}" as="style" onload="this.onload=null;this.rel='stylesheet'" fetchpriority="low"/>
+    <noscript><link rel="stylesheet" href="${content.rootpath!""}lib/@fontsource/rokkitt/index.css?date=${cacheBuster}"/></noscript>
+
+    <link rel="preload" href="${content.rootpath!""}lib/@fontsource/rokkitt/latin-ext.css?date=${cacheBuster}" as="style" onload="this.onload=null;this.rel='stylesheet'" fetchpriority="low"/>
+    <noscript><link rel="stylesheet" href="${content.rootpath!""}lib/@fontsource/rokkitt/latin-ext.css?date=${cacheBuster}"/></noscript>
+
+    <!-- AsciiDoctor CSS - defer (only needed for code blocks) -->
+    <link rel="preload" href="${content.rootpath!""}css/asciidoctor.min.css?date=${cacheBuster}" as="style" onload="this.onload=null;this.rel='stylesheet'"/>
+    <noscript><link rel="stylesheet" href="${content.rootpath!""}css/asciidoctor.min.css?date=${cacheBuster}"/></noscript>
 
     <!-- Fav and touch icons -->
     <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
