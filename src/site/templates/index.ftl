@@ -12,8 +12,6 @@
 <#include "header.ftl">
 <#import "macros/lang.ftl" as lang />
 
-<h1 class="screen-reader-text">${config.site_title}</h1>
-
 <div id="loop-container" class="loop-container" itemscope itemtype="https://schema.org/ItemList">
 <#list posts as post>
   <#if (post.status == "published"  && post?index >= (currentPageNumber-1) * config.index_posts_per_page?eval && post?index < currentPageNumber * config.index_posts_per_page?eval)>
