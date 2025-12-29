@@ -79,10 +79,17 @@
           hljs.initLineNumbersOnLoad();
         }
 
-        // Check if SimpleLightbox is available
-        if (typeof SimpleLightbox !== 'undefined') {
-          new SimpleLightbox('div a', { /* options */ });
+        // Initialize SimpleLightbox with retry mechanism for deferred loading
+        function initSimpleLightbox(attempts) {
+          if (typeof SimpleLightbox !== 'undefined') {
+            new SimpleLightbox({
+              elements: '.imageblock a, .imageblock a[href*=".png"], .imageblock a[href*=".webp"], .post-content a[href*=".jpg"], .post-content a[href*=".png"], .post-content a[href*=".webp"]'
+            });
+          } else if (attempts > 0) {
+            setTimeout(function() { initSimpleLightbox(attempts - 1); }, 250);
+          }
         }
+        initSimpleLightbox(6);
       });
     </script>
 
