@@ -13,7 +13,8 @@
     "terser": "5.44.1"
   },
   "scripts": {
-    "sharp": "node ./build-assets/sharp.js"
+    "sharp": "node ./build-assets/sharp.js",
+    "replace-images": "node ./build-assets/replace-images-with-picture.js"
   },
   "dependencies": {
     "@fontsource/lato": "5.2.7",

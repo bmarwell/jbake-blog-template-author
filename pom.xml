@@ -261,6 +261,18 @@
               <arguments>run sharp</arguments>
             </configuration>
           </execution>
+
+          <execution>
+            <id>replace-body-images</id>
+            <phase>package</phase>
+            <goals>
+              <goal>yarn</goal>
+            </goals>
+            <configuration>
+              <skip>${site.postprocess.skip}</skip>
+              <arguments>run replace-images</arguments>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
 
