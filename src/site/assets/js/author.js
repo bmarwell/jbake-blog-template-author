@@ -392,27 +392,39 @@ function registerToggleDropdown () {
       if ( top ) {
         top = false;
         topOffset = ( sidebarOffsetTop > 0 ) ? sidebarOffsetTop : 0;
+        sidebar.style.setProperty('position', 'absolute');
         sidebar.style.setProperty('top', topOffset + 'px');
+        sidebar.style.removeProperty('bottom');
       } else if ( !bottom && windowPos + cachedDimensions.windowHeight >= cachedDimensions.sidebarHeight + sidebarOffsetTop && cachedDimensions.sidebarHeight <= cachedDimensions.bodyHeight ) {
         bottom = true;
         sidebar.style.setProperty('position', 'fixed');
+        sidebar.style.removeProperty('top');
         sidebar.style.setProperty('bottom', '0');
       }
       // if sidebar was shorter then menu dropdown made it taller
       else if ( ( cachedDimensions.sidebarHeight  > cachedDimensions.windowHeight ) && !bottom ) {
         topOffset = ( sidebarOffsetTop > 0 ) ? sidebarOffsetTop : 0;
+        sidebar.style.setProperty('position', 'absolute');
         sidebar.style.setProperty('top', topOffset + 'px');
+        sidebar.style.removeProperty('bottom');
       }
     }
     // if the window has been scrolled up
     else if ( windowPos < lastWindowPos ) {
       if ( bottom ) {
         bottom = false;
-        topOffset = ( sidebarOffsetTop > 0 ) ? sidebarOffsetTop : 0;
+        // When transitioning from fixed bottom, calculate absolute position
+        // Position should be: current scroll + window height - sidebar height
+        topOffset = windowPos + cachedDimensions.windowHeight - cachedDimensions.sidebarHeight;
+        sidebar.style.setProperty('position', 'absolute');
+        sidebar.style.removeProperty('bottom');
         sidebar.style.setProperty('top', topOffset + 'px');
-      } else if ( !top && windowPos >= 0 && windowPos <= sidebarOffsetTop ) {
+      } else if ( !top && !bottom && windowPos >= 0 && windowPos <= sidebarOffsetTop ) {
+        // Only fix to top if not already at bottom
         top = true;
         sidebar.style.setProperty('position', 'fixed');
+        sidebar.style.removeProperty('bottom');
+        sidebar.style.removeProperty('top');
       }
     }
     // if the window has not been previously scrolled
