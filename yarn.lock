@@ -19,15 +19,10 @@
   resolved "https://registry.yarnpkg.com/@fontsource/rokkitt/-/rokkitt-5.2.8.tgz#adcd7208fd21819e621f95fbdf54cbe8143899b4"
   integrity sha512-MpNFvyANvmcJOCQ+tE7bBxl2kwmUTQxf4RvlO8aALEACU+NeSTDNaKoU5qnWos0nhpSPzwOr2dz7FgLdrEHQTQ==
 
-"@fortawesome/fontawesome-free@7.1.0":
+"@fortawesome/fontawesome-free@7.1.0", "@fortawesome/fontawesome-free@^7.1.0":
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-7.1.0.tgz#8eb76278515341720aa74485266f8be121089529"
   integrity sha512-+WxNld5ZCJHvPQCr/GnzCTVREyStrAJjisUPtUxG5ngDA8TMlPnKp6dddlTpai4+1GNmltAeuk1hJEkBohwZYA==
-
-"@fortawesome/fontawesome-free@^6.7.2":
-  version "6.7.2"
-  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-6.7.2.tgz#8249de9b7e22fcb3ceb5e66090c30a1d5492b81a"
-  integrity sha512-JUOtgFW6k9u4Y+xeIaEiLr3+cjoUPiAuLXoyKOJSia6Duzb7pq+A76P9ZdPDoAoxHdHzq6gE9/jKBGXlZT8FbA==
 
 "@highlightjs/cdn-assets@^11.11.1":
   version "11.11.1"
@@ -1443,11 +1438,6 @@ isurl@^1.0.0-alpha5:
     has-to-string-tag-x "^1.2.0"
     is-object "^1.0.1"
 
-jquery@^3.7.1:
-  version "3.7.1"
-  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.7.1.tgz#083ef98927c9a6a74d05a6af02806566d16274de"
-  integrity sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg==
-
 json-buffer@3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/json-buffer/-/json-buffer-3.0.0.tgz#5b1f397afc75d677bde8bcfc0e47e1f9a3d9a898"
@@ -1984,13 +1974,12 @@ semver@^7.7.3:
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.7.3.tgz#4b5f4143d007633a8dc671cd0a6ef9147b8bb946"
   integrity sha512-SdsKMrI9TdgjdweUSR9MweHA4EJ8YxHn8DFaDisvhVlUOe4BF1tLD7GAj0lIqWVl+dPb/rExr0Btby5loQm20Q==
 
-shariff-plus@2.3.2:
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/shariff-plus/-/shariff-plus-2.3.2.tgz#46c19f562a2bc6fd331157b5f39a8c4bec4b4221"
-  integrity sha512-BAVHG6tczSitQTCo07Rky94K+xBnNBql7Yudmxie4z0cm0Zw/ceHLUMcDY1rvSJlSZdbHc3moNz4ZtAUts1v/g==
+shariff-plus@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/shariff-plus/-/shariff-plus-3.0.0.tgz#57916742b04e269a895ea084e95c9a99b05a2118"
+  integrity sha512-6lGkQWDW9lbclKT78ecPFSaEwlWSShREgImlLX98fdIEeVYd3boBn5Z8yv2pWi3eX1BEasutfZ61cWhfPbs2lg==
   dependencies:
-    "@fortawesome/fontawesome-free" "^6.7.2"
-    jquery "^3.7.1"
+    "@fortawesome/fontawesome-free" "^7.1.0"
 
 sharp@0.34.5:
   version "0.34.5"
