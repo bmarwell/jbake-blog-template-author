@@ -6,7 +6,7 @@
       "dependencies": {
         "@fontsource/lato": "5.2.7",
         "@fontsource/rokkitt": "5.2.8",
-        "@fortawesome/fontawesome-free": "7.1.0",
+        "@fortawesome/fontawesome-free": "7.2.0",
         "@highlightjs/cdn-assets": "^11.11.1",
         "bootstrap-icons": "1.13.1",
         "country-flag-icons": "1.6.15",
@@ -41,7 +41,7 @@
 
     "@fontsource/rokkitt": ["@fontsource/rokkitt@5.2.8", "", {}, "sha512-MpNFvyANvmcJOCQ+tE7bBxl2kwmUTQxf4RvlO8aALEACU+NeSTDNaKoU5qnWos0nhpSPzwOr2dz7FgLdrEHQTQ=="],
 
-    "@fortawesome/fontawesome-free": ["@fortawesome/fontawesome-free@7.1.0", "", {}, "sha512-+WxNld5ZCJHvPQCr/GnzCTVREyStrAJjisUPtUxG5ngDA8TMlPnKp6dddlTpai4+1GNmltAeuk1hJEkBohwZYA=="],
+    "@fortawesome/fontawesome-free": ["@fortawesome/fontawesome-free@7.2.0", "", {}, "sha512-3DguDv/oUE+7vjMeTSOjCSG+KeawgVQOHrKRnvUuqYh1mfArrh7s+s8hXW3e4RerBA1+Wh+hBqf8sJNpqNrBWg=="],
 
     "@highlightjs/cdn-assets": ["@highlightjs/cdn-assets@11.11.1", "", {}, "sha512-VEPdHzwelZ12hEX18BHduqxMZGolcUsrbeokHYxOUIm8X2+M7nx5QPtPeQgRxR9XjhdLv4/7DD5BWOlSrJ3k7Q=="],
 
