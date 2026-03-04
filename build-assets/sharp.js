@@ -158,7 +158,7 @@ async function compress() {
     'target/website/**/*.+(png|jpg|jpeg|gif|svg|webp)',
   )
   files = await glob(globPattern, {ignore: ignore});
-  
+
   // IMPORTANT: Filter out generated responsive variants to avoid reprocessing them.
   // This prevents "unsupported image format" errors when trying to process
   // files that were just created by this script (e.g., *-400w.jpg, *-800w.webp).

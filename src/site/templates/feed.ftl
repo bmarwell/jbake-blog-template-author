@@ -68,7 +68,12 @@
       <#escape x as x?xml>
       <#-- Extract first paragraph as excerpt, same logic as index.ftl -->
       <p>${post.body?keep_after("<p>")?keep_before("</p>")}</p>
-      <p><a href="${config.site_host}/${post.uri}">Continue reading »</a></p>
+      <#-- Localized "read more" link with post title to encourage proper attribution from republishers -->
+      <#if (post.lang)?? && post.lang == "de">
+      <p><strong><a href="${config.site_host}/${post.uri}" title="Vollständigen Artikel lesen: ${post.title}">Vollständigen Artikel »${post.title}« auf ${config.site_title} lesen »</a></strong></p>
+      <#else>
+      <p><strong><a href="${config.site_host}/${post.uri}" title="Read the full article: ${post.title}">Read the full article "${post.title}" on ${config.site_title} »</a></strong></p>
+      </#if>
       </#escape>
     </content>
     <#else>

@@ -15,7 +15,7 @@
 
 /**
  * Registers all event listeners and initializes the theme's interactive behavior.
- * Main entry point called on DOMContentLoaded. Sets up sidebar navigation, 
+ * Main entry point called on DOMContentLoaded. Sets up sidebar navigation,
  * dropdown menus, scroll handling, and responsive layout adjustments.
  * All dimension reads are cached to avoid forced reflows during scroll/resize.
  */
@@ -42,7 +42,7 @@ function registerToggleDropdown () {
     bodyHeight: 0,
     sidebarHeight: 0
   };
-  
+
   /**
    * Updates cached dimension values from the DOM.
    * Called on resize to refresh measurements before layout calculations.
@@ -54,13 +54,13 @@ function registerToggleDropdown () {
     cachedDimensions.bodyHeight = overflowContainer.clientHeight;
     cachedDimensions.sidebarHeight = sidebar.offsetHeight;
   }
-  
+
   updateCachedDimensions();
 
 
   /**
    * Scroll event handler that closes the mobile menu when scrolling past the sidebar.
-   * Attached when menu opens, removed when menu closes. Improves mobile UX by 
+   * Attached when menu opens, removed when menu closes. Improves mobile UX by
    * auto-closing the navigation when user scrolls to content.
    */
   const autoCloseMenuListener = function() {
@@ -165,7 +165,7 @@ function registerToggleDropdown () {
         sidebarPrimaryHeight: sidebarPrimary.offsetHeight,
         windowHeight: cachedDimensions.windowHeight
       };
-      
+
       for ( let child of siteHeader.children ) {
         if (!child.classList.contains("social-media-icons")) continue;
         for (let socialChild of child.children) {
@@ -173,9 +173,9 @@ function registerToggleDropdown () {
           dimensions.socialIconsHeight += socialChild.offsetHeight;
         }
       }
-      
+
       const minHeight = dimensions.sidebarPrimaryHeight + dimensions.headerHeight + dimensions.socialIconsHeight + dimensions.menuHeight;
-      
+
       // Batch write
       if ( minHeight > dimensions.windowHeight ) {
         main.style.setProperty( 'min-height', minHeight + 'px' );
@@ -248,7 +248,7 @@ function registerToggleDropdown () {
         menuHeight: menu.offsetHeight,
         headerHeight: sidebar.offsetHeight
       };
-      
+
       for ( let child of siteHeader.children ) {
         if (!child.classList.contains("social-media-icons")) continue;
         for (let socialChild of child.children) {
@@ -332,7 +332,7 @@ function registerToggleDropdown () {
       height = height - headerImage.offsetHeight;
     }
     const sidebarHeight = sidebar.offsetHeight;
-    
+
     if ( sidebarHeight > height ) {
       height = sidebarHeight;
     }
@@ -342,7 +342,7 @@ function registerToggleDropdown () {
     if ( height > cachedDimensions.windowHeight ) {
       main.style.setProperty('min-height', height + 'px')
     }
-    
+
     cachedDimensions.sidebarHeight = sidebarHeight;
   }
 
@@ -385,7 +385,7 @@ function registerToggleDropdown () {
 
     // Batch reads
     const sidebarOffsetTop = sidebar.offsetTop;
-    
+
     // if the sidebar height + admin bar is greater than the window height
     // if the window has been scrolled down
     if ( windowPos > lastWindowPos ) {
