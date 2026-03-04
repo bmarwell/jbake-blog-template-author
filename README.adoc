@@ -19,7 +19,7 @@ While the blog roll (index) will show all languages, the posts itselves can cont
 Metadata will be added where appropriate.
 Minification::
 The new behaviour since 2023-05-11 is:
-Images will not be optimized on build. Instead, run `./mvnw com.github.eirslett:frontend-maven-plugin:yarn@optimize-images` to optimize all images in the `target/website` folder.
+Images will not be optimized on build. Instead, run `./mvnw com.github.eirslett:frontend-maven-plugin:bun@optimize-images` to optimize all images in the `target/website` folder.
 Featured Images::
 You can include a featured image and even select the display type for twitter and linkedin!
 Simple Light Box::

@@ -27,11 +27,4 @@ jobs:
       - name: Build application with Maven
         shell: bash
         run: |
-          ./mvnw \
-            --batch-mode \
-            --errors \
-            --no-transfer-progress \
-            -Dimage.compression.level=low \
-            generate-sources \
-            com.github.eirslett:frontend-maven-plugin:bun@optimize-images \
-            verify
+          ./mvnw --batch-mode --errors --no-transfer-progress -Dimage.compression.level=low verify
