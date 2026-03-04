@@ -33,6 +33,34 @@ import sharp from "sharp";
 
 let [, , ...files] = process.argv
 
+// Compression level: 'low' for fast CI builds, 'high' for production (default)
+const IMAGE_COMPRESSION_LEVEL = process.env.IMAGE_COMPRESSION_LEVEL || 'high';
+
+/**
+ * Returns compression settings based on the configured IMAGE_COMPRESSION_LEVEL.
+ *
+ * High quality (production default):
+ * - PNG: compressionLevel 6, effort 10
+ * - JPEG/WebP: quality 80
+ *
+ * Low quality (CI builds - much faster):
+ * - PNG: compressionLevel 1, effort 1
+ * - JPEG/WebP: quality 60
+ */
+function getCompressionSettings() {
+  if (IMAGE_COMPRESSION_LEVEL === 'low') {
+    return { pngCompressionLevel: 1, pngEffort: 1, jpegQuality: 60, webpQuality: 60 };
+  }
+  if (IMAGE_COMPRESSION_LEVEL !== 'high') {
+    console.warn(`Warning: Unknown IMAGE_COMPRESSION_LEVEL '${IMAGE_COMPRESSION_LEVEL}', defaulting to 'high'.`);
+  }
+  return { pngCompressionLevel: 6, pngEffort: 10, jpegQuality: 80, webpQuality: 80 };
+}
+
+const COMPRESSION = getCompressionSettings();
+
+console.log(`Image compression level: ${IMAGE_COMPRESSION_LEVEL}`);
+
 // Responsive image sizes for featured images
 const RESPONSIVE_WIDTHS = [400, 800, 1200];
 
@@ -71,13 +99,13 @@ async function generateResponsiveVariants(file, imageInfo) {
     if (isJpeg) {
       const resizedJpeg = await sharp(file)
         .resize(actualWidth, actualHeight, { fit: 'cover' })
-        .jpeg({ mozjpeg: true, quality: 80 })
+        .jpeg({ mozjpeg: true, quality: COMPRESSION.jpegQuality })
         .toBuffer();
       await fs.writeFile(resizedPath, resizedJpeg);
     } else {
       const resizedPng = await sharp(file)
         .resize(actualWidth, actualHeight, { fit: 'cover' })
-        .png({ compressionLevel: 6, palette: true, quality: 85, effort: 10 })
+        .png({ compressionLevel: COMPRESSION.pngCompressionLevel, palette: true, quality: 85, effort: COMPRESSION.pngEffort })
         .toBuffer();
       await fs.writeFile(resizedPath, resizedPng);
     }
@@ -85,7 +113,7 @@ async function generateResponsiveVariants(file, imageInfo) {
     // Generate WebP variant
     const webpVariant = await sharp(file)
       .resize(actualWidth, actualHeight, { fit: 'cover' })
-      .webp({ quality: 80 })
+      .webp({ quality: COMPRESSION.webpQuality })
       .toBuffer();
     await fs.writeFile(webpPath, webpVariant);
   }
@@ -100,12 +128,12 @@ async function optimizeImageFile(file, index, total) {
       imageInfo = await image.metadata();
 
       const optiJpeg = await image
-        .jpeg({ mozjpeg: true, quality: 80 })
+        .jpeg({ mozjpeg: true, quality: COMPRESSION.jpegQuality })
         .toBuffer();
       await fs.writeFile(file, optiJpeg);
 
       const webp = await sharp(file)
-        .webp({quality: 80})
+        .webp({ quality: COMPRESSION.webpQuality })
         .toBuffer();
 
       await fs.writeFile(file.replace(".jpeg", "").replace(".jpg", "") + ".webp", webp);
@@ -118,14 +146,14 @@ async function optimizeImageFile(file, index, total) {
       imageInfo = await image.metadata();
 
       const optiPng = await image
-        .png({ compressionLevel: 6, palette: true, quality: 85, effort: 10 })
+        .png({ compressionLevel: COMPRESSION.pngCompressionLevel, palette: true, quality: 85, effort: COMPRESSION.pngEffort })
         .toBuffer();
 
       await fs.writeFile(file, optiPng);
 
       // Generate WebP version of the PNG
       const webp = await sharp(file)
-        .webp({ quality: 80 })
+        .webp({ quality: COMPRESSION.webpQuality })
         .toBuffer();
 
       await fs.writeFile(file.replace(".png", "") + ".webp", webp);
@@ -135,7 +163,7 @@ async function optimizeImageFile(file, index, total) {
 
     } else if (file.endsWith(".gif")) {
       const optiGif = await sharp(file)
-        .gif({ effort: 10 })
+        .gif({ effort: COMPRESSION.pngEffort })
         .toBuffer();
 
       await fs.writeFile(file, optiGif);

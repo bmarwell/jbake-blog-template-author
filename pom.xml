@@ -30,6 +30,7 @@
     <project.build.outputTimestamp>1631003912</project.build.outputTimestamp>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <site.postprocess.skip>false</site.postprocess.skip>
+    <image.compression.level>high</image.compression.level>
   </properties>
 
   <build>
@@ -260,6 +261,9 @@
             <configuration>
               <skip>${site.postprocess.skip}</skip>
               <arguments>run sharp</arguments>
+              <environmentVariables>
+                <IMAGE_COMPRESSION_LEVEL>${image.compression.level}</IMAGE_COMPRESSION_LEVEL>
+              </environmentVariables>
             </configuration>
           </execution>
 

@@ -31,6 +31,7 @@ jobs:
             --batch-mode \
             --errors \
             --no-transfer-progress \
+            -Dimage.compression.level=low \
             generate-sources \
-            com.github.eirslett:frontend-maven-plugin:yarn@optimize-images \
+            com.github.eirslett:frontend-maven-plugin:bun@optimize-images \
             verify
