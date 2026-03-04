@@ -191,25 +191,26 @@
         <version>2.0.0</version>
 
         <configuration>
-          <nodeVersion>v22.2.0</nodeVersion>
-          <yarnVersion>v1.22.17</yarnVersion>
-          <installDirectory>${project.basedir}/target/yarn</installDirectory>
+          <installDirectory>${project.basedir}/target/bun</installDirectory>
         </configuration>
 
         <executions>
           <execution>
-            <id>install node and yarn</id>
+            <id>install bun</id>
             <phase>initialize</phase>
             <goals>
-              <goal>install-node-and-yarn</goal>
+              <goal>install-bun</goal>
             </goals>
+            <configuration>
+              <bunVersion>v1.3.10</bunVersion>
+            </configuration>
           </execution>
 
           <execution>
-            <id>yarn install</id>
+            <id>bun install</id>
             <phase>initialize</phase>
             <goals>
-              <goal>yarn</goal>
+              <goal>bun</goal>
             </goals>
             <configuration>
               <arguments>install</arguments>
@@ -220,7 +221,7 @@
             <id>terser-minify-author</id>
             <phase>prepare-package</phase>
             <goals>
-              <goal>yarn</goal>
+              <goal>bun</goal>
             </goals>
             <configuration>
               <arguments>run terser -o ${project.basedir}/target/website/js/author.min.js ${project.basedir}/target/website/js/author.js</arguments>
@@ -230,7 +231,7 @@
             <id>cleancss-minify</id>
             <phase>prepare-package</phase>
             <goals>
-              <goal>yarn</goal>
+              <goal>bun</goal>
             </goals>
             <configuration>
               <arguments>run cleancss --batch --batch-suffix .min ${project.basedir}/target/website/css/{author,custom,appbox,asciidoctor}.css</arguments>
@@ -241,7 +242,7 @@
             <id>html-terser-minify</id>
             <phase>prepare-package</phase>
             <goals>
-              <goal>yarn</goal>
+              <goal>bun</goal>
             </goals>
             <configuration>
               <skip>${site.postprocess.skip}</skip>
@@ -254,7 +255,7 @@
             <id>optimize-images</id>
             <phase>package</phase>
             <goals>
-              <goal>yarn</goal>
+              <goal>bun</goal>
             </goals>
             <configuration>
               <skip>${site.postprocess.skip}</skip>
@@ -266,7 +267,7 @@
             <id>replace-body-images</id>
             <phase>package</phase>
             <goals>
-              <goal>yarn</goal>
+              <goal>bun</goal>
             </goals>
             <configuration>
               <skip>${site.postprocess.skip}</skip>

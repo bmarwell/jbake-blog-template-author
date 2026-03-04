@@ -9,8 +9,8 @@ updates:
       time: "03:00"
     open-pull-requests-limit: 10
 
-  # npm/yarn dependencies
-  - package-ecosystem: "npm"
+  # Bun dependencies
+  - package-ecosystem: "bun"
     directory: "/"
     schedule:
       interval: "weekly"

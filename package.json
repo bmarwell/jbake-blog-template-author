@@ -1,5 +1,9 @@
 {
   "type": "module",
+  "trustedDependencies": [
+    "sharp",
+    "zstd"
+  ],
   "devDependencies": {
     "clean-css-cli": "^5.5.2",
     "glob": "13.0.0",
