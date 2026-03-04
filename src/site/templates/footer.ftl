@@ -56,7 +56,7 @@
     <script src="${content.rootpath!""}js/author.min.js" defer></script>
     <script src="${content.rootpath!""}lib/simple-lightbox/simpleLightbox.min.js?date=${cacheBuster}" defer></script>
 
-    <script src="${content.rootpath!""}lib/shariff-plus/shariff.complete.js?date=${cacheBuster}" async></script>
+    <script src="${content.rootpath!""}lib/shariff-plus/shariff.complete.js?date=${cacheBuster}" type="module"></script>
 
     <script src="${content.rootpath!""}lib/highlight.js/highlight.min.js?date=${cacheBuster}" defer></script>
     <script src="${content.rootpath!""}lib/highlight.js/languages/bash.min.js?date=${cacheBuster}" defer></script>
