@@ -34,7 +34,7 @@
        <#if (config.shariff_services)??><#list (config.shariff_services)><@compress single_line=true>
            data-services="[
            <#items as service>
-           &quot;${service}&quot;,
+           &quot;${service}&quot;<#sep>,</#sep>
            </#items>
            ]"
          </@compress>
