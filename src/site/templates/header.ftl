@@ -82,12 +82,6 @@
           <#if (authors[content.author?trim].facebook)??>
     <meta property="article:author" content="${authors[content.author].facebook}" />
           </#if>
-          <#if (authors[content.author?trim].first_name)??>
-    <meta property="profile:first_name" content="${authors[content.author].first_name}" />
-          </#if>
-          <#if (authors[content.author?trim].last_name)??>
-    <meta property="profile:last_name" content="${authors[content.author].last_name}" />
-          </#if>
         </#if>
       <#-- fall through -->
       <#case "page">
@@ -119,10 +113,13 @@
     <meta property="og:url" content='${config.site_host}/${content.uri}'/>
     <#else></#if>
     <#-- custom featured image if it exists or default featured image. -->
+    <#assign featuredImageAlt = (content.featuredimagealt!content.title!"") />
     <#if (content.featuredimage)?? >
       <#assign featuredImageUrl = utils.resolveImagePath(content.featuredimage, content.uri, config.site_host) />
     <meta property="og:image" content="${featuredImageUrl}"/>
-    <meta property="twitter:image" content="${featuredImageUrl}"/>
+    <meta property="og:image:alt" content="${featuredImageAlt}"/>
+    <meta name="twitter:image" content="${featuredImageUrl}"/>
+    <meta name="twitter:image:alt" content="${featuredImageAlt}"/>
       <#if (content.featuredimagewidth)??>
     <meta property="og:image:width" content="${content.featuredimagewidth}"/>
       </#if>
@@ -131,7 +128,10 @@
       </#if>
     <#else>
       <#if (config.site_default_featured_image_file)??>
-    <meta property="og:image" content='${content.rootpath!""}${config.site_default_featured_image_file}'/>
+    <meta property="og:image" content='${config.site_host}/${config.site_default_featured_image_file}'/>
+    <meta property="og:image:alt" content="${config.site_title!''}"/>
+    <meta name="twitter:image" content='${config.site_host}/${config.site_default_featured_image_file}'/>
+    <meta name="twitter:image:alt" content="${config.site_title!''}"/>
       </#if>
       <#if (config.site_default_featured_image_width)??>
     <meta property="og:image:width" content='${config.site_default_featured_image_width}'/>

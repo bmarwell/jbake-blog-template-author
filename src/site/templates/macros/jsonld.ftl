@@ -9,7 +9,7 @@
   <#assign jsonld = jsonld + { "@type": "${type}" } />
 
   <#if (content.uri)??>
-    <#assign jsonld = jsonld + { "url": "${config.site_host}${content.uri}" } />
+    <#assign jsonld = jsonld + { "url": "${config.site_host}/${content.uri}" } />
   </#if>
   <#-- not for "DefinedTerm -->
   <#if (content.title)??>
@@ -22,7 +22,7 @@
     <#assign featuredImageAbsolutePath = utils.resolveImagePath(content.featuredimage, content.uri, config.site_host) />
     <#assign jsonld = jsonld + { "image": "${featuredImageAbsolutePath}" } />
   <#elseif (config.site_default_featured_image_file)??>
-    <#assign jsonld = jsonld + { "image": "${config.site_default_featured_image_file?trim}" } />
+    <#assign jsonld = jsonld + { "image": "${config.site_host}/${config.site_default_featured_image_file?trim}" } />
   </#if>
   <#if (content.date)??>
     <#assign jsonld = jsonld + { "dateCreated": "${content.date?datetime?string.iso_s_u}", "datePublished": "${content.date?datetime?string.iso_s_u}", "copyrightYear": "${content.date?string('yyyy')}" } />
@@ -33,11 +33,13 @@
   <#if (content.lang)??>
     <#assign jsonld = jsonld + { "inLanguage": "${content.lang?trim}" } />
   </#if>
-  <#if (config.site_host)??>
-    <#assign jsonld = jsonld + { "mainEntityOfPage": { "@type": "WebPage", "@id": "${config.site_host}/" } } />
+  <#if (content.description)??>
+    <#assign jsonld = jsonld + { "description": "${content.description?trim}" } />
   </#if>
-  <#if (content.body)??>
-    <#assign jsonld = jsonld + { "articleBody": "${content.body?replace('<[^>]+>','','r')?trim}" } />
+  <#if (content.uri)??>
+    <#assign jsonld = jsonld + { "mainEntityOfPage": { "@type": "WebPage", "@id": "${config.site_host}/${content.uri}" } } />
+  <#elseif (config.site_host)??>
+    <#assign jsonld = jsonld + { "mainEntityOfPage": { "@type": "WebPage", "@id": "${config.site_host}/" } } />
   </#if>
   <#if (content.tags)??>
     <#assign jsonld = jsonld + { "keywords": content.tags } />
@@ -55,7 +57,7 @@
     <#assign publisherJsonLd = publisherJsonLd + { "name": "${config.site_title?trim}" } />
   </#if>
   <#if (config.site_default_featured_image_file)??>
-    <#assign publisherLogoJsonLd = { "@type": "ImageObject", "url": "${content.rootpath!''}${config.site_default_featured_image_file}" } />
+    <#assign publisherLogoJsonLd = { "@type": "ImageObject", "url": "${config.site_host}/${config.site_default_featured_image_file}" } />
 
     <#if (config.site_default_featured_image_width)??>
       <#assign publisherLogoJsonLd = publisherLogoJsonLd + { "width": "${config.site_default_featured_image_width}" } />
