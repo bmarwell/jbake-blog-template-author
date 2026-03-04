@@ -5,9 +5,7 @@
 </IfModule>
 
 <Files "feed.xml">
-    AddType application/atom+xml .xml
-    AddCharset UTF-8 .xml
-    ForceType 'application/atom+xml; charset=UTF-8'
+    ForceType 'application/xml; charset=UTF-8'
 </Files>
 
 # Enable compression
