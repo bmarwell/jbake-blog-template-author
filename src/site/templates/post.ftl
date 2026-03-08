@@ -21,6 +21,14 @@
       <h1 class='post-title' itemprop="headline">${content.title}<@lang.langIcon content false/></h1>
       <div itemprop="author" itemscope itemtype="https://schema.org/Person">
         <meta itemprop="name" content="${content.author!'Benjamin Marwell'}" />
+        <#if (content.author)??>
+          <#assign postAuthors = data.get('authors.yaml').authors />
+          <#assign postAuthorUrl = (config.site_author_url)!'' />
+          <#if !postAuthorUrl?has_content && (postAuthors[content.author?trim])?? && (postAuthors[content.author?trim]['url'])??><#assign postAuthorUrl = postAuthors[content.author?trim]['url'] /></#if>
+          <#if postAuthorUrl?has_content>
+          <meta itemprop="url" content="${postAuthorUrl}" />
+          </#if>
+        </#if>
       </div>
       <#setting datetime_format="yyyy-MM-dd HH:mm:ss">
       <meta itemprop="datePublished" content="${content.date?datetime?string.iso_s_u}" />
