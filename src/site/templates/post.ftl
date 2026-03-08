@@ -22,8 +22,9 @@
       <div itemprop="author" itemscope itemtype="https://schema.org/Person">
         <meta itemprop="name" content="${content.author!'Benjamin Marwell'}" />
       </div>
+      <#setting datetime_format="yyyy-MM-dd HH:mm:ss">
       <meta itemprop="datePublished" content="${content.date?datetime?string.iso_s_u}" />
-      <#if (content.updated)??><meta itemprop="dateModified" content="${content.updated?string}" /></#if>
+      <#if (content.updated)??><meta itemprop="dateModified" content="${content.updated?datetime?string.iso_s_u}" /></#if>
       <@postmeta.postmeta content />
     </header>
     <div class="post-content" itemprop="articleBody">
