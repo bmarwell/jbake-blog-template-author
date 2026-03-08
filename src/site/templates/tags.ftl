@@ -10,6 +10,7 @@
   ~ permissions and limitations under the License.
   -->
 
+<#assign pageHasOwnH1 = true />
 <#include "header.ftl">
 <#-- need to name this not tags, because hash.tags will return nothing in jbake/freemarker. -->
 <#assign keywords = data.get('keywords.yaml').keywords />

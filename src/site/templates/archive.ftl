@@ -9,6 +9,7 @@
   ~ KIND, either express or implied. See the License for the specific language governing
   ~ permissions and limitations under the License.
   -->
+<#assign pageHasOwnH1 = true />
 <#include "header.ftl">
 
 <div id="page type-page status-publish entry">
@@ -23,11 +24,11 @@
         <#if (last_month)??>
         <#if post.date?string("MMMM yyyy") != last_month>
       </ul>
-      <h4>${post.date?string("MMMM yyyy")}</h4>
+      <h2>${post.date?string("MMMM yyyy")}</h2>
       <ul>
           </#if>
           <#else>
-        <h4>${post.date?string("MMMM yyyy")}</h4>
+        <h2>${post.date?string("MMMM yyyy")}</h2>
         <ul>
             </#if>
 
