@@ -33,6 +33,11 @@
       <#setting datetime_format="yyyy-MM-dd HH:mm:ss">
       <meta itemprop="datePublished" content="${content.date?datetime?string.iso_s_u}" />
       <#if (content.updated)??><meta itemprop="dateModified" content="${content.updated?datetime?string.iso_s_u}" /></#if>
+      <#if (content.featuredimage)??>
+      <meta itemprop="image" content="${utils.resolveImagePath(content.featuredimage, content.uri, config.site_host)}" />
+      <#elseif (config.site_default_featured_image_file)??>
+      <meta itemprop="image" content="${config.site_host}/${config.site_default_featured_image_file?trim}" />
+      </#if>
       <@postmeta.postmeta content />
     </header>
     <div class="post-content" itemprop="articleBody">
