@@ -61,6 +61,56 @@ const COMPRESSION = getCompressionSettings();
 
 console.log(`Image compression level: ${IMAGE_COMPRESSION_LEVEL}`);
 
+// ── Progress reporting ────────────────────────────────────────────────────────
+// CI detection: GitHub Actions, Jenkins, CircleCI etc. all set CI=true.
+// When stdout is not a real TTY (piped / redirected) we also treat it as CI
+// even if the env var isn't set — this covers `mvn -B` piped into a log file.
+const isCI = !!(process.env.CI || !process.stdout.isTTY);
+
+const BAR_WIDTH = 30;
+let completed = 0;
+let lastLogPct = -1;   // last percentage milestone logged in CI mode
+let lastLogTime = 0;   // elapsed-ms of last CI log line
+
+function formatDuration(ms) {
+  if (ms < 0 || !isFinite(ms) || isNaN(ms)) return '?';
+  const s = Math.round(ms / 1000);
+  const m = Math.floor(s / 60);
+  return m > 0 ? `${m}m ${s % 60}s` : `${s}s`;
+}
+
+function reportProgress(done, total, startTime) {
+  const pct = Math.floor((done / total) * 100);
+  const elapsed = Date.now() - startTime;
+  const rate = done > 0 ? (done / (elapsed / 1000)).toFixed(1) : 0;
+  const eta = done > 0 && done < total ? (elapsed / done) * (total - done) : null;
+  const etaStr = eta !== null ? `ETA: ~${formatDuration(eta)}` : '';
+
+  if (isCI) {
+    // Log on first completion, every 5 % milestone, every 60 s, and at the end.
+    const atMilestone = pct >= lastLogPct + 5;
+    const timeout = elapsed - lastLogTime > 60_000;
+    const isFirst = done === 1;
+    const isDone = done === total;
+
+    if (isFirst || atMilestone || timeout || isDone) {
+      const parts = [`[sharp] ${done}/${total} (${pct}%)`, `${rate} files/s`, `elapsed: ${formatDuration(elapsed)}`];
+      if (etaStr) parts.push(etaStr);
+      console.log(parts.join(' – '));
+      lastLogPct = pct;
+      lastLogTime = elapsed;
+    }
+  } else {
+    // Interactive: overwrite the current line with a live progress bar.
+    const filled = Math.round((done / total) * BAR_WIDTH);
+    const bar = '█'.repeat(filled) + '░'.repeat(BAR_WIDTH - filled);
+    const suffix = etaStr ? `  ${etaStr}` : '  done!';
+    const line = `[${bar}] ${done}/${total} (${pct}%)  ${rate} files/s${suffix}`;
+    process.stdout.write(`\r${line.padEnd(80)}`);
+    if (done === total) process.stdout.write('\n');
+  }
+}
+
 // Responsive image sizes for featured images
 const RESPONSIVE_WIDTHS = [400, 800, 1200];
 
@@ -119,7 +169,7 @@ async function generateResponsiveVariants(file, imageInfo) {
   }
 }
 
-async function optimizeImageFile(file, index, total) {
+async function optimizeImageFile(file) {
   try {
     let imageInfo;
 
@@ -169,9 +219,6 @@ async function optimizeImageFile(file, index, total) {
       await fs.writeFile(file, optiGif);
     }
 
-    if (index % 10 === 0) {
-      console.log(`Processed ${index}/${total} files`)
-    }
   } catch (error) {
     console.warn(`Warning: Could not process ${file}: ${error.message}`);
   }
@@ -203,8 +250,13 @@ async function compress() {
 
   const limit = pLimit(maxConcurrency);
 
-  const promises = files.map(async (file, index) => {
-    return limit(() => optimizeImageFile( file, index, files.length ));
+  const startTime = Date.now();
+  const promises = files.map(async (file) => {
+    return limit(async () => {
+      await optimizeImageFile(file);
+      completed++;
+      reportProgress(completed, files.length, startTime);
+    });
   });
 
   await (async () => {
