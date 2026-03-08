@@ -173,7 +173,8 @@ The default is `high`; `low` skips the heaviest compression passes while still p
 == Roadmap
 
 * Appbox support
-* Touch icon support
+* Touch icon support: add your icon file (≥ 180 px, PNG) to `src/site/assets/` and set `site.apple.touch.icon=images/your-icon.png` in `jbake.properties`.
+  iOS and Android browsers will then pick it up as the home-screen icon when a visitor bookmarks the site.
 * Fix a lot of HTML errors, e.g.
  ** span with href
  ** img without alt
