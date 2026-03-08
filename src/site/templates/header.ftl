@@ -68,6 +68,7 @@
     <meta name="generator" content="JBake">
 
     <meta property="og:title" content="${ftltitle?replace('<[^>]+>','','r')?esc}"/>
+    <#setting datetime_format="yyyy-MM-dd HH:mm:ss">
     <#switch (content.type)!"">
       <#case "post">
         <#if (content.date)??>
@@ -92,7 +93,9 @@
       <meta name="twitter:card" content="summary" />
     </#if>
     <#if (config.site_twitter)??><meta name="twitter:site" content="${config.site_twitter}" /></#if>
-        <#if (content.date)??>
+        <#if (content.updated)??>
+    <meta property="article:modification_time" content="${content.updated?datetime?string.iso_s_u}"/>
+        <#elseif (content.date)??>
     <meta property="article:modification_time" content="${content.date?datetime?string.iso_s_u}"/>
         </#if>
         <#if (content.published_date)??>
