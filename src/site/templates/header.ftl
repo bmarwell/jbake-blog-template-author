@@ -176,10 +176,9 @@
     <noscript><link rel="stylesheet" href="${content.rootpath!""}css/asciidoctor.min.css?date=${cacheBuster}"/></noscript>
 
     <!-- Fav and touch icons -->
-    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <#if (config.site_apple_touch_icon)??>
+    <link rel="apple-touch-icon" href="${content.rootpath!""}${config.site_apple_touch_icon?trim}"/>
+    </#if>
     <link rel="shortcut icon" href="${content.rootpath!""}favicon.ico">
 
     <link rel="alternate" type="application/atom+xml" title="${config.site_title} &raquo; Feed" href="${config.site_host}/feed/"/>
