@@ -115,6 +115,10 @@
     <#if (content.uri)??>
     <meta property="og:url" content='${config.site_host}/${content.uri}'/>
     <#else></#if>
+    <#assign socialmediaRelMe = data.get('socialmedia.yaml').socialmedia>
+    <#if (socialmediaRelMe)??><#list socialmediaRelMe as smitem>
+    <link rel="me" href="${smitem.link}"/>
+    </#list></#if>
     <#-- custom featured image if it exists or default featured image. -->
     <#assign featuredImageAlt = (content.featuredimagealt!content.title!"") />
     <#if (content.featuredimage)?? >
