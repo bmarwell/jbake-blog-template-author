@@ -17,19 +17,36 @@ Follow https://github.com/richard67/shariff-plus/pull/22 and I will integrate it
 Multi-Language-Support::
 While the blog roll (index) will show all languages, the posts itselves can contain a language idicator and a link to the translations.
 Metadata will be added where appropriate.
-Minification::
-The new behaviour since 2023-05-11 is:
-Images will not be optimized on build. Instead, run `./mvnw com.github.eirslett:frontend-maven-plugin:bun@optimize-images` to optimize all images in the `target/website` folder.
-Featured Images::
-You can include a featured image and even select the display type for twitter and linkedin!
+Minification & Responsive Images::
+Images are not optimized on a plain `prepare-package` build.
+Run `./mvnw package` (or `./mvnw com.github.eirslett:frontend-maven-plugin:bun@optimize-images`) to optimize all images in the `target/website` folder via `sharp`. +
+For faster CI or local builds, pass `-Dimage.compression.level=low` to skip heavy compression while still generating all variants.
+Featured Images & WebP::
+You can include a featured image and select the display type for Twitter and LinkedIn.
+During image optimization, every featured image (≥ 800 px wide) is automatically converted to WebP and
+resized into responsive variants at 400 w, 800 w, and 1200 w — both in the original format and as WebP.
+The generated `<picture>` elements in the HTML let browsers pick the smallest appropriate file.
 Simple Light Box::
 All your images will be opened in a mobile friendly lightbox when clicking them.
 Just make sure to add a link attribute to your image block or inline image.
 Open Graph Metadata::
 Metadata for Twitter, Facebook etc. will automatically be inserted when available.
-Fallback options are available, too.
-JSON-LD support::
-Have crawlers read your data in a JSON format for linked data, based on schema.org.
+Fallback options are available, too. +
+When a post carries a `:jbake-updated:` date, the `article:modification_time` Open Graph property will reflect that update date instead of the original publication date, so reshared links on social platforms show the correct freshness signal.
+JSON-LD & Microdata::
+Have crawlers read your structured data in two complementary formats.
+A JSON-LD block (based on schema.org/BlogPosting) is embedded in every post's `<head>`, and
+the post HTML itself carries matching inline microdata attributes (`itemscope`, `itemprop`), so
+validators that parse the visible DOM also see complete, correct data.
+RSS / Atom Feed::
+The built-in feed is styled with an XSL stylesheet, so human visitors who open the feed URL in a browser see a readable page instead of raw XML. +
+By default the feed only shows a post excerpt (set `feed.excerpt.only=false` in `jbake.properties` to include full content).
+SEO-friendly sitemap & crawl hints::
+The generated `sitemap.xml` includes `<priority>` and `<changefreq>` values (homepage 1.0, recent posts 0.9, older posts 0.8, pages 0.7) and omits feed and robots entries. +
+Tag pages, the tags index, and the archive page automatically receive a `noindex` robots meta tag to prevent thin-content pages from diluting your search ranking.
+IndieWeb / Mastodon identity verification::
+Each URL listed in `src/site/data/socialmedia.yaml` is automatically emitted as a `<link rel="me">` element in the `<head>` of every page.
+This lets Mastodon (and other IndieWeb-aware services) verify that the blog belongs to you by cross-referencing those links — no extra configuration required beyond filling in your social profiles.
 WP-Appbox port::
 You can insert links to the following stores via macro (incomplete):
 * Google Play Store
@@ -54,8 +71,10 @@ Some options can be disabled entirely, some cannot.
 Most options should have comments by now.
 2. Go through the files in `src/site/data`.
  * link:src/site/data/authors.yaml[]:
-   Define at lease one author, this is mandatory.
+   Define at least one author, this is mandatory.
    Spelling matters, you must use the exact spelling everywhere.
+   You can optionally add a `url` field per author (e.g. `url: https://example.com`) for the structured data author URL.
+   Alternatively, set `site.author.url` in `jbake.properties` as a global override for all authors.
  * link:src/site/data/keywords.yaml[]:
    Keywords are optional.
    You can add descriptions for the tags pages here.
@@ -64,6 +83,7 @@ Most options should have comments by now.
    This will be applied to all CONTENT YOU WRITE, not to any of this repository.
  * link:src/site/data/socialmedia.yaml[]:
    You can define which buttons to show below your avatar.
+   Every `link` entry is also emitted as `<link rel="me">` in the page `<head>` for IndieWeb / Mastodon identity verification.
 
 
 == Writing Posts and Pages
@@ -136,15 +156,23 @@ Delete the file `/src/site/content/robots.adoc` and create a file `/src/site/ass
 == Publishing
 
 Compile your website using `./mvnw package`.
-This will also run `sharp` (an alternative to `imagemin`) and compress all images.
+This will also run `sharp` and compress all images, generate WebP variants, and create responsive size variants for large images.
 
 If you want a live preview instead, use `./mvnw prepare-package jbake:inline`.
 In case you do not need hot code reload, just start a web server in `target/website` and run `./mvnw prepare-package` - this will skip the image optimization process which can take a while.
 
+For faster CI or development builds you can lower the compression effort:
+
+[source,shell]
+----
+./mvnw package -Dimage.compression.level=low
+----
+
+The default is `high`; `low` skips the heaviest compression passes while still producing correctly sized output.
+
 == Roadmap
 
 * Appbox support
-* Better sitemap support.
 * Touch icon support
 * Fix a lot of HTML errors, e.g.
  ** span with href
