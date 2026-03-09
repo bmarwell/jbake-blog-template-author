@@ -63,49 +63,16 @@ console.log(`Image compression level: ${IMAGE_COMPRESSION_LEVEL}`);
 
 // ── Progress & ETA ───────────────────────────────────────────────────────────
 //
-// DESIGN OVERVIEW
-// ───────────────
-// File sizes are bimodal: a few hundred real images (10 KB – 5 MB) surrounded
-// by thousands of tiny WebP/SVG variants that sharp returns in under 1 ms.
-// Mixing both groups poisons any throughput estimate, so we split them:
+// File sizes are bimodal: a few hundred real images (10 KB – 5 MB) and
+// thousands of tiny generated variants that complete in under 1 ms.
+// Only the top 10% by size (P90 set) are used for rate measurement — the
+// rest are noise. Progress % is bytes-based for the same reason.
 //
-//   P90 set  — top 10% of files by size; accounts for almost all real work.
-//   Rest     — bottom 90%; dominated by files at or below the 0.8 KB median;
-//              complete near-instantly; excluded from rate tracking.
+// Queue: three segments by size so the first 15 s window captures
+// representative files and ETA is conservative (see buildQueue).
 //
-// Queue ordering (buildQueue)
-//   Three-segment ordering based on explicit file size thresholds:
-//
-//   1. Warmup (100 KB – 1 MB), ascending
-//      Files in this range complete in 0.3–3 s at typical concurrency and
-//      produce a representative bytes/s rate within the first 10–15 s.
-//      Ascending order means the first slots process smaller end of this
-//      range first; as files grow, bytes/s stays flat or declines → ETA
-//      will only increase (conservative) as the run advances.
-//
-//   2. Giants (> 1 MB), descending
-//      These land after the warmup, so the rate the window measured on
-//      100–500 KB files will appear optimistic compared to multi-MB files.
-//      ETA rises → conservative overestimate. ✓
-//
-//   3. Small P90 (< 100 KB) + tiny rest
-//      Smallest of the meaningful files, then the near-instant bottom 90%.
-//      Rate ticks down further here; ETA stays ≥ actual.
-//
-// Why size thresholds beat percentile-by-count:
-//   With a median of 0.8 KB the distribution is extremely right-skewed.
-//   p75-by-count has a boundary of ~3–5 KB — still tiny. Size thresholds
-//   work regardless of the file count distribution shape.
-//
-// ETA window (computeEtaRate)
-//   Sliding 15-second window over P90 completions only. WINDOW_MS doubles as
-//   the warmup period before ETA is printed. 15 s gives the first estimate
-//   after the warmup segment is well-populated and the rate has stabilised.
-//
-// Progress percentage
-//   Shown as bytes-processed / total-bytes, not file count. With 8 000+ files
-//   where 90% complete instantly, file-count % shows 9% when 90% of the actual
-//   work is done; bytes % reflects the true picture.
+// ETA: max(P90-window estimate, cumulative-all-bytes estimate) so the
+// estimate is always on the safe (overestimate) side.
 
 // CI detection: GitHub Actions, Jenkins, etc. set CI=true. Non-TTY stdout
 // (e.g. `mvn -B` piped to a log file) is also treated as CI.
@@ -115,17 +82,15 @@ const BAR_WIDTH = 30;
 let completed = 0;
 let lastLogTime = 0;
 
-// Mutable ETA state — initialised in compress() from actual file sizes.
-let etaSizeThreshold = 0;   // min size for a file to contribute to ETA
-let totalEtaBytes = 0;       // total bytes in the P90 set
-let processedEtaBytes = 0;   // P90 bytes completed so far
-let allProcessedBytes = 0;   // all bytes completed (for display rate + %)
-let totalAllBytes = 0;       // all bytes total (for %)
+let etaSizeThreshold = 0;
+let totalEtaBytes = 0;
+let processedEtaBytes = 0;
+let allProcessedBytes = 0;
+let totalAllBytes = 0;
 const fileSizeMap = new Map();
 
-// WINDOW_MS: sliding-window width AND warmup period before ETA is shown.
-// 15 s: warmup segment has produced 50–100 completions in the 100 KB–1 MB
-// range, giving a stable and representative rate before the first ETA prints.
+// 15 s warmup: enough completions in the 100 KB–1 MB warmup segment to
+// give a stable rate before the first ETA is printed.
 const WINDOW_MS = 15_000;
 const etaWindowTimes = [];
 const etaWindowBytesList = [];
@@ -142,14 +107,8 @@ function recordCompletion(now, fileSize) {
 }
 
 /**
- * Computes bytes/s over the last WINDOW_MS for heavy (P90) files only.
- *
- * Falls back to the global average while fewer than 5 P90 files are in the
- * window (cold start) to avoid divide-by-near-zero noise.
- *
- * @param {number} now - current timestamp in ms
- * @param {number} startTime - process start timestamp in ms
- * @returns {number} bytes per second
+ * Sliding-window bytes/s rate over the last WINDOW_MS for P90 files only.
+ * Falls back to cumulative average during cold start (< 5 samples in window).
  */
 function computeEtaRate(now, startTime) {
   const cutoff = now - WINDOW_MS;
@@ -179,18 +138,7 @@ function formatDuration(ms) {
   return m > 0 ? `${m}m ${s % 60}s` : `${s}s`;
 }
 
-/**
- * Reports progress to stdout, throttled to avoid log spam.
- *
- * Display rate is computed from all processed bytes (global average) so it
- * reflects actual total throughput. ETA uses the maximum of two estimates
- * to stay conservative throughout the run (see comment in reportProgress).
- *
- * @param {number} done - files completed so far
- * @param {number} total - total file count
- * @param {number} startTime - process start timestamp in ms
- * @param {number} fileSize - byte size of the just-completed file
- */
+/** Reports throttled progress to stdout. */
 function reportProgress(done, total, startTime, fileSize) {
   const now = Date.now();
   recordCompletion(now, fileSize);
@@ -202,8 +150,7 @@ function reportProgress(done, total, startTime, fileSize) {
   const warmedUp = elapsed >= WINDOW_MS;
 
   // ETA estimate 1: P90 window rate × remaining P90 bytes.
-  //   Accurate during the warmup/giants phases; too optimistic once the
-  //   window captures large files but remaining work is small/tiny files.
+  // Too optimistic once large files dominate the window but tiny files remain.
   const etaRate = computeEtaRate(now, startTime);
   const remainingEtaBytes = totalEtaBytes - processedEtaBytes;
   const p90EtaMs = etaRate > 0 && remainingEtaBytes > 0
@@ -211,16 +158,14 @@ function reportProgress(done, total, startTime, fileSize) {
     : null;
 
   // ETA estimate 2: cumulative all-bytes rate × remaining all bytes.
-  //   Naturally includes tiny-file overhead in both numerator and denominator,
-  //   so it stays conservative once the fast-file phase is over.
+  // Includes tiny-file overhead so it stays conservative in the second half.
   const cumulativeRate = elapsed > 0 ? allProcessedBytes / (elapsed / 1000) : 0;
   const allBytesRemaining = totalAllBytes - allProcessedBytes;
   const allBytesEtaMs = cumulativeRate > 0 && allBytesRemaining > 0
     ? (allBytesRemaining / cumulativeRate) * 1000
     : null;
 
-  // Take the larger of the two: whichever predicts more time remaining wins.
-  // This guarantees ETA is always the conservative (overestimate) side.
+  // Take the larger of the two — always the conservative (overestimate) side.
   const etaMs = p90EtaMs !== null || allBytesEtaMs !== null
     ? Math.max(p90EtaMs ?? 0, allBytesEtaMs ?? 0)
     : null;
@@ -363,31 +308,21 @@ async function optimizeImageFile(file) {
   return file;
 }
 
-// Size boundaries for the three-segment queue order (see DESIGN OVERVIEW).
-const WARMUP_MIN_BYTES = 100_000;  // 100 KB — bottom of the warmup segment
-const WARMUP_MAX_BYTES = 1_000_000; // 1 MB  — top of the warmup segment
+// Size boundaries for the three-segment queue (see buildQueue).
+const WARMUP_MIN_BYTES = 100_000;  // 100 KB
+const WARMUP_MAX_BYTES = 1_000_000; // 1 MB
 
 /**
- * Builds the processing queue for conservative, stable ETA accuracy.
+ * Builds the queue in three segments for conservative ETA from the first window.
  *
- * Applies three-segment ordering based on explicit file size thresholds so
- * the rate measured in the first 15 s window is representative — and any
- * deviation from the measured rate causes ETA to overestimate, not
- * underestimate.
+ * 1. Warmup (100 KB – 1 MB) ascending — fills the measurement window with
+ *    moderate-size files; rate stays flat or declines, ETA only increases.
+ * 2. Giants (> 1 MB) descending — arrive after the window is established;
+ *    slower per byte, so ETA rises further (conservative overestimate).
+ * 3. Small P90 (< 100 KB) + rest — tiny near-instant files trail at the end.
  *
- * Segment order:
- *   1. Warmup  (100 KB – 1 MB), ascending  → fills the first measurement
- *      window with files whose per-file time is moderate and consistent.
- *   2. Giants  (> 1 MB),        descending → arrive after the window is
- *      established; their slower bytes/s only increases the ETA from here.
- *   3. Small   (< 100 KB P90) + tiny rest  → rate declines further; ETA
- *      remains conservative.
- *
- * Files below etaSizeThreshold (bottom 90% by size) are placed at the end;
- * they are excluded from rate tracking and complete near-instantly.
- *
- * @param {Array<{f: string, size: number}>} filesWithSizes - sorted descending
- * @returns {string[]} ordered file paths
+ * Size thresholds beat percentile-by-count because the distribution is
+ * extremely right-skewed (median ~1 KB); percentile boundaries are too small.
  */
 function buildQueue(filesWithSizes) {
   const p90Idx = Math.floor(filesWithSizes.length * 0.10);
@@ -411,17 +346,14 @@ async function compress() {
   )
   files = await glob(globPattern, {ignore: ignore});
 
-  // Exclude generated responsive variants to avoid reprocessing them (*-NNNw.ext).
+  // Exclude generated responsive variants to avoid reprocessing them.
   files = files.filter(file => !file.match(/-\d+w\.(jpg|jpeg|png|webp)$/));
 
-  // Gather file sizes once for sorting, ETA setup, and per-file progress lookup.
+  // Gather sizes for sorting, ETA setup, and per-file progress lookup.
   const filesWithSizes = (await Promise.all(files.map(async f => ({ f, size: (await fs.stat(f)).size }))))
     .sort((a, b) => b.size - a.size);
 
-  // P90 threshold: track only the top 10% of files for rate measurement.
-  // These are the meaningful images (avg ~71 KB) that represent actual
-  // processing cost. The bottom 90% are near-instant no-ops at the 0.8 KB
-  // median and would poison the bytes/s estimate if included.
+  // Top 10% by size (P90) — all real processing cost; bottom 90% are noise.
   const etaThresholdIdx = Math.max(1, Math.floor(filesWithSizes.length * 0.10));
   etaSizeThreshold = filesWithSizes[etaThresholdIdx].size;
   totalEtaBytes = filesWithSizes
